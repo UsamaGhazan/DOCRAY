@@ -21,6 +21,7 @@ const Navbar = () => {
       <HStack
         align="flex-start" // align items to the top
         justify="flex-start"
+        paddingBottom="10px"
       >
         <Box>
           <Image

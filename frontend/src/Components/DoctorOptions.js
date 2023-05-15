@@ -18,7 +18,7 @@ import { Link as RouterLink } from 'react-router-dom';
 const DoctorOptions = () => {
   return (
     <div>
-      <TableContainer>
+      <TableContainer bg="white">
         <Table variant="striped" colorScheme="orange">
           <TableCaption>Pneumonia and TB Specialists</TableCaption>
           <Thead>

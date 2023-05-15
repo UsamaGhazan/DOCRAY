@@ -1,3 +1,12 @@
+/* Component Styling */
+.homeScreen .goldbtn {
+  color: white;
+  background-color: #ff9e24;
+}
+.homeScreen .purplebtn {
+  color: white;
+  background-color: #000066;
+}
 /* Navbar */
 
 .nav-items {
@@ -53,4 +62,18 @@
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+/* Home Screen */
+.homeScreen .landingScreen {
+  background: url('./images/homebg.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 462px;
+}
+
+.homeScreen .text {
+  margin-left: 17px;
 }

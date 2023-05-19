@@ -60,4 +60,4 @@ const doctors = [
     category: 'pneumonia',
   },
 ];
-module.exports = doctors;
+export default doctors;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/Navbar';
 import {
   HStack,
@@ -13,8 +13,7 @@ import {
   Stack,
   Card,
 } from '@chakra-ui/react';
-import theme from '../theme';
-
+import SliderTextAnimation from '../Components/SliderAnimation';
 import SearchDoctor from '../Components/SearchDoctor';
 const HomeScreen = () => {
   return (
@@ -27,8 +26,8 @@ const HomeScreen = () => {
               <span style={{ color: '#ff9e24' }}> best doctors </span>near you
             </Text>
             <SearchDoctor />
+            <SliderTextAnimation />
           </VStack>
-          <HStack></HStack>
         </VStack>
       </section>
       <section className="homeCards">
@@ -36,8 +35,8 @@ const HomeScreen = () => {
           <Card maxW="456px" overflow="hidden" variant="outline">
             <Stack direction={{ base: 'column', sm: 'row' }}>
               <Image
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                alt="Caffe Latte"
+                src={require('../images/pneumonia.png')}
+                alt="pneumonia"
                 h={{ base: '200px', sm: '128px' }}
                 w={{ base: 'full', sm: '158px' }}
                 objectFit="cover"
@@ -106,7 +105,7 @@ const HomeScreen = () => {
           <Card maxW="456px" overflow="hidden" variant="outline">
             <Stack direction={{ base: 'column', sm: 'row' }}>
               <Image
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                src={require('../images/tb2.jpg')}
                 alt="Caffe Latte"
                 h={{ base: '200px', sm: '128px' }}
                 w={{ base: 'full', sm: '158px' }}
@@ -130,9 +129,9 @@ const HomeScreen = () => {
                     variant="solid"
                     lineHeight="1.5"
                     borderRadius="4px"
-                    className="goldbtn"
+                    className="purplebtn"
                   >
-                    Book Appointment
+                    Test Now {'>'}
                   </Button>
                 </Box>
               </Stack>

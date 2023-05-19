@@ -7,6 +7,35 @@
   color: white;
   background-color: #000066;
 }
+
+/* SliderAnimation */
+.homeScreen .slider-text-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeScreen .slider-container {
+  width: fit-content;
+  height: 59px; /* Adjust the height as needed */
+  overflow: hidden;
+  position: relative;
+}
+
+.homeScreen .slider-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.homeScreen .slider-item.active {
+  opacity: 1;
+}
+
 /* Navbar */
 
 .nav-items {
@@ -76,4 +105,9 @@
 
 .homeScreen .text {
   margin-left: 17px;
+}
+
+.homeScreen .homeCards {
+  margin-top: 15px;
+  margin-left: 75px;
 }

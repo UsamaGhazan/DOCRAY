@@ -1,7 +1,8 @@
 import express from 'express';
 import { config } from 'dotenv';
 import connectDB from './config/db.js';
-import doctors from './data/doctors.js';
+import doctorRoutes from './Routes/doctorRoutes.js';
+import { notFound, errorHandler } from './Middlewares/errorMiddleware.js';
 
 config();
 
@@ -12,10 +13,11 @@ const app = express();
 app.get('/', (req, res) => {
   res.send('Api is running...');
 });
+app.use('/api/doctors', doctorRoutes);
 
-app.get('/api/doctors', (req, res) => {
-  res.json(doctors);
-});
+app.use(notFound);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const userSchema = mongoose.Schema(
+const doctorSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -14,6 +14,38 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
+    charges: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    rating: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    numReviews: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    patientsChecked: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    isBooked: {
+      type: Boolean,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
     isAdmin: {
       type: Boolean,
       required: true,
@@ -21,10 +53,10 @@ const userSchema = mongoose.Schema(
     },
   },
   {
-    timestamps: true, //createdAt
+    timestamps: true, //createdAt, //updatedAt
   }
 );
 
-const User = mongoose.model('User', userSchema);
+const Doctor = mongoose.model('Doctor', doctorSchema);
 
-export default User;
+export default Doctor;

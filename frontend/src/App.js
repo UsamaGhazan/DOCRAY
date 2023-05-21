@@ -11,7 +11,9 @@ import {
   Grid,
   theme,
 } from '@chakra-ui/react';
+
 import HomeScreen from './Screens/HomeScreen';
+import DoctorsListScreen from './Screens/DoctorsListScreen';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Navbar from './Components/Navbar';
 
@@ -22,6 +24,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomeScreen />} />={' '}
+          <Route path="/doctors" element={<DoctorsListScreen />} />={' '}
         </Routes>
       </main>
     </BrowserRouter>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import {
   HStack,
@@ -89,6 +90,8 @@ const HomeScreen = () => {
 
                 <Box>
                   <Button
+                    as={Link}
+                    to="/doctors"
                     marginLeft="17px"
                     size="sm"
                     variant="solid"

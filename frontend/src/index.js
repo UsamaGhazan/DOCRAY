@@ -6,10 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 import theme from './theme';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>{' '}
   </ChakraProvider>,
   document.getElementById('root')
 );

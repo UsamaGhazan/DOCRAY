@@ -18,6 +18,10 @@ const doctorSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    specialization: {
+      type: String,
+      required: true,
+    },
     charges: {
       type: Number,
       required: true,
@@ -43,6 +47,21 @@ const doctorSchema = mongoose.Schema(
       required: true,
     },
     category: {
+      type: String,
+      required: true,
+    },
+    satisfied: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    unsatisfied: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    experience: { type: Number, required: true },
+    degree: {
       type: String,
       required: true,
     },

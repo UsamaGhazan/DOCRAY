@@ -11,6 +11,21 @@ const theme = extendTheme({
       100: '#000066',
     },
   },
+  fonts: {
+    heading: `'Open Sans', sans-serif`,
+    text: `'Raleway', sans-serif`,
+  },
+  components: {
+    Button: {
+      baseStyle: {
+        _hover: {
+          // Remove the hover effect
+          boxShadow: 'none',
+          textDecoration: 'none',
+        },
+      },
+    },
+  },
 });
 
 export default theme;

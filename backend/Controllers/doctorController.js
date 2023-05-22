@@ -2,7 +2,6 @@ import asyncHandler from 'express-async-handler';
 import Doctor from '../Models/doctorModel.js';
 
 const getAllDoctors = asyncHandler(async (req, res) => {
-  console.log(req);
   const doctors = await Doctor.find({});
   res.json(doctors);
 });

@@ -1,34 +1,29 @@
 {
-  "name": "y",
+  "name": "prettypetals",
   "version": "1.0.0",
-  "description": "Fyp Project",
+  "description": "Starting Date\r 6/2/23",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node backend/server",
-    "server": "node backend/server",
-    "client": "npm start --prefix  frontend",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/UsamaGhazan/DOCRAY.git"
+    "data:detroy": "node backend/seeder -d"
   },
   "author": "Usama",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/UsamaGhazan/DOCRAY/issues"
-  },
-  "homepage": "https://github.com/UsamaGhazan/DOCRAY#readme",
   "dependencies": {
-    "concurrently": "^8.0.1",
+    "axios": "^1.3.3",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
-    "mongoose": "^7.1.2",
-    "nodemon": "^2.0.22",
-    "redux-devtools-extension": "^2.13.9"
+    "mongoose": "^6.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20"
   }
 }

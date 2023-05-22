@@ -71,7 +71,7 @@ const HomeScreen = () => {
           <Card maxW="456px" overflow="hidden" variant="outline">
             <Stack direction={{ base: 'column', sm: 'row' }}>
               <Image
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                src={require('../images/doccare.jpg')}
                 alt="Caffe Latte"
                 h={{ base: '200px', sm: '128px' }}
                 w={{ base: 'full', sm: '158px' }}
@@ -94,7 +94,6 @@ const HomeScreen = () => {
                     to="/doctors"
                     marginLeft="17px"
                     size="sm"
-                    variant="solid"
                     lineHeight="1.5"
                     borderRadius="4px"
                     className="goldbtn"

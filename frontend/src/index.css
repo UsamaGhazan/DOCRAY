@@ -1,8 +1,11 @@
 /* Utilities */
-.max-width {
-  max-width: 1200px;
-}
 
+.spinner-container {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Component Styling */
 .homeScreen .goldbtn {
   color: white;
@@ -115,4 +118,30 @@
 .homeScreen .homeCards {
   margin-top: 15px;
   margin-left: 75px;
+}
+
+/* DoctorListScreen */
+.doctorListScreen {
+  display: flex;
+  justify-content: center;
+  background-color: #f7f8fb;
+}
+
+.doctorListScreen .card {
+  margin-top: 30px;
+}
+
+.doctorListScreen .cardText {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.doctorListScreen .goldbtn {
+  color: white;
+  background-color: #ff9e24;
+}
+
+.doctorListScreen .bookbtn {
+  width: 221px;
+  height: 50px;
 }

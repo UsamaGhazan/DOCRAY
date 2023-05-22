@@ -72,7 +72,7 @@ const HomeScreen = () => {
             <Stack direction={{ base: 'column', sm: 'row' }}>
               <Image
                 src={require('../images/doccare.jpg')}
-                alt="Caffe Latte"
+                alt="Doc care"
                 h={{ base: '200px', sm: '128px' }}
                 w={{ base: 'full', sm: '158px' }}
                 objectFit="cover"

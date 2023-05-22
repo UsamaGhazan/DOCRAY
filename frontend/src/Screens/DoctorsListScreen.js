@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Card,
@@ -57,6 +57,8 @@ const DoctorsListScreen = () => {
                           doctors.map(doctor => {
                             return (
                               <Card
+                                as={Link}
+                                to={`/doctors/${doctor._id}`}
                                 key={doctor.id}
                                 w="1123px"
                                 h="290px"
@@ -76,21 +78,23 @@ const DoctorsListScreen = () => {
                                   <VStack
                                     align="flex-start"
                                     className="cardText"
-                                    mt="50px"
+                                    spacing="30px"
                                   >
-                                    <Text
-                                      fontSize="18px"
-                                      fontWeight={400}
-                                      mt="21px"
-                                    >
-                                      {doctor.name}
-                                    </Text>
-                                    <Text fontSize="14px" lineHeight="20px">
-                                      {doctor.specialization}
-                                    </Text>
-                                    <Text fontSize="14px" lineHeight="20px">
-                                      {doctor.degree}
-                                    </Text>
+                                    <Box>
+                                      <Text
+                                        fontSize="18px"
+                                        fontWeight={400}
+                                        mt="21px"
+                                      >
+                                        {doctor.name}
+                                      </Text>
+                                      <Text fontSize="14px" lineHeight="20px">
+                                        {doctor.specialization}
+                                      </Text>
+                                      <Text fontSize="14px" lineHeight="20px">
+                                        {doctor.degree}
+                                      </Text>
+                                    </Box>
                                     <HStack mt="10px">
                                       <VStack>
                                         <Text fontSize="14px" fontWeight="600">
@@ -121,6 +125,8 @@ const DoctorsListScreen = () => {
                                   </VStack>
                                   <VStack>
                                     <Button
+                                      as={Link}
+                                      to={`/doctors/${doctor._id}`}
                                       variant="outline"
                                       size="lg"
                                       color="brand.60"
@@ -131,6 +137,8 @@ const DoctorsListScreen = () => {
                                       View Details{' '}
                                     </Button>
                                     <Button
+                                      as={Link}
+                                      to={`/doctors/bookDoc/${doctor._id}`}
                                       color="brand.50"
                                       fontSize="14px"
                                       className="goldbtn bookbtn"

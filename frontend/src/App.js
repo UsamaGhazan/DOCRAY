@@ -14,6 +14,7 @@ import {
 
 import HomeScreen from './Screens/HomeScreen';
 import DoctorsListScreen from './Screens/DoctorsListScreen';
+import DoctorDetailScreen from './Screens/DoctorDetailScreen';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Navbar from './Components/Navbar';
 
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeScreen />} />={' '}
           <Route path="/doctors" element={<DoctorsListScreen />} />={' '}
+          <Route path="/doctors/:id" element={<DoctorDetailScreen />} />={' '}
         </Routes>
       </main>
     </BrowserRouter>

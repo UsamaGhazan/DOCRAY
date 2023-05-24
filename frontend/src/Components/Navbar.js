@@ -92,7 +92,7 @@ const Navbar = () => {
             <Box className="navBtns">
               <Button
                 as={RouterLink}
-                to="/login"
+                to="/register"
                 variant="outline"
                 size="md"
                 color="brand.60"

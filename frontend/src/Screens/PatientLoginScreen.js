@@ -41,13 +41,7 @@ const PatientLoginScreen = () => {
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      height="100vh"
-      padding="2rem"
-      bg="black"
-    >
+    <Box display="flex" justifyContent="center" height="100vh" padding="2rem">
       {loading && <Spinner />}
 
       <Box width="300px">

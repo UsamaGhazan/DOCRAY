@@ -85,7 +85,6 @@ const doctors = [
     category: 'pneumonia',
     satisfied: 10,
     experience: 10,
-
     unsatisfied: 2,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
   },

@@ -138,7 +138,7 @@ const DoctorsListScreen = () => {
                                     </Button>
                                     <Button
                                       as={Link}
-                                      to={`/doctors/bookDoc/${doctor._id}`}
+                                      to={`/doctors/bookdoc/${doctor._id}`}
                                       color="brand.50"
                                       fontSize="14px"
                                       className="goldbtn bookbtn"

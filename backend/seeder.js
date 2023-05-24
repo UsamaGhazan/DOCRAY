@@ -2,6 +2,8 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import doctors from './data/doctors.js';
+import patients from './data/patients.js';
+import Patient from './Models/patientModel.js';
 import Doctor from './models/doctorModel.js';
 import connectDb from './config/db.js';
 dotenv.config();
@@ -10,9 +12,10 @@ connectDb();
 const importData = async () => {
   try {
     await Doctor.deleteMany(); //will delete everything
+    await Patient.deleteMany();
 
     const createdDoctors = await Doctor.insertMany(doctors);
-    // const adminUser = createdUsers[0]._id; //id from first item of Users data
+    const createdPatients = await Patient.insertMany(patients);
 
     const sampleDoctors = doctors.map((doctor) => {
       return { ...doctor }; //addition of user in products

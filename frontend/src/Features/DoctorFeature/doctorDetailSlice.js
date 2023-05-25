@@ -11,7 +11,6 @@ export const getDoctorDetails = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { data } = await axios(`/api/doctors/${id}`);
-      console.log(data);
       return data;
     } catch (error) {
       return error;

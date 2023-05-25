@@ -1,11 +1,12 @@
 import bcrypt from 'bcryptjs';
+
 const doctors = [
   {
-    name: 'Dr Jabir Sultan',
+    name: 'Dr John Smith',
     password: bcrypt.hashSync('12345', 10),
     image: '/images/doctor1.jpg',
     specialization: 'Dermatologist, Cosmetologist',
-    email: 'doctor1@example.com',
+    email: 'johnsmith@yahoo.com',
     charges: 89.99,
     rating: 4.5,
     numReviews: 12,
@@ -22,7 +23,7 @@ const doctors = [
     password: bcrypt.hashSync('12345', 10),
     image: '/images/doctor2.jpg',
     specialization: 'Cardiologist M.B.B.S, M.D (Cardiology)',
-    email: 'doctor2@example.com',
+    email: 'janesmith@yahoo.com',
     charges: 99.99,
     rating: 4.8,
     numReviews: 8,
@@ -30,7 +31,6 @@ const doctors = [
     isBooked: false,
     category: 'Tb',
     satisfied: 10,
-
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
@@ -40,7 +40,7 @@ const doctors = [
     password: bcrypt.hashSync('12345', 10),
     image: '/images/doctor3.jpg',
     specialization: 'Orthopedic Surgeon M.B.B.S, D.Ortho, M.S (Ortho)',
-    email: 'doctor3@example.com',
+    email: 'davidjohnson@yahoo.com',
     charges: 79.99,
     rating: 4.3,
     numReviews: 15,
@@ -48,7 +48,6 @@ const doctors = [
     isBooked: false,
     category: 'pneumonia',
     satisfied: 10,
-
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
@@ -58,7 +57,7 @@ const doctors = [
     password: bcrypt.hashSync('12345', 10),
     image: '/images/doctor4.jpg',
     specialization: 'Pediatrician M.B.B.S, D.C.H',
-    email: 'doctor4@example.com',
+    email: 'sarahwilliams@yahoo.com',
     charges: 69.99,
     rating: 4.7,
     numReviews: 20,
@@ -66,7 +65,6 @@ const doctors = [
     isBooked: false,
     category: 'Tb',
     satisfied: 10,
-
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
@@ -76,7 +74,7 @@ const doctors = [
     password: bcrypt.hashSync('12345', 10),
     image: '/images/doctor5.jpg',
     specialization: 'Neurologist M.B.B.S, D.M (Neurology)',
-    email: 'doctor5@example.com',
+    email: 'michaeldavis@yahoo.com',
     charges: 109.99,
     rating: 4.6,
     numReviews: 10,

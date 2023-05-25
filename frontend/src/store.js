@@ -4,7 +4,7 @@ import doctorDetailReducer from './Features/DoctorFeature/doctorDetailSlice';
 import loginPatientReducer from './Features/PatientFeature/loginPatientSlice';
 import registerPatientReducer from './Features/PatientFeature/registerPatientSlice';
 
-const patientInfoFromStorage = localStorage.getItem('userInfo')
+const patientInfoFromStorage = localStorage.getItem('patientInfo')
   ? JSON.parse(localStorage.getItem('patientInfo'))
   : null;
 

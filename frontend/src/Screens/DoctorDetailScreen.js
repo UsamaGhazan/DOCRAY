@@ -79,7 +79,7 @@ const DoctorDetailScreen = () => {
             </VStack>
             <Button
               as={Link}
-              to={`/doctors/bookdoc/${doctor._id}`}
+              to={`/payment/${doctor._id}`}
               color="brand.50"
               fontSize="14px"
               className="goldbtn bookbtn"

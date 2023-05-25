@@ -20,6 +20,7 @@ const PatientLoginScreen = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const location = useLocation();
+  console.log(location);
   const navigate = useNavigate();
   // for redirecting the user to a specific page after a login
   const redirect = location.search ? location.search.split('=')[1] : '/';

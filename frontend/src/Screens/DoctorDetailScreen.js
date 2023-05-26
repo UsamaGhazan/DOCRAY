@@ -24,9 +24,7 @@ const DoctorDetailScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const doctorId = params.id;
-  console.log(doctorId);
   const { doctor, loading, error } = useSelector(store => store.doctorDetails);
-  console.log(doctor);
 
   useEffect(() => {
     dispatch(getDoctorDetails(doctorId));

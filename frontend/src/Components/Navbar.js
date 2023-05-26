@@ -21,7 +21,9 @@ import { Link as RouterLink } from 'react-router-dom';
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //Getting patient data from backend
   const patientLogin = useSelector(store => store.patientLogin);
+  //patientInfo showing user is logged in
   const { patientInfo } = patientLogin;
   const logoutHandler = () => {
     dispatch(logout());

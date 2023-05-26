@@ -12,7 +12,6 @@ import {
   notFound,
   errorHandler,
 } from './Middlewares/errorHandlerMiddleware.js';
-import { RestartProcess } from 'concurrently';
 
 dotenv.config();
 connectDB();
@@ -29,13 +28,14 @@ app.get('/', (req, res) => {
 const stripeAPI = stripe(process.env.STRIPE_SECRET_KEY);
 
 app.post('/payment', protect, async (req, res) => {
+  console.log(req.body);
   const { doctor, token } = req.body;
   console.log('doctor ', doctor, 'token ', token);
   //For keeping record of user so user is not charged twice
   const idempontencyKey = uuidv4();
 
   try {
-    const patient = await stripeAPI.customers.create({
+    const customer = await stripeAPI.customers.create({
       email: token.email,
       source: token.id,
     });
@@ -44,15 +44,15 @@ app.post('/payment', protect, async (req, res) => {
       {
         amount: doctor.charges * 100,
         currency: 'usd',
-        customer: patient.id,
-        description: patient.name,
+        customer: customer.id,
+        description: doctor.name,
       },
       { idempontencyKey }
     );
 
     const patientToUpdate = await Patient.findOne({ email: token.email });
 
-    // Update the feePaid value to true
+    // Updating the feePaid value to true
     if (patientToUpdate) {
       patientToUpdate.feePaid = true;
       await patientToUpdate.save();

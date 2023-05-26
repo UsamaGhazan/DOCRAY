@@ -42,7 +42,6 @@ const ContactUsScreen = () => {
           Alternatively, you can fill out the contact form below, and our team
           will get back to you as soon as possible.
         </Text>
-        <Box>{/* Add your contact form component here */}</Box>
       </VStack>
     </Box>
   );

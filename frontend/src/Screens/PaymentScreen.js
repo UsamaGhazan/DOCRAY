@@ -2,10 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
-import { Button, Box, Heading, Text, Spinner } from '@chakra-ui/react';
+import axios from 'axios';
+import {
+  Button,
+  Box,
+  Heading,
+  Text,
+  Spinner,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react';
 import { getDoctorDetails } from '../Features/DoctorFeature/doctorDetailSlice';
 
 const PaymentScreen = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const doctorId = params.id;
@@ -13,34 +28,40 @@ const PaymentScreen = () => {
     name: 'Usama',
     charges: 100,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for the modal
 
   const { doctor, loading, error } = useSelector(store => store.doctorDetails);
   useEffect(() => {
     dispatch(getDoctorDetails(doctorId));
   }, [dispatch, doctorId]);
 
+  // ...
+
   const makePayment = async token => {
     console.log(temp);
     const body = {
       token,
-      temp,
-    };
-    const headers = {
-      'Content-Type': 'application/json',
+      doctor: temp, // Use "doctor" instead of "temp"
     };
 
     try {
-      const response = await fetch('http://localhost:5000/payment', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(body),
-      });
+      const response = await axios.post('/payment', body);
       console.log('RESPONSE ', response);
+      const data = response.data; // Get the response data
       const { status } = response;
-      console.log(status);
+      console.log(status, data);
+
+      // Open the modal
+      setIsModalOpen(true);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const closeModal = () => {
+    // Close the modal and navigate to another page
+    setIsModalOpen(false);
+    navigate('/some-other-page');
   };
 
   return (
@@ -98,6 +119,26 @@ const PaymentScreen = () => {
               Pay Now
             </Button>
           </StripeCheckout>
+
+          {/* Modal */}
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Payment Successful</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Text fontSize="xl" fontWeight="bold" mb={4}>
+                  Fee Payed
+                </Text>
+                <Text>Your appointment has been booked.</Text>
+              </ModalBody>
+              <ModalFooter>
+                <Button colorScheme="teal" onClick={closeModal}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </>
       )}
     </Box>

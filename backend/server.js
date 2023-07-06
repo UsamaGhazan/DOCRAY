@@ -4,8 +4,10 @@ import connectDB from './config/db.js';
 import cors from 'cors';
 import doctorRoutes from './Routes/doctorRoutes.js';
 import patientRoutes from './Routes/patientRoutes.js';
+import stripeRoutes from './Routes/stripeRoutes.js';
 import stripe from 'stripe';
 import Patient from './Models/patientModel.js';
+
 import { v4 as uuidv4 } from 'uuid';
 import { protect } from './Middlewares/authMiddleware.js';
 import {
@@ -19,54 +21,15 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send('API is running');
 });
 
-// Stripe API implementation
-const stripeAPI = stripe(process.env.STRIPE_SECRET_KEY);
-
-app.post('/payment', protect, async (req, res) => {
-  console.log(req.body);
-  const { doctor, token } = req.body;
-  console.log('doctor ', doctor, 'token ', token);
-  //For keeping record of user so user is not charged twice
-  const idempontencyKey = uuidv4();
-
-  try {
-    const customer = await stripeAPI.customers.create({
-      email: token.email,
-      source: token.id,
-    });
-
-    const charge = await stripeAPI.charges.create(
-      {
-        amount: doctor.charges * 100,
-        currency: 'usd',
-        customer: customer.id,
-        description: doctor.name,
-      },
-      { idempontencyKey }
-    );
-
-    const patientToUpdate = await Patient.findOne({ email: token.email });
-
-    // Updating the feePaid value to true
-    if (patientToUpdate) {
-      patientToUpdate.feePaid = true;
-      await patientToUpdate.save();
-    }
-
-    res.status(200).json(charge);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Payment failed' });
-  }
-});
-
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
+app.use('/api/stripe', stripeRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

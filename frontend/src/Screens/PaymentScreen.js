@@ -34,14 +34,13 @@ const PaymentScreen = () => {
   }, [doctorId, dispatch]);
 
   const handleToken = async (totalAmount, token) => {
-    console.log(token);
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
     try {
-      await axios.post(
+      const { data } = await axios.post(
         'http://localhost:5000/api/stripe/pay',
         {
           token: {
@@ -52,6 +51,7 @@ const PaymentScreen = () => {
         },
         config
       );
+      console.log(data);
       // Payment successful, navigate to the success page or perform any other actions
       // navigate('/success');
     } catch (error) {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../Components/Navbar';
+import DoctorModal from '../Components/DoctorModal';
 import {
   HStack,
   Heading,
@@ -9,34 +9,38 @@ import {
   Box,
   Button,
   Image,
-  CardFooter,
-  CardBody,
   Stack,
   Card,
   Center,
 } from '@chakra-ui/react';
-import SliderTextAnimation from '../Components/SliderAnimation';
 import SearchDoctor from '../Components/SearchDoctor';
 const HomeScreen = () => {
   const [text, setText] = useState('');
-
-  const texts = [
-    '2000+ doctors',
-    '3000+ patient reviews',
-    '10000+ users served',
-  ];
-  let currentIndex = 0;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const currentIndexRef = useRef(0);
 
   useEffect(() => {
+    const texts = [
+      '2000+ doctors',
+      '3000+ patient reviews',
+      '10000+ users served',
+    ];
+
     const interval = setInterval(() => {
-      setText(texts[currentIndex]);
-      currentIndex = (currentIndex + 1) % texts.length;
+      setText(texts[currentIndexRef.current]);
+      currentIndexRef.current = (currentIndexRef.current + 1) % texts.length;
     }, 3000);
 
     return () => {
       clearInterval(interval);
     };
   }, []);
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <section className="homeScreen">
@@ -128,7 +132,7 @@ const HomeScreen = () => {
                 <Box>
                   <Button
                     as={Link}
-                    to="/doctors"
+                    onClick={handleModalOpen}
                     marginLeft="17px"
                     size="sm"
                     lineHeight="1.5"
@@ -137,6 +141,10 @@ const HomeScreen = () => {
                   >
                     Book Appointment
                   </Button>
+                  <DoctorModal
+                    isOpen={isModalOpen}
+                    onClose={handleModalClose}
+                  />
                 </Box>
               </Stack>
             </Stack>

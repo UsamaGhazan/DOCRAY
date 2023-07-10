@@ -13,10 +13,31 @@ import {
   CardBody,
   Stack,
   Card,
+  Center,
 } from '@chakra-ui/react';
 import SliderTextAnimation from '../Components/SliderAnimation';
 import SearchDoctor from '../Components/SearchDoctor';
 const HomeScreen = () => {
+  const [text, setText] = useState('');
+
+  const texts = [
+    '2000+ doctors',
+    '3000+ patient reviews',
+    '10000+ users served',
+  ];
+  let currentIndex = 0;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setText(texts[currentIndex]);
+      currentIndex = (currentIndex + 1) % texts.length;
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <section className="homeScreen">
       <section className="landingScreen">
@@ -27,8 +48,24 @@ const HomeScreen = () => {
               <span style={{ color: '#ff9e24' }}> best doctors </span>near you
             </Text>
             <SearchDoctor />
-            <SliderTextAnimation />
           </VStack>
+          <span
+            style={{
+              height: '59px',
+              display: 'inline-block',
+              color: 'white',
+              marginTop: '60px',
+              fontSize: '28px',
+              fontWeight: 400,
+              lineHeight: 1.2,
+              textAlign: Center,
+              backgroundColor: '#20247f',
+              padding: '13px 30px',
+              transition: 'all 0s ease 0s',
+            }}
+          >
+            {text}
+          </span>
         </VStack>
       </section>
       <section className="homeCards">

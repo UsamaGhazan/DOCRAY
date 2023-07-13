@@ -69,6 +69,14 @@ const doctorSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    clinicname: {
+      type: String,
+      required: true,
+    },
+    areaname: {
+      type: String,
+      required: true,
+    },
     isAdmin: {
       type: Boolean,
       required: true,

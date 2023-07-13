@@ -18,6 +18,8 @@ const doctors = [
     unsatisfied: 2,
     experience: 10,
     gender: 'male',
+    clinicname: 'Iqra Medical complex',
+    areaname: 'Johr Town',
   },
   {
     name: 'Dr Jane Smith',
@@ -36,6 +38,8 @@ const doctors = [
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
     gender: 'male',
+    clinicname: 'Iqra Medical complex',
+    areaname: 'Johr Town',
   },
   {
     name: 'Dr David Johnson',
@@ -54,6 +58,8 @@ const doctors = [
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
     gender: 'male',
+    clinicname: 'Iqra Medical complex',
+    areaname: 'Johr Town',
   },
   {
     name: 'Dr Sarah Williams',
@@ -72,6 +78,8 @@ const doctors = [
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
     gender: 'female',
+    clinicname: 'Iqra Medical complex',
+    areaname: 'Johr Town',
   },
   {
     name: 'Dr Michael Davis',
@@ -90,6 +98,8 @@ const doctors = [
     unsatisfied: 2,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
     gender: 'female',
+    clinicname: 'Iqra Medical complex',
+    areaname: 'Johr Town',
   },
 ];
 

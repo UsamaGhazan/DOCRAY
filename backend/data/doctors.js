@@ -17,6 +17,7 @@ const doctors = [
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
     unsatisfied: 2,
     experience: 10,
+    gender: 'male',
   },
   {
     name: 'Dr Jane Smith',
@@ -34,6 +35,7 @@ const doctors = [
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
+    gender: 'male',
   },
   {
     name: 'Dr David Johnson',
@@ -51,6 +53,7 @@ const doctors = [
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
+    gender: 'male',
   },
   {
     name: 'Dr Sarah Williams',
@@ -68,6 +71,7 @@ const doctors = [
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
+    gender: 'female',
   },
   {
     name: 'Dr Michael Davis',
@@ -85,6 +89,7 @@ const doctors = [
     experience: 10,
     unsatisfied: 2,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
+    gender: 'female',
   },
 ];
 

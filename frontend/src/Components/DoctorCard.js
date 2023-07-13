@@ -26,7 +26,7 @@ const DoctorCard = ({ doctor }) => {
       to={`/doctors/${doctor._id}`}
       key={doctor.id}
       w="1123px"
-      h="290px"
+      h="422px"
       border="2px solid #E8E8E8"
       backgroundColor="#fff"
       mt="20px"
@@ -66,20 +66,25 @@ const DoctorCard = ({ doctor }) => {
               </Text>
             </VStack>
           </HStack>
+          <HStack>
+            <Box h="70px" w="327px" border="1px solid #000066" p="12px">
+              {/* Additional content goes here */}
+            </Box>
+          </HStack>
         </VStack>
         <VStack position={'absolute'} right={10}>
           <Button
             as={Link}
             to={`/doctors/${doctor._id}`}
             variant="outline"
+            colorScheme="brand.50"
             size="lg"
-            color="brand.60"
             fontSize="14px"
             className="bookbtn"
-            _hover={{ bg: 'none' }}
           >
             View Details{' '}
           </Button>
+
           <Button
             as={Link}
             to={`/payment/${doctor._id}`}

@@ -60,6 +60,10 @@ const doctorSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    gender: {
+      type: String,
+      required: true,
+    },
     experience: { type: Number, required: true },
     degree: {
       type: String,

@@ -1,4 +1,3 @@
-//This file is separate from server
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import doctors from './data/doctors.js';
@@ -11,17 +10,30 @@ connectDb();
 
 const importData = async () => {
   try {
-    await Doctor.deleteMany(); //will delete everything
-    await Patient.deleteMany();
+    for (const doctor of doctors) {
+      const existingDoctor = await Doctor.findOne({ email: doctor.email });
 
-    const createdDoctors = await Doctor.insertMany(doctors);
-    const createdPatients = await Patient.insertMany(patients);
+      if (existingDoctor) {
+        // If a doctor with the same email already exists, update the existing document
+        await Doctor.updateOne({ email: doctor.email }, doctor);
+      } else {
+        // Insert a new doctor document
+        await Doctor.create(doctor);
+      }
+    }
 
-    const sampleDoctors = doctors.map((doctor) => {
-      return { ...doctor }; //addition of user in products
-    });
+    for (const patient of patients) {
+      const existingPatient = await Patient.findOne({ email: patient.email });
 
-    await Doctor.insertMany(sampleDoctors);
+      if (existingPatient) {
+        // If a patient with the same email already exists, update the existing document
+        await Patient.updateOne({ email: patient.email }, patient);
+      } else {
+        // Insert a new patient document
+        await Patient.create(patient);
+      }
+    }
+
     console.log('Data imported!');
     process.exit();
   } catch (error) {
@@ -31,9 +43,9 @@ const importData = async () => {
 };
 
 const destroyData = async () => {
-  //becareful with it... might delete this function later
   try {
-    await Doctor.deleteMany(); //will delete everything
+    await Doctor.deleteMany();
+    await Patient.deleteMany();
 
     console.log('Data Destroyed!');
     process.exit();

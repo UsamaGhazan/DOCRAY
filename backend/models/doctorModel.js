@@ -1,4 +1,21 @@
 import mongoose from 'mongoose';
+
+const reviewSchema = mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    rating: { type: Number, required: true },
+    comment: { type: String, required: true },
+    //user ko refer kar rahy ta k aik hi user dobara review na dy saky
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Patient',
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 const doctorSchema = mongoose.Schema(
   {
     name: {
@@ -29,22 +46,19 @@ const doctorSchema = mongoose.Schema(
     },
     rating: {
       type: Number,
-      required: true,
       default: 0,
     },
     numReviews: {
       type: Number,
-      required: true,
       default: 0,
     },
+    reviews: [reviewSchema],
     patientsChecked: {
       type: Number,
-      required: true,
       default: 0,
     },
     isBooked: {
       type: Boolean,
-      required: true,
     },
     category: {
       type: String,
@@ -52,12 +66,10 @@ const doctorSchema = mongoose.Schema(
     },
     satisfied: {
       type: Number,
-      required: true,
       default: 0,
     },
     unsatisfied: {
       type: Number,
-      required: true,
       default: 0,
     },
     gender: {
@@ -76,11 +88,6 @@ const doctorSchema = mongoose.Schema(
     areaname: {
       type: String,
       required: true,
-    },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
     },
   },
   {

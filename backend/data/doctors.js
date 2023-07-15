@@ -20,6 +20,12 @@ const doctors = [
     gender: 'male',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
+    reviews: {
+      name: 'John Doe',
+      rating: 4.5,
+      comment: 'Great service!',
+      user: '64af4e4e3c3e296bc6a5e0c0',
+    },
   },
   {
     name: 'Dr Jane Smith',
@@ -80,6 +86,12 @@ const doctors = [
     gender: 'female',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
+    reviews: {
+      name: 'John Doe',
+      rating: 4.5,
+      comment: 'Great service!',
+      user: '64af4e4e3c3e296bc6a5e0c0',
+    },
   },
   {
     name: 'Dr Michael Davis',

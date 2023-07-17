@@ -19,6 +19,7 @@ export const createDoctorReview = createAsyncThunk(
       };
       await axios.post(`/api/doctors/${doctorId}/reviews`, review, config);
     } catch (error) {
+      console.log('In error part of review slice');
       const newError =
         error.response && error.response.data.message
           ? error.response.data.message
@@ -58,5 +59,5 @@ const doctorReviewSlice = createSlice({
     },
   },
 });
-export const { PRODUCT_REVIEW_RESET } = doctorReviewSlice.actions;
+export const { DOCTOR_REVIEW_RESET } = doctorReviewSlice.actions;
 export default doctorReviewSlice.reducer;

@@ -27,22 +27,24 @@ const createDoctorReview = asyncHandler(async (req, res) => {
       (r) => r.user.toString() === req.user._id.toString()
     );
     if (alreadyReviewed) {
+      console.log('Already reviewed');
       res.status(400);
       throw new Error('Doctor already reviewed');
+    } else {
+      console.log('In the else part');
+      const review = {
+        name: req.user.name,
+        rating: Number(rating),
+        comment,
+        user: req.user._id,
+      };
+
+      doctor.reviews.push(review);
+      doctor.numReviews = doctor.reviews.length;
+
+      await doctor.save();
+      res.status(201).json({ message: 'Review added' });
     }
-
-    const review = {
-      name: req.user.name,
-      rating: Number(rating),
-      comment,
-      user: req.user._id,
-    };
-
-    doctor.reviews.push(review);
-    doctor.numReviews = doctor.reviews.length;
-
-    await doctor.save();
-    res.status(201).json({ message: 'Review added' });
   } else {
     res.status(404);
     throw new Error('Doctor not found');

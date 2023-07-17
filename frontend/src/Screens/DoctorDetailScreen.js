@@ -31,21 +31,32 @@ import {
   List,
   ListItem,
 } from '@chakra-ui/react';
-
+import { createDoctorReview } from '../Features/DoctorFeature/doctorReviewSlice';
+import { DOCTOR_REVIEW_RESET } from '../Features/DoctorFeature/doctorReviewSlice';
 const DoctorDetailScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const doctorId = params.id;
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
   const { doctor, loading, error } = useSelector(store => store.doctorDetails);
   const { patientInfo } = useSelector(store => store.patientLogin);
   console.log(doctor);
+  const { success: successDoctorReview, error: errorDoctorReview } =
+    useSelector(store => store.doctorReview);
 
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-
+  const submitHandler = e => {
+    e.preventDefault();
+    dispatch(createDoctorReview({ doctorId, review: { rating, comment } }));
+  };
   useEffect(() => {
+    if (successDoctorReview) {
+      setRating(0);
+      setComment('');
+      dispatch(DOCTOR_REVIEW_RESET);
+    }
     dispatch(getDoctorDetails(doctorId));
-  }, [dispatch, doctorId]);
+  }, [dispatch, doctorId, successDoctorReview, errorDoctorReview]);
 
   return (
     <section className="doctorDetailScreen ">
@@ -140,12 +151,13 @@ const DoctorDetailScreen = () => {
               </Box>
               <Box>
                 <Heading size="lg">Write a Customer Review</Heading>
-                {errorProductReview && (
-                  <Box color="red.500" mt={4}>
-                    {errorProductReview}
-                  </Box>
+                {errorDoctorReview && (
+                  <Alert status="error" mt={4}>
+                    <AlertIcon />
+                    {errorDoctorReview}
+                  </Alert>
                 )}
-                {userInfo ? (
+                {patientInfo ? (
                   <VStack as="form" onSubmit={submitHandler} mt={4} spacing={4}>
                     <FormControl id="rating" isRequired>
                       <FormLabel>Rating</FormLabel>

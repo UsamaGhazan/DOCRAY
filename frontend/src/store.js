@@ -20,7 +20,7 @@ export const store = configureStore({
     doctorDetails: doctorDetailReducer,
     patientLogin: loginPatientReducer,
     patientRegister: registerPatientReducer,
-    doctorReview: doctorDetailReducer,
+    doctorReview: doctorReviewReducer,
   },
   preloadedState: initialState,
 });

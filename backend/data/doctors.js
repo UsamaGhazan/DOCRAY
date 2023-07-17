@@ -22,7 +22,7 @@ const doctors = [
     areaname: 'Johr Town',
     reviews: {
       name: 'John Doe',
-      rating: 4.5,
+      rating: 5,
       comment: 'Great service!',
       user: '64af4e4e3c3e296bc6a5e0c0',
     },

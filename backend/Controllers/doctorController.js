@@ -17,28 +17,29 @@ const getSingleDoctor = asyncHandler(async (req, res) => {
 });
 
 const createDoctorReview = asyncHandler(async (req, res) => {
-  console.log('req.params: ', req.params);
-  console.log('req.user: ', req.user);
   const { rating, comment } = req.body;
   const doctor = await Doctor.findById(req.params.id);
-
+  //We are sending token from frontend and from that token we are identifying req.user who created the review
+  // in the authMiddleware
   if (doctor) {
     const alreadyReviewed = doctor.reviews.find(
       (r) => r.user.toString() === req.user._id.toString()
     );
     if (alreadyReviewed) {
-      console.log('Already reviewed');
       res.status(400);
       throw new Error('Doctor already reviewed');
     } else {
-      console.log('In the else part');
       const review = {
         name: req.user.name,
         rating: Number(rating),
         comment,
         user: req.user._id,
       };
-
+      if (rating >= 3) {
+        doctor.satisfied = doctor.satisfied + 1;
+      } else {
+        doctor.unsatisfied = doctor.unsatisfied + 1;
+      }
       doctor.reviews.push(review);
       doctor.numReviews = doctor.reviews.length;
 

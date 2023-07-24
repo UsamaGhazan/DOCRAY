@@ -30,9 +30,11 @@ import {
   Select,
   List,
   ListItem,
+  Flex,
 } from '@chakra-ui/react';
 import { createDoctorReview } from '../Features/DoctorFeature/doctorReviewSlice';
 import { DOCTOR_REVIEW_RESET } from '../Features/DoctorFeature/doctorReviewSlice';
+import { AiOutlineVideoCamera } from 'react-icons/ai';
 const DoctorDetailScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -56,7 +58,7 @@ const DoctorDetailScreen = () => {
       dispatch(DOCTOR_REVIEW_RESET);
     }
     dispatch(getDoctorDetails(doctorId));
-  }, [dispatch, doctorId, successDoctorReview, errorDoctorReview]);
+  }, [dispatch, doctorId, successDoctorReview, patientInfo]);
 
   return (
     <section className="doctorDetailScreen ">
@@ -73,8 +75,9 @@ const DoctorDetailScreen = () => {
               backgroundColor="#fff"
               mt="100px"
               ml="50px"
+              border="none"
             >
-              <HStack spacing="50px">
+              <HStack align="flex-start">
                 <Box ml="32px">
                   <Avatar
                     name="Dr Jane Smith"
@@ -84,12 +87,11 @@ const DoctorDetailScreen = () => {
                 </Box>
                 <VStack align="flex-start" className="cardText" spacing="30px">
                   <Box>
-                    <Text fontSize="26px" fontWeight={600} mt="21px">
+                    <Text fontSize="26px" fontWeight={600}>
                       {doctor.name}
                     </Text>
                     <Text fontSize="16px" lineHeight="21px" fontWeight="400">
-                      {doctor.specialization}
-                      (Cardiology)
+                      {doctor.specialization} (Cardiology)
                     </Text>
                     <Text fontSize="16px" lineHeight="21px" fontWeight="400">
                       {doctor.degree}
@@ -124,11 +126,52 @@ const DoctorDetailScreen = () => {
                       </Text>
                     </VStack>
                   </HStack>
-                  <VStack>Hello</VStack>
                 </VStack>
+                <Box
+                  w="378px"
+                  h="280px"
+                  boxShadow="md"
+                  p="20px"
+                  borderRadius="lg"
+                  position="absolute"
+                  right="-50px" // Make sure to add "px" to the right position value
+                >
+                  {/* Video Icon and Heading */}
+                  <Flex align="center" mb="20px">
+                    {/* You can replace the video icon with the appropriate icon component */}
+                    <Box as="span" mr="10px">
+                      <AiOutlineVideoCamera />
+                    </Box>
+                    <Heading as="h2" fontSize="20px" fontWeight="bold">
+                      docRay Care Video Consultation
+                    </Heading>
+                  </Flex>
+
+                  {/* Fee and Address Columns */}
+                  <HStack align="flex-start" spacing="10px" mb="20px">
+                    {/* Fee */}
+                    <Text fontSize="18px" fontWeight="bold">
+                      Fee:
+                    </Text>
+                    <Text fontSize="16px">${doctor.charges}</Text>
+                  </HStack>
+
+                  <HStack align="flex-start" spacing="10px">
+                    {/* Address */}
+                    <Text fontSize="18px" fontWeight="bold">
+                      Address:
+                    </Text>
+                    <Text fontSize="16px">Use phone/laptop for video call</Text>
+                  </HStack>
+
+                  {/* Book Video Consultation Button */}
+                  <Button size="lg" width="100%" mt="20px" className="goldbtn">
+                    Book Video Consultation
+                  </Button>
+                </Box>
               </HStack>
             </Card>
-            <VStack align="flex-start">
+            <VStack align="flex-start" className="reviews">
               <Heading size="md">Reviews</Heading>
 
               <Box>
@@ -150,7 +193,7 @@ const DoctorDetailScreen = () => {
                 </List>
               </Box>
               <Box>
-                <Heading size="lg">Write a Customer Review</Heading>
+                <Heading size="lg">Write a Review</Heading>
                 {errorDoctorReview && (
                   <Alert status="error" mt={4}>
                     <AlertIcon />
@@ -179,6 +222,7 @@ const DoctorDetailScreen = () => {
                         value={comment}
                         onChange={e => setComment(e.target.value)}
                         rows={3}
+                        w="400px" // Set a fixed width of 400 pixels
                       />
                     </FormControl>
                     <Button type="submit" colorScheme="blue">

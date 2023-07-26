@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import DoctorCard from '../Components/DoctorCard.js';
+import DoctorCard from '../../Components/DoctorCard.js';
 import {
   Card,
   CardHeader,
@@ -19,7 +19,7 @@ import {
   Image,
   Button,
 } from '@chakra-ui/react';
-import { getDoctorList } from '../Features/DoctorFeature/doctorListSlice.js';
+import { getDoctorList } from '../../Features/DoctorFeature/doctorListSlice.js';
 const PneumoniaDocScreen = () => {
   const dispatch = useDispatch();
   const doctorList = useSelector(store => store.doctorList);

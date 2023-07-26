@@ -9,7 +9,7 @@ import {
   Textarea,
   Button,
 } from '@chakra-ui/react';
-import PatientForm from '../Components/PatientForm';
+import PatientForm from '../../Components/PatientForm';
 const BookAppointmentScreen = () => {
   return <PatientForm />;
 };

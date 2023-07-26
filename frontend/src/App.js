@@ -13,17 +13,17 @@ import {
 } from '@chakra-ui/react';
 
 import HomeScreen from './Screens/HomeScreen';
-import DoctorsListScreen from './Screens/DoctorsListScreen';
-import DoctorDetailScreen from './Screens/DoctorDetailScreen';
-import PatientLoginScreen from './Screens/PatientLoginScreen';
-import PatientRegisterScreen from './Screens/PatientRegisterScreen';
-import PaymentScreen from './Screens/PaymentScreen';
+import DoctorsListScreen from './Screens/DoctorScreens/DoctorsListScreen';
+import DoctorDetailScreen from './Screens/DoctorScreens/DoctorDetailScreen';
+import PatientLoginScreen from './Screens/PatientScreens/PatientLoginScreen';
+import PatientRegisterScreen from './Screens/PatientScreens/PatientRegisterScreen';
+import PaymentScreen from './Screens/PatientScreens/PaymentScreen';
 import AboutScreen from './Screens/AboutScreen';
 import Navbar from './Components/Navbar';
 import ContactUsScreen from './Screens/ContactUsScreen';
-import PneumoniaDocScreen from './Screens/PneumoniaDocScreen';
-import TbDocScreen from './Screens/TbDocScreen';
-
+import PneumoniaDocScreen from './Screens/DoctorScreens/PneumoniaDocScreen';
+import TbDocScreen from './Screens/DoctorScreens/TbDocScreen';
+import BookAppointmentScreen from './Screens/PatientScreens/BookAppointmentScreen';
 function App() {
   return (
     <BrowserRouter>
@@ -37,7 +37,11 @@ function App() {
           <Route path="/pneumoniaDoctors" element={<PneumoniaDocScreen />} />={' '}
           <Route path="/TbDoctors" element={<TbDocScreen />} />={' '}
           <Route path="/doctors/:id" element={<DoctorDetailScreen />} />={' '}
-          <Route path="/login" element={<PatientLoginScreen />} />={' '}
+          <Route
+            path="/doctors/bookAppointment/:id"
+            element={<BookAppointmentScreen />}
+          />
+          = <Route path="/login" element={<PatientLoginScreen />} />={' '}
           <Route path="/register" element={<PatientRegisterScreen />} />={' '}
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
         </Routes>

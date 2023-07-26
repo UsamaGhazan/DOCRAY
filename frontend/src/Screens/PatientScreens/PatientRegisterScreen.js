@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { register } from '../Features/PatientFeature/registerPatientSlice';
+import { register } from '../../Features/PatientFeature/registerPatientSlice';
 import {
   Box,
   Heading,
@@ -21,6 +21,9 @@ const PatientRegisterScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [gender, setGender] = useState('');
+  const [contact, setContact] = useState('');
+  const [dob, setDob] = useState('');
 
   const dispatch = useDispatch();
   const location = useLocation();

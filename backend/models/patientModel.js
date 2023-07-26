@@ -7,6 +7,7 @@ const patientSchema = new mongoose.Schema({
   },
   dateOfBirth: {
     type: Date,
+    required: true,
   },
   password: {
     type: String,
@@ -21,6 +22,7 @@ const patientSchema = new mongoose.Schema({
   },
   contactNumber: {
     type: String,
+    required: true,
   },
   email: {
     type: String,

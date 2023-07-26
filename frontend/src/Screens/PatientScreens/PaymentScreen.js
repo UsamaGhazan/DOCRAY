@@ -20,7 +20,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
-import { getDoctorDetails } from '../Features/DoctorFeature/doctorDetailSlice';
+import { getDoctorDetails } from '../../Features/DoctorFeature/doctorDetailSlice';
 
 const PaymentScreen = () => {
   const navigate = useNavigate();

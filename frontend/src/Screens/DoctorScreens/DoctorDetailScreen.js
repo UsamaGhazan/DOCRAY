@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDoctorDetails } from '../Features/DoctorFeature/doctorDetailSlice';
-import Rating from '../Components/Rating';
+import { getDoctorDetails } from '../../Features/DoctorFeature/doctorDetailSlice';
+import Rating from '../../Components/Rating';
+import { Link as RouterLink } from 'react-router-dom';
 
 import {
   Card,
@@ -32,8 +33,8 @@ import {
   ListItem,
   Flex,
 } from '@chakra-ui/react';
-import { createDoctorReview } from '../Features/DoctorFeature/doctorReviewSlice';
-import { DOCTOR_REVIEW_RESET } from '../Features/DoctorFeature/doctorReviewSlice';
+import { createDoctorReview } from '../../Features/DoctorFeature/doctorReviewSlice';
+import { DOCTOR_REVIEW_RESET } from '../../Features/DoctorFeature/doctorReviewSlice';
 import { AiOutlineVideoCamera } from 'react-icons/ai';
 const DoctorDetailScreen = () => {
   const dispatch = useDispatch();
@@ -165,7 +166,14 @@ const DoctorDetailScreen = () => {
                   </HStack>
 
                   {/* Book Video Consultation Button */}
-                  <Button size="lg" width="100%" mt="20px" className="goldbtn">
+                  <Button
+                    as={RouterLink}
+                    to="/register"
+                    size="lg"
+                    width="100%"
+                    mt="20px"
+                    className="goldbtn"
+                  >
                     Book Video Consultation
                   </Button>
                 </Box>

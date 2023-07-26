@@ -18,7 +18,7 @@ import {
   Image,
   Button,
 } from '@chakra-ui/react';
-import { getDoctorList } from '../Features/DoctorFeature/doctorListSlice.js';
+import { getDoctorList } from '../../Features/DoctorFeature/doctorListSlice.js';
 const DoctorsListScreen = () => {
   const dispatch = useDispatch();
   const doctorList = useSelector(store => store.doctorList);
@@ -110,7 +110,7 @@ const DoctorsListScreen = () => {
                     </Button>
                     <Button
                       as={Link}
-                      to={`/payment/${doctor._id}`}
+                      to={`/doctors/bookAppointment/${doctor._id}`}
                       color="brand.50"
                       fontSize="14px"
                       className="goldbtn bookbtn"

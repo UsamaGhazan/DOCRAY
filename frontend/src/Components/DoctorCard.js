@@ -175,7 +175,7 @@ const DoctorCard = ({ doctor }) => {
 
           <Button
             as={Link}
-            to={`/payment/${doctor._id}`}
+            to={`/doctors/bookAppointment/${doctor._id}`}
             color="brand.50"
             fontSize="14px"
             className="goldbtn bookbtn"

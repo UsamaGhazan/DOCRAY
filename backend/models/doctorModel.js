@@ -89,6 +89,7 @@ const doctorSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    availableTimeSlots: [String],
   },
   {
     timestamps: true, //createdAt, //updatedAt

@@ -26,6 +26,10 @@ const doctors = [
       comment: 'Great service!',
       user: '64af4e4e3c3e296bc6a5e0c0',
     },
+    availableTimeSlots: [
+      '2023-07-31T10:00:00.000Z-11:30:00.000Z',
+      '2023-07-31T14:00:00.000Z-16:00:00.000Z',
+    ],
   },
   {
     name: 'Dr Jane Smith',
@@ -46,6 +50,10 @@ const doctors = [
     gender: 'male',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
+    availableTimeSlots: [
+      '2023-07-31T10:00:00.000Z-11:30:00.000Z',
+      '2023-07-31T14:00:00.000Z-16:00:00.000Z',
+    ],
   },
   {
     name: 'Dr David Johnson',
@@ -66,6 +74,10 @@ const doctors = [
     gender: 'male',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
+    availableTimeSlots: [
+      '2023-07-31T10:00:00.000Z-11:30:00.000Z',
+      '2023-07-31T14:00:00.000Z-16:00:00.000Z',
+    ],
   },
   {
     name: 'Dr Sarah Williams',
@@ -92,6 +104,10 @@ const doctors = [
       comment: 'Great service!',
       user: '64af4e4e3c3e296bc6a5e0c0',
     },
+    availableTimeSlots: [
+      '2023-07-31T10:00:00.000Z-11:30:00.000Z',
+      '2023-07-31T14:00:00.000Z-16:00:00.000Z',
+    ],
   },
   {
     name: 'Dr Michael Davis',
@@ -112,6 +128,10 @@ const doctors = [
     gender: 'female',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
+    availableTimeSlots: [
+      '2023-07-31T10:00:00.000Z-11:30:00.000Z',
+      '2023-07-31T14:00:00.000Z-16:00:00.000Z',
+    ],
   },
 ];
 

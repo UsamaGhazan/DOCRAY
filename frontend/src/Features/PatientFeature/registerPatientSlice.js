@@ -3,7 +3,7 @@ import axios from 'axios';
 import { login } from './loginPatientSlice';
 export const register = createAsyncThunk(
   'registerPatient',
-  async ({ name, email, password }, thunkAPI) => {
+  async ({ name, email, password, gender, contact, dob }, thunkAPI) => {
     try {
       const config = {
         headers: {
@@ -13,7 +13,7 @@ export const register = createAsyncThunk(
       };
       const { data } = await axios.post(
         `/api/patients`,
-        { name, email, password },
+        { name, email, password, gender, contact, dob },
         config
       );
       //loggingin user as he is registered

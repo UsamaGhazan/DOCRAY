@@ -13,6 +13,7 @@ import {
   Text,
   Link,
   Alert,
+  Select,
 } from '@chakra-ui/react';
 
 const PatientRegisterScreen = () => {
@@ -21,7 +22,7 @@ const PatientRegisterScreen = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState('Male');
   const [contact, setContact] = useState('');
   const [dob, setDob] = useState('');
 
@@ -31,6 +32,8 @@ const PatientRegisterScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const patientRegister = useSelector(store => store.patientRegister);
   const { loading, error, patientInfo } = patientRegister;
+  console.log(gender);
+  const genderOptions = ['Male', 'Female', 'Other'];
 
   useEffect(() => {
     if (patientInfo) {
@@ -43,7 +46,7 @@ const PatientRegisterScreen = () => {
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
     } else {
-      dispatch(register({ name, email, password }));
+      dispatch(register({ name, email, password, gender, contact, dob }));
     }
   };
 
@@ -77,6 +80,28 @@ const PatientRegisterScreen = () => {
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
+      </FormControl>
+      <FormControl mb="20px">
+        <FormLabel>Gender</FormLabel>
+        <Select value={gender} onChange={e => setGender(e.target.value)}>
+          {genderOptions.map(option => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl mb="20px">
+        <FormLabel>Contact:</FormLabel>
+        <Input
+          type="text"
+          value={contact}
+          onChange={e => setContact(e.target.value)}
+        />
+      </FormControl>
+      <FormControl mb="20px">
+        <FormLabel>Date Of Birth</FormLabel>
+        <Input type="Date" value={dob} onChange={e => setDob(e.target.value)} />
       </FormControl>
       <FormControl mb="20px">
         <FormLabel>Password:</FormLabel>

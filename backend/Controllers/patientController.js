@@ -21,7 +21,8 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  console.log(req.body);
+  const { name, email, password, gender, contact, dob } = req.body;
 
   const patientExists = await Patient.findOne({ email });
 
@@ -34,6 +35,9 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    gender,
+    contactNumber: contact,
+    dateOfBirth: dob,
   });
 
   // logging in the user right after registration
@@ -64,10 +68,5 @@ const getPatientProfile = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
-
-// const bookAppointment = asyncHandler(async (req, res) => {
-//   console.log(req.body);
-//   const { name, dateofBirth, gender, contactNumber, email } = req.body;
-// });
 
 export { authUser, getPatientProfile, registerUser };

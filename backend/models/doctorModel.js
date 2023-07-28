@@ -16,6 +16,18 @@ const reviewSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+const timeSlotSchema = new mongoose.Schema({
+  startTime: {
+    type: Date,
+    required: true,
+  },
+  endTime: {
+    type: Date,
+    required: true,
+  },
+});
+
 const doctorSchema = mongoose.Schema(
   {
     name: {
@@ -89,7 +101,10 @@ const doctorSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    availableTimeSlots: [String],
+    availableTimeSlots: {
+      type: [timeSlotSchema],
+      required: true,
+    },
   },
   {
     timestamps: true, //createdAt, //updatedAt

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { IconButton, Text, Flex, Box } from '@chakra-ui/react';
+import { IconButton, Text, Flex, Box, Icon, HStack } from '@chakra-ui/react';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
+import { FaSun } from 'react-icons/fa';
 
 const formatDate = date => {
   const options = { month: 'long', day: 'numeric' };
   return new Date(date).toLocaleDateString(undefined, options);
 };
+
 const formatTime = date => {
   const hours = date.getHours();
   const minutes = date.getMinutes();
@@ -40,11 +42,12 @@ const DateBox = ({ availableTimeSlots }) => {
   return (
     <Box
       width="742px"
-      height="71px"
-      bg="gray.200"
+      height="313px"
+      bg="#ffffff"
       borderRadius="md"
       p={4}
       ml="388px"
+      mt="31px"
     >
       <Flex justifyContent="space-between" alignItems="center">
         <IconButton
@@ -78,23 +81,83 @@ const DateBox = ({ availableTimeSlots }) => {
       </Flex>
       {selectedDate && (
         <Box mt={4}>
-          <Text fontSize="lg" fontWeight="bold">
-            Start Times for {selectedDate}:
-          </Text>
-          {availableTimeSlots.map((timeslot, index) => {
-            const { startTime } = timeslot;
-
-            const startTimeDate = new Date(startTime);
-            if (startTimeDate.toDateString() === selectedDate) {
+          <HStack>
+            <Icon as={FaSun} color="orange" />
+            <Text fontSize="12px" fontWeight="600" mt={4} color="#8C9196">
+              Morning Slots:
+            </Text>
+          </HStack>
+          <Flex flexWrap="wrap" mt={124}>
+            {availableTimeSlots.map((timeslot, index) => {
+              const { startTime } = timeslot;
+              const startTimeDate = new Date(startTime);
               const formattedStartTime = formatTime(startTimeDate);
-              return (
-                <Text key={index} mt={2}>
-                  {formattedStartTime}
-                </Text>
-              );
-            }
-            return null;
-          })}
+
+              if (
+                startTimeDate.toDateString() === selectedDate &&
+                startTimeDate.getHours() < 12
+              ) {
+                return (
+                  <Box
+                    key={index}
+                    width="109px"
+                    height="41px"
+                    p={2}
+                    borderRadius="10px"
+                    bg="white"
+                    border="2px solid #E6E5F0"
+                    alignItems="center"
+                    justifyContent="center"
+                    textAlign="center"
+                    ml="74px"
+                  >
+                    {formattedStartTime}
+                  </Box>
+                );
+              }
+
+              return null;
+            })}
+          </Flex>
+          <HStack>
+            <Icon as={FaSun} color="orange" />
+
+            <Text fontSize="12px" fontWeight="600" mt={4} color="#8C9196">
+              Afternoon Slots:
+            </Text>
+          </HStack>
+          <Flex flexWrap="wrap" mt={37} ml="44px">
+            {availableTimeSlots.map((timeslot, index) => {
+              const { startTime } = timeslot;
+              const startTimeDate = new Date(startTime);
+              const formattedStartTime = formatTime(startTimeDate);
+
+              if (
+                startTimeDate.toDateString() === selectedDate &&
+                startTimeDate.getHours() >= 12
+              ) {
+                return (
+                  <Box
+                    key={index}
+                    width="109px"
+                    height="41px"
+                    p={2}
+                    m={1}
+                    borderRadius="10px"
+                    bg="white"
+                    border="2px solid #E6E5F0"
+                    alignItems="center"
+                    justifyContent="center"
+                    textAlign="center"
+                  >
+                    {formattedStartTime}
+                  </Box>
+                );
+              }
+
+              return null;
+            })}
+          </Flex>
         </Box>
       )}
     </Box>

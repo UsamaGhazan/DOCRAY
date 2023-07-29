@@ -18,7 +18,10 @@ const BookAppointmentScreen = () => {
   }, [dispatch, doctorId]);
 
   return (
-    <section className="bookAppointmentScreen">
+    <section
+      className="bookAppointmentScreen"
+      style={{ backgroundColor: '#f8f9fa' }}
+    >
       {error && <Box>{error}</Box>}
       <div>
         {loading ? (

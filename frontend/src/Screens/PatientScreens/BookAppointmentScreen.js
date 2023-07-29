@@ -42,7 +42,6 @@ const BookAppointmentScreen = () => {
               marginLeft="388px"
               mt="30px"
             >
-              {/* Avatar (Left Side) */}
               <Avatar
                 size="lg"
                 name={doctor.name}
@@ -50,26 +49,19 @@ const BookAppointmentScreen = () => {
                 mr="10px"
               />
 
-              {/* Doctor Information (Right Side) */}
               <Box>
-                {/* Doctor Name */}
                 <Text fontSize="lg" fontWeight="bold">
                   {doctor.name}
                 </Text>
 
-                {/* Clinic Name */}
                 <Text fontSize="md" color="gray.500" mb="2px">
                   docRay Care Video Consultation (Online)
                 </Text>
 
-                {/* Fee Amount */}
                 <Text fontSize="md">Fee: ${doctor.charges}</Text>
               </Box>
             </Box>
             <DateBox availableTimeSlots={doctor.availableTimeSlots} />
-
-            {/* Additional content for displaying available time slots */}
-            {/* ... */}
           </>
         )}
       </div>

@@ -61,13 +61,20 @@ const DateBox = ({ availableTimeSlots }) => {
           return (
             <Text
               key={index}
-              fontSize="lg"
-              fontWeight={
-                selectedDate === date.toDateString() ? 'bold' : 'normal'
-              }
+              fontSize="14px"
+              fontWeight={600}
               mx={2}
               cursor="pointer"
               onClick={() => handleDateClick(date.toDateString())}
+              style={{
+                borderBottom:
+                  selectedDate === date.toDateString()
+                    ? '2px solid #FF9E15'
+                    : 'none',
+                color:
+                  selectedDate === date.toDateString() ? '#FF9E15' : 'black',
+                cursor: 'pointer',
+              }}
             >
               {formatDate(date)}
             </Text>
@@ -87,7 +94,7 @@ const DateBox = ({ availableTimeSlots }) => {
               Morning Slots:
             </Text>
           </HStack>
-          <Flex flexWrap="wrap" mt={124}>
+          <Flex flexWrap="wrap" mt={124} ml="44px">
             {availableTimeSlots.map((timeslot, index) => {
               const { startTime } = timeslot;
               const startTimeDate = new Date(startTime);
@@ -110,6 +117,14 @@ const DateBox = ({ availableTimeSlots }) => {
                     justifyContent="center"
                     textAlign="center"
                     ml="74px"
+                    _hover={{
+                      color: '#FF9E15',
+                      // Add hover styles to change border color on hover
+                      borderColor: '#FF9E15',
+                      transition: 'all 0.5s ease-in-out',
+                    }}
+                    fontSize={14}
+                    fontWeight={600}
                   >
                     {formattedStartTime}
                   </Box>
@@ -149,6 +164,15 @@ const DateBox = ({ availableTimeSlots }) => {
                     alignItems="center"
                     justifyContent="center"
                     textAlign="center"
+                    cursor="pointer"
+                    _hover={{
+                      color: '#FF9E15',
+                      // Add hover styles to change border color on hover
+                      borderColor: '#FF9E15',
+                      transition: 'all 0.5s ease-in-out',
+                    }}
+                    fontSize={14}
+                    fontWeight={600}
                   >
                     {formattedStartTime}
                   </Box>

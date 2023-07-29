@@ -9,18 +9,29 @@ const formatDate = date => {
 };
 
 const formatTime = date => {
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
-  const formattedMinutes = minutes.toString().padStart(2, '0');
-  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true, // Use 12-hour format (AM/PM)
+    timeZone: 'UTC', // Set the timeZone option to 'UTC' since our input date is in UTC
+  };
+
+  // Create a new date object with the input UTC date string
+  const utcDate = new Date(date);
+  // Get the time in the user's local timezone
+  const localTime = utcDate.toLocaleString(undefined, options);
+  return localTime;
 };
 
 const DateBox = ({ availableTimeSlots }) => {
   const [startDate, setStartDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(null);
+  const today = new Date();
 
+  const day = today.getDate();
+  const month = today.getMonth() + 1; // Add 1 since getMonth returns 0-indexed values (0 for January)
+  const year = today.getFullYear();
+  const formattedDate = `${month}/${day}/${year}`;
+  const [selectedDate, setSelectedDate] = useState(formattedDate);
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
     nextStartDate.setDate(startDate.getDate() + 4);
@@ -36,7 +47,7 @@ const DateBox = ({ availableTimeSlots }) => {
   };
 
   const handleDateClick = date => {
-    setSelectedDate(date);
+    setSelectedDate(date.toLocaleDateString(undefined, { timeZone: 'UTC' }));
   };
 
   return (
@@ -65,14 +76,22 @@ const DateBox = ({ availableTimeSlots }) => {
               fontWeight={600}
               mx={2}
               cursor="pointer"
-              onClick={() => handleDateClick(date.toDateString())}
+              onClick={() => handleDateClick(date)} // Pass the date object directly
               style={{
                 borderBottom:
-                  selectedDate === date.toDateString()
+                  selectedDate ===
+                  date.toLocaleDateString(undefined, {
+                    timeZone: 'UTC',
+                  })
                     ? '2px solid #FF9E15'
                     : 'none',
                 color:
-                  selectedDate === date.toDateString() ? '#FF9E15' : 'black',
+                  selectedDate ===
+                  date.toLocaleDateString(undefined, {
+                    timeZone: 'UTC',
+                  })
+                    ? '#FF9E15'
+                    : 'black',
                 cursor: 'pointer',
               }}
             >
@@ -94,14 +113,16 @@ const DateBox = ({ availableTimeSlots }) => {
               Morning Slots:
             </Text>
           </HStack>
-          <Flex flexWrap="wrap" mt={124} ml="44px">
+          <Flex flexWrap="wrap" mt={5} ml="44px">
             {availableTimeSlots.map((timeslot, index) => {
               const { startTime } = timeslot;
               const startTimeDate = new Date(startTime);
               const formattedStartTime = formatTime(startTimeDate);
 
               if (
-                startTimeDate.toDateString() === selectedDate &&
+                startTimeDate.toLocaleDateString(undefined, {
+                  timeZone: 'UTC',
+                }) === selectedDate &&
                 startTimeDate.getHours() < 12
               ) {
                 return (
@@ -110,16 +131,16 @@ const DateBox = ({ availableTimeSlots }) => {
                     width="109px"
                     height="41px"
                     p={2}
+                    m={1}
                     borderRadius="10px"
                     bg="white"
                     border="2px solid #E6E5F0"
                     alignItems="center"
                     justifyContent="center"
                     textAlign="center"
-                    ml="74px"
+                    cursor="pointer"
                     _hover={{
                       color: '#FF9E15',
-                      // Add hover styles to change border color on hover
                       borderColor: '#FF9E15',
                       transition: 'all 0.5s ease-in-out',
                     }}
@@ -148,7 +169,9 @@ const DateBox = ({ availableTimeSlots }) => {
               const formattedStartTime = formatTime(startTimeDate);
 
               if (
-                startTimeDate.toDateString() === selectedDate &&
+                startTimeDate.toLocaleDateString(undefined, {
+                  timeZone: 'UTC',
+                }) === selectedDate &&
                 startTimeDate.getHours() >= 12
               ) {
                 return (
@@ -167,7 +190,6 @@ const DateBox = ({ availableTimeSlots }) => {
                     cursor="pointer"
                     _hover={{
                       color: '#FF9E15',
-                      // Add hover styles to change border color on hover
                       borderColor: '#FF9E15',
                       transition: 'all 0.5s ease-in-out',
                     }}

@@ -20,6 +20,7 @@ const formatTime = date => {
   const utcDate = new Date(date);
   // Get the time in the user's local timezone
   const localTime = utcDate.toLocaleString(undefined, options);
+  console.log(localTime);
   return localTime;
 };
 
@@ -123,7 +124,7 @@ const DateBox = ({ availableTimeSlots }) => {
                 startTimeDate.toLocaleDateString(undefined, {
                   timeZone: 'UTC',
                 }) === selectedDate &&
-                startTimeDate.getHours() < 12
+                formattedStartTime.includes('AM')
               ) {
                 return (
                   <Box
@@ -172,7 +173,7 @@ const DateBox = ({ availableTimeSlots }) => {
                 startTimeDate.toLocaleDateString(undefined, {
                   timeZone: 'UTC',
                 }) === selectedDate &&
-                startTimeDate.getHours() >= 12
+                formattedStartTime.includes('PM')
               ) {
                 return (
                   <Box

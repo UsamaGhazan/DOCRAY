@@ -164,12 +164,40 @@ const doctors = [
         endTime: '2023-07-30T12:45:00.000Z',
       },
       {
+        startTime: '2023-07-30T14:00:00.000Z', // New slot: 2:00 PM to 3:30 PM
+        endTime: '2023-07-30T15:30:00.000Z',
+      },
+      {
+        startTime: '2023-07-30T16:00:00.000Z', // New slot: 4:00 PM to 5:30 PM
+        endTime: '2023-07-30T17:30:00.000Z',
+      },
+      {
         startTime: '2023-07-31T05:00:00.000Z',
         endTime: '2023-07-31T06:30:00.000Z',
       },
       {
         startTime: '2023-07-31T06:00:00.000Z',
         endTime: '2023-07-31T07:30:00.000Z',
+      },
+      {
+        startTime: '2023-07-31T14:00:00.000Z', // New slot: 2:00 PM to 3:30 PM
+        endTime: '2023-07-31T15:30:00.000Z',
+      },
+      {
+        startTime: '2023-07-31T15:00:00.000Z', // New slot: 3:00 PM to 4:30 PM
+        endTime: '2023-07-31T16:30:00.000Z',
+      },
+      {
+        startTime: '2023-07-31T16:00:00.000Z', // New slot: 4:00 PM to 5:30 PM
+        endTime: '2023-07-31T17:30:00.000Z',
+      },
+      {
+        startTime: '2023-07-31T17:00:00.000Z', // New slot: 5:00 PM to 6:30 PM
+        endTime: '2023-07-31T18:30:00.000Z',
+      },
+      {
+        startTime: '2023-07-31T18:00:00.000Z', // New slot: 6:00 PM to 7:30 PM
+        endTime: '2023-07-31T19:30:00.000Z',
       },
     ],
   },

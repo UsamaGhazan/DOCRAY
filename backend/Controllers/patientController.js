@@ -69,4 +69,8 @@ const getPatientProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, getPatientProfile, registerUser };
+const bookAppointment = asyncHandler(async (req, res) => {
+  console.log(req.user);
+  console.log(req.body);
+});
+export { authUser, getPatientProfile, registerUser, bookAppointment };

@@ -27,6 +27,7 @@ const PatientLoginScreen = () => {
 
   const patientLogin = useSelector(store => store.patientLogin);
   const { loading, error, patientInfo } = patientLogin;
+  console.log(patientInfo);
 
   useEffect(() => {
     if (patientInfo && redirect === '/') {

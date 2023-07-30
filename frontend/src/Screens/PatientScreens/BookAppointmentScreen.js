@@ -61,7 +61,11 @@ const BookAppointmentScreen = () => {
                 <Text fontSize="md">Fee: ${doctor.charges}</Text>
               </Box>
             </Box>
-            <DateBox availableTimeSlots={doctor.availableTimeSlots} />
+            <DateBox
+              availableTimeSlots={doctor.availableTimeSlots}
+              name={doctor.name}
+              image={doctor.image}
+            />
           </>
         )}
       </div>

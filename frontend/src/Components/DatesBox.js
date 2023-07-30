@@ -1,7 +1,28 @@
 import React, { useState } from 'react';
-import { IconButton, Text, Flex, Box, Icon, HStack } from '@chakra-ui/react';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import { FaSun } from 'react-icons/fa';
+import {
+  IconButton,
+  Text,
+  Flex,
+  Box,
+  Icon,
+  HStack,
+  Alert,
+  AlertIcon,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  VStack,
+  Avatar,
+  Heading,
+} from '@chakra-ui/react';
 
 const formatDate = date => {
   const options = { month: 'long', day: 'numeric' };
@@ -16,20 +37,19 @@ const formatTime = date => {
     timeZone: 'UTC', // Set the timeZone option to 'UTC' since our input date is in UTC
   };
 
-  // Create a new date object with the input UTC date string
   const utcDate = new Date(date);
-  // Get the time in the user's local timezone
   const localTime = utcDate.toLocaleString(undefined, options);
-  console.log(localTime);
   return localTime;
 };
 
-const DateBox = ({ availableTimeSlots }) => {
+const DateBox = ({ name, image, availableTimeSlots }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const finalRef = React.useRef(null);
   const [startDate, setStartDate] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState('');
   const today = new Date();
-
   const day = today.getDate();
-  const month = today.getMonth() + 1; // Add 1 since getMonth returns 0-indexed values (0 for January)
+  const month = today.getMonth() + 1;
   const year = today.getFullYear();
   const formattedDate = `${month}/${day}/${year}`;
   const [selectedDate, setSelectedDate] = useState(formattedDate);
@@ -49,6 +69,27 @@ const DateBox = ({ availableTimeSlots }) => {
 
   const handleDateClick = date => {
     setSelectedDate(date.toLocaleDateString(undefined, { timeZone: 'UTC' }));
+  };
+
+  const areSlotsAvailable = availableTimeSlots.some(timeslot => {
+    const { startTime } = timeslot;
+
+    const startTimeDate = new Date(startTime);
+    return (
+      startTimeDate.toLocaleDateString(undefined, {
+        timeZone: 'UTC',
+      }) === selectedDate
+    );
+  });
+
+  const handleSlotClick = timeSlot => {
+    setSelectedTime(formatTime(new Date(timeSlot.startTime)));
+    onOpen();
+  };
+
+  const continueBooking = () => {
+    console.log(selectedDate);
+    console.log(selectedTime);
   };
 
   return (
@@ -77,7 +118,7 @@ const DateBox = ({ availableTimeSlots }) => {
               fontWeight={600}
               mx={2}
               cursor="pointer"
-              onClick={() => handleDateClick(date)} // Pass the date object directly
+              onClick={() => handleDateClick(date)}
               style={{
                 borderBottom:
                   selectedDate ===
@@ -115,98 +156,152 @@ const DateBox = ({ availableTimeSlots }) => {
             </Text>
           </HStack>
           <Flex flexWrap="wrap" mt={5} ml="44px">
-            {availableTimeSlots.map((timeslot, index) => {
-              const { startTime } = timeslot;
-              const startTimeDate = new Date(startTime);
-              const formattedStartTime = formatTime(startTimeDate);
+            {areSlotsAvailable ? (
+              availableTimeSlots.map((timeslot, index) => {
+                const { startTime } = timeslot;
+                const startTimeDate = new Date(startTime);
+                const formattedStartTime = formatTime(startTimeDate);
 
-              if (
-                startTimeDate.toLocaleDateString(undefined, {
-                  timeZone: 'UTC',
-                }) === selectedDate &&
-                formattedStartTime.includes('AM')
-              ) {
-                return (
-                  <Box
-                    key={index}
-                    width="109px"
-                    height="41px"
-                    p={2}
-                    m={1}
-                    borderRadius="10px"
-                    bg="white"
-                    border="2px solid #E6E5F0"
-                    alignItems="center"
-                    justifyContent="center"
-                    textAlign="center"
-                    cursor="pointer"
-                    _hover={{
-                      color: '#FF9E15',
-                      borderColor: '#FF9E15',
-                      transition: 'all 0.5s ease-in-out',
-                    }}
-                    fontSize={14}
-                    fontWeight={600}
-                  >
-                    {formattedStartTime}
-                  </Box>
-                );
-              }
+                if (
+                  startTimeDate.toLocaleDateString(undefined, {
+                    timeZone: 'UTC',
+                  }) === selectedDate &&
+                  formattedStartTime.includes('AM')
+                ) {
+                  return (
+                    <Box
+                      key={index}
+                      width="109px"
+                      height="41px"
+                      p={2}
+                      m={1}
+                      borderRadius="10px"
+                      bg="white"
+                      border="2px solid #E6E5F0"
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                      cursor="pointer"
+                      _hover={{
+                        color: '#FF9E15',
+                        borderColor: '#FF9E15',
+                        transition: 'all 0.5s ease-in-out',
+                      }}
+                      fontSize={14}
+                      fontWeight={600}
+                      onClick={() => handleSlotClick(timeslot)}
+                    >
+                      {formattedStartTime}
+                    </Box>
+                  );
+                }
 
-              return null;
-            })}
+                return null;
+              })
+            ) : (
+              <Alert status="warning" m="auto">
+                <AlertIcon />
+                Sorry! No Slot Available at this moment
+              </Alert>
+            )}
           </Flex>
-          <HStack>
+          <HStack mt={10} position="absolute">
             <Icon as={FaSun} color="orange" />
 
-            <Text fontSize="12px" fontWeight="600" mt={4} color="#8C9196">
+            <Text fontSize="12px" fontWeight="600" color="#8C9196">
               Afternoon Slots:
             </Text>
           </HStack>
-          <Flex flexWrap="wrap" mt={37} ml="44px">
-            {availableTimeSlots.map((timeslot, index) => {
-              const { startTime } = timeslot;
-              const startTimeDate = new Date(startTime);
-              const formattedStartTime = formatTime(startTimeDate);
+          <Flex flexWrap="wrap" mt={47} ml="44px">
+            {areSlotsAvailable ? (
+              availableTimeSlots.map((timeslot, index) => {
+                const { startTime } = timeslot;
+                const startTimeDate = new Date(startTime);
+                const formattedStartTime = formatTime(startTimeDate);
 
-              if (
-                startTimeDate.toLocaleDateString(undefined, {
-                  timeZone: 'UTC',
-                }) === selectedDate &&
-                formattedStartTime.includes('PM')
-              ) {
-                return (
-                  <Box
-                    key={index}
-                    width="109px"
-                    height="41px"
-                    p={2}
-                    m={1}
-                    borderRadius="10px"
-                    bg="white"
-                    border="2px solid #E6E5F0"
-                    alignItems="center"
-                    justifyContent="center"
-                    textAlign="center"
-                    cursor="pointer"
-                    _hover={{
-                      color: '#FF9E15',
-                      borderColor: '#FF9E15',
-                      transition: 'all 0.5s ease-in-out',
-                    }}
-                    fontSize={14}
-                    fontWeight={600}
-                  >
-                    {formattedStartTime}
-                  </Box>
-                );
-              }
+                if (
+                  startTimeDate.toLocaleDateString(undefined, {
+                    timeZone: 'UTC',
+                  }) === selectedDate &&
+                  formattedStartTime.includes('PM')
+                ) {
+                  return (
+                    <Box
+                      key={index}
+                      width="109px"
+                      height="41px"
+                      p={2}
+                      m={1}
+                      borderRadius="10px"
+                      bg="white"
+                      border="2px solid #E6E5F0"
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                      cursor="pointer"
+                      _hover={{
+                        color: '#FF9E15',
+                        borderColor: '#FF9E15',
+                        transition: 'all 0.5s ease-in-out',
+                      }}
+                      fontSize={14}
+                      fontWeight={600}
+                      mt={35}
+                      onClick={() => handleSlotClick(timeslot)}
+                    >
+                      {formattedStartTime}
+                    </Box>
+                  );
+                }
 
-              return null;
-            })}
+                return null;
+              })
+            ) : (
+              <Alert status="warning" mt="32px">
+                <AlertIcon />
+                Sorry! No Slot Available at this moment
+              </Alert>
+            )}
           </Flex>
         </Box>
       )}
+      <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack alignItems="start">
+              <Text fontSize={14} fontWeight={600} color="#8C9196" ml={150}>
+                {' '}
+                Your Appointment Details
+              </Text>{' '}
+              <HStack spacing={140}>
+                <HStack>
+                  <Avatar name={name} src={image} size="xs" />
+                  <Heading fontSize="16px" fontWeight={600}>
+                    {name}
+                  </Heading>
+                </HStack>
+                <HStack fontSize="16px" fontWeight={600}>
+                  <Text>{formatDate(selectedDate)},</Text>
+                  <Text>{selectedTime}</Text>
+                </HStack>
+              </HStack>
+            </VStack>
+          </ModalBody>
+
+          <ModalFooter alignItems={'center'} justifyContent={'center'}>
+            <Button
+              className="purplebtn"
+              colorScheme="blue"
+              mr={3}
+              onClick={() => continueBooking()}
+            >
+              Continue
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

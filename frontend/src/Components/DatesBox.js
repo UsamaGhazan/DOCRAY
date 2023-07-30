@@ -101,6 +101,7 @@ const DateBox = ({ name, image, availableTimeSlots }) => {
       p={4}
       ml="388px"
       mt="31px"
+      className="dateBox"
     >
       <Flex justifyContent="space-between" alignItems="center">
         <IconButton
@@ -271,11 +272,18 @@ const DateBox = ({ name, image, availableTimeSlots }) => {
           <ModalCloseButton />
           <ModalBody>
             <VStack alignItems="start">
-              <Text fontSize={14} fontWeight={600} color="#8C9196" ml={150}>
-                {' '}
-                Your Appointment Details
-              </Text>{' '}
-              <HStack spacing={140}>
+              <Box width={450} bg="brand.60" marginRight="40px" mt={1}>
+                <Text
+                  fontSize={14}
+                  fontWeight={600}
+                  color={'white'}
+                  textAlign="center"
+                >
+                  {' '}
+                  Your Appointment Details
+                </Text>{' '}
+              </Box>
+              <HStack spacing={140} position={'absolute'} bottom={20}>
                 <HStack>
                   <Avatar name={name} src={image} size="xs" />
                   <Heading fontSize="16px" fontWeight={600}>
@@ -292,10 +300,11 @@ const DateBox = ({ name, image, availableTimeSlots }) => {
 
           <ModalFooter alignItems={'center'} justifyContent={'center'}>
             <Button
-              className="purplebtn"
-              colorScheme="blue"
+              bg="brand.60"
+              color={'white'}
               mr={3}
               onClick={() => continueBooking()}
+              mt={50}
             >
               Continue
             </Button>

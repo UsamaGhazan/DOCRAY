@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Patient from '../Models/patientModel.js';
 import Appointment from '../Models/appointmentModel.js';
+import Doctor from '../Models/doctorModel.js';
 import generateToken from '../utils/generateToken.js';
 import moment from 'moment-timezone';
 
@@ -73,19 +74,37 @@ const getPatientProfile = asyncHandler(async (req, res) => {
 const bookAppointment = asyncHandler(async (req, res) => {
   const { email } = req.user;
   const { startTime, date, doctorID } = req.body;
-  // Combining the date and time strings into a single string
-  const dateTimeString = `${date} ${startTime}`;
-  console.log(dateTimeString);
-  // Parsing the dateTimeString into Javascript Date object
-  const dateObj = new Date(dateTimeString);
-  console.log(dateObj);
-  // Checking if the dateObj is valid object
+
+  // Separate the date components
+  const [month, day, year] = date.split('/');
+
+  // Separate the time components
+  const [time, meridiem] = startTime.split(' ');
+  const [hours, minutes] = time.split(':');
+
+  // Convert hours to 24-hour format if the time is PM
+  const hours24 =
+    meridiem === 'AM' ? parseInt(hours, 10) : parseInt(hours, 10) + 12;
+
+  // Create a new Date object with the specified date and time (using UTC methods)
+  const dateObj = new Date(Date.UTC(year, month - 1, day, hours24, minutes));
+
+  // Check if the dateObj is valid
   if (isNaN(dateObj)) {
-    res.status(400).json({ error: 'Invalid date or time format' });
+    res.status(400).send('Invalid date or time format');
+    return;
   }
-  const iso8601DateTime = dateObj.toISOString();
-  console.log(iso8601DateTime);
-  res.json({ iso8601DateTime });
+
+  // Format the date to the desired format
+  const formattedDate = dateObj.toISOString();
+
+  const doctor = await Doctor.findById(doctorID);
+  if (doctor) {
+    doctor.availableTimeSlots.push({ startTime: formattedDate });
+    await doctor.save();
+  }
+
+  res.send('Appointment booked successfully');
 });
 
 export { authUser, getPatientProfile, registerUser, bookAppointment };

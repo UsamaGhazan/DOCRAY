@@ -65,6 +65,7 @@ const BookAppointmentScreen = () => {
               availableTimeSlots={doctor.availableTimeSlots}
               name={doctor.name}
               image={doctor.image}
+              doctorID={doctorId}
             />
           </>
         )}

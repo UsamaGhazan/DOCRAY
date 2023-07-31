@@ -42,7 +42,7 @@ const formatTime = date => {
   return localTime;
 };
 
-const DateBox = ({ name, image, availableTimeSlots }) => {
+const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
   const [startDate, setStartDate] = useState(new Date());
@@ -90,6 +90,7 @@ const DateBox = ({ name, image, availableTimeSlots }) => {
   const continueBooking = () => {
     console.log(selectedDate);
     console.log(selectedTime);
+    console.log(doctorID);
   };
 
   return (

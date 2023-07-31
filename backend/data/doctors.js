@@ -26,40 +26,7 @@ const doctors = [
       comment: 'Great service!',
       user: '64af4e4e3c3e296bc6a5e0c0',
     },
-    availableTimeSlots: [
-      {
-        startTime: '2024-01-02T10:00:00.000Z',
-        endTime: '2024-01-02T11:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-02T14:00:00.000Z',
-        endTime: '2024-01-02T15:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-02T16:00:00.000Z',
-        endTime: '2024-01-02T17:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-03T09:00:00.000Z',
-        endTime: '2024-01-03T10:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-03T11:00:00.000Z',
-        endTime: '2024-01-03T12:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-03T14:00:00.000Z',
-        endTime: '2024-01-03T15:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-03T16:00:00.000Z',
-        endTime: '2024-01-03T17:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-04T10:00:00.000Z',
-        endTime: '2024-01-04T11:30:00.000Z',
-      },
-    ],
+    availableTimeSlots: [],
   },
   {
     name: 'Dr Jane Smith',
@@ -228,16 +195,8 @@ const doctors = [
     },
     availableTimeSlots: [
       {
-        startTime: '2024-01-02T10:00:00.000Z',
+        startTime: '2023-07-31T05:00:00.000Z',
         endTime: '2024-01-02T11:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-02T14:00:00.000Z',
-        endTime: '2024-01-02T15:30:00.000Z',
-      },
-      {
-        startTime: '2024-01-02T16:00:00.000Z',
-        endTime: '2024-01-02T17:30:00.000Z',
       },
     ],
   },

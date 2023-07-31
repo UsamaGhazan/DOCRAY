@@ -75,27 +75,27 @@ const bookAppointment = asyncHandler(async (req, res) => {
   const { email } = req.user;
   const { startTime, date, doctorID } = req.body;
 
-  // Separate the date components
+  // Separating the date components
   const [month, day, year] = date.split('/');
 
-  // Separate the time components
+  // Separating the time components
   const [time, meridiem] = startTime.split(' ');
   const [hours, minutes] = time.split(':');
 
-  // Convert hours to 24-hour format if the time is PM
+  // Converting hours to 24-hour format if the time is PM
   const hours24 =
     meridiem === 'AM' ? parseInt(hours, 10) : parseInt(hours, 10) + 12;
 
-  // Create a new Date object with the specified date and time (using UTC methods)
+  // Creating a new Date object with the specified date and time
   const dateObj = new Date(Date.UTC(year, month - 1, day, hours24, minutes));
 
-  // Check if the dateObj is valid
+  // Checking if the dateObj is valid
   if (isNaN(dateObj)) {
     res.status(400).send('Invalid date or time format');
     return;
   }
 
-  // Format the date to the desired format
+  // Format the date to ISO format
   const formattedDate = dateObj.toISOString();
 
   const doctor = await Doctor.findById(doctorID);

@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
 const appointmentSchema = new mongoose.Schema({
-  doctor: {
+  doctorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Doctor', // Reference to the Doctor model
     required: true,
   },
-  patient: {
+  patientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Patient', // Reference to the Patient model
     required: true,
@@ -23,9 +23,7 @@ const appointmentSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  endTime: {
-    type: Date,
-  },
+
   feePayed: {
     type: Boolean,
     default: false,

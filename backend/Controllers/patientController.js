@@ -74,7 +74,6 @@ const getPatientProfile = asyncHandler(async (req, res) => {
 const bookAppointment = asyncHandler(async (req, res) => {
   const { email } = req.user;
   const { startTime, date, doctorID } = req.body;
-
   // Separating the date components
   const [month, day, year] = date.split('/');
 
@@ -95,16 +94,39 @@ const bookAppointment = asyncHandler(async (req, res) => {
     return;
   }
 
-  // Format the date to ISO format
+  // Formatting the date to ISO format
   const formattedDate = dateObj.toISOString();
-
   const doctor = await Doctor.findById(doctorID);
-  if (doctor) {
-    doctor.availableTimeSlots.push({ startTime: formattedDate });
-    await doctor.save();
+  const patient = await Patient.findOne({ email });
+  if (!doctor) {
+    res.status(401);
+    throw new Error('Doctor doesnot exists');
   }
-
-  res.send('Appointment booked successfully');
+  console.log('Before removing ', doctor.availableTimeSlots);
+  //Will use this in payment
+  //Removing the appointed slot from doctor's available slots
+  //Assigninng new array value to doctor.availableTimeSlots
+  // doctor.availableTimeSlots = doctor.availableTimeSlots.filter((slot) => {
+  //   console.log('Slot', slot.startTime, 'formattedDate', formattedDate);
+  //   return slot.startTime.toISOString() !== formattedDate;
+  // });
+  const bookedAppointment = await Appointment.create({
+    doctorId: doctorID,
+    patientId: patient._id,
+    doctorName: doctor.name,
+    patientName: patient.name,
+    startTime: formattedDate,
+  });
+  await doctor.save();
+  await bookedAppointment.save();
+  if (bookedAppointment) {
+    res.status(201).json({
+      message: 'Success',
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid data');
+  }
 });
 
 export { authUser, getPatientProfile, registerUser, bookAppointment };

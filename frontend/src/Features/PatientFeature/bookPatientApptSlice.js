@@ -4,7 +4,6 @@ import axios from 'axios';
 export const bookPatient = createAsyncThunk(
   'bookPatient',
   async ({ startTime, date, doctorID }, thunkAPI) => {
-    console.log(startTime, date, doctorID);
     const {
       patientLogin: { patientInfo },
     } = thunkAPI.getState();
@@ -19,7 +18,6 @@ export const bookPatient = createAsyncThunk(
         { startTime, date, doctorID },
         config
       );
-      console.log(data);
       return data;
     } catch (error) {
       const newError =
@@ -33,7 +31,9 @@ export const bookPatient = createAsyncThunk(
 );
 
 const initialState = {
-  success: false,
+  data: {
+    success: false,
+  },
 };
 
 const bookPatientApptSlice = createSlice({
@@ -50,10 +50,10 @@ const bookPatientApptSlice = createSlice({
         loading: true,
       };
     },
-    [bookPatient.fulfilled]: () => {
+    [bookPatient.fulfilled]: (state, action) => {
       return {
         loading: false,
-        success: true,
+        data: action.payload,
       };
     },
     [bookPatient.rejected]: (state, action) => {

@@ -53,14 +53,13 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   const finalRef = React.useRef(null);
   const [startDate, setStartDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState('');
-  const { loading, success, error } = useSelector(store => store.patientAppt);
-  console.log(success);
+  const { loading, data, error } = useSelector(store => store.patientAppt);
   useEffect(() => {
-    if (success) {
+    //checking if data is not null or undefined and also checking data.success is true
+    if (data && data.success) {
       navigate(`/payment/${doctorID}`);
     }
-    dispatch(BOOK_PATIENT_RESET);
-  });
+  }, [data, dispatch, doctorID, navigate]);
   const today = new Date();
   const day = today.getDate();
   const month = today.getMonth() + 1;

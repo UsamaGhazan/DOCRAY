@@ -104,13 +104,6 @@ const bookAppointment = asyncHandler(async (req, res) => {
     throw new Error('Doctor doesnot exists');
   }
 
-  //Will use this in payment
-  //Removing the appointed slot from doctor's available slots
-  //Assigninng new array value to doctor.availableTimeSlots
-  // doctor.availableTimeSlots = doctor.availableTimeSlots.filter((slot) => {
-  //   console.log('Slot', slot.startTime, 'formattedDate', formattedDate);
-  //   return slot.startTime.toISOString() !== formattedDate;
-  // });
   const bookedAppointment = await Appointment.create({
     doctorId: doctorID,
     patientId: patient._id,
@@ -121,8 +114,10 @@ const bookAppointment = asyncHandler(async (req, res) => {
   await doctor.save();
   await bookedAppointment.save();
   if (bookedAppointment) {
+    //Sending startTime to use in PaymentScreen
     res.status(201).json({
-      message: 'Success',
+      success: true,
+      startTime: formattedDate,
     });
   } else {
     res.status(400);

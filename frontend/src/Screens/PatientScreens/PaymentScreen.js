@@ -3,8 +3,8 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Stripe from 'react-stripe-checkout';
 import axios from 'axios';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { BOOK_PATIENT_RESET } from '../../Features/PatientFeature/bookPatientApptSlice';
+import { getDoctorDetails } from '../../Features/DoctorFeature/doctorDetailSlice';
 
 import {
   Button,
@@ -20,7 +20,6 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
-import { getDoctorDetails } from '../../Features/DoctorFeature/doctorDetailSlice';
 
 const PaymentScreen = () => {
   const navigate = useNavigate();
@@ -28,7 +27,14 @@ const PaymentScreen = () => {
   const params = useParams();
   const doctorId = params.id;
   const { doctor, loading, error } = useSelector(store => store.doctorDetails);
-
+  const { patientInfo } = useSelector(store => store.patientLogin);
+  const { data, setData } = useState('');
+  const {
+    loading: patientLoading,
+    data: successData,
+    error: patientError,
+  } = useSelector(store => store.patientAppt);
+  console.log(successData);
   useEffect(() => {
     dispatch(getDoctorDetails(doctorId));
   }, [doctorId, dispatch]);
@@ -36,7 +42,7 @@ const PaymentScreen = () => {
   const handleToken = async (totalAmount, token) => {
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${patientInfo.token}`,
       },
     };
     try {
@@ -47,11 +53,13 @@ const PaymentScreen = () => {
             email: token.email,
             source: token.id,
           },
-          amount: totalAmount,
+          amount: Math.round(totalAmount),
+          doctorId,
+          formattedDate: successData.startTime,
         },
         config
       );
-      console.log(data);
+      return data;
       // Payment successful, navigate to the success page or perform any other actions
       // navigate('/success');
     } catch (error) {

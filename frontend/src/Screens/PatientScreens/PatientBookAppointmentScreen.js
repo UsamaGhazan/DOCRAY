@@ -5,8 +5,7 @@ import { getDoctorDetails } from '../../Features/DoctorFeature/doctorDetailSlice
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import { Box, Text, Avatar, Spinner, Flex, Icon } from '@chakra-ui/react';
 import DateBox from '../../Components/DatesBox';
-
-const BookAppointmentScreen = () => {
+const PatientBookAppointmentScreen = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const doctorId = params.id;
@@ -74,4 +73,4 @@ const BookAppointmentScreen = () => {
   );
 };
 
-export default BookAppointmentScreen;
+export default PatientBookAppointmentScreen;

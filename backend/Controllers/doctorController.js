@@ -17,6 +17,7 @@ const getSingleDoctor = asyncHandler(async (req, res) => {
 });
 
 const createDoctorReview = asyncHandler(async (req, res) => {
+  console.log(req, res);
   const { rating, comment } = req.body;
   const doctor = await Doctor.findById(req.params.id);
   //We are sending token from frontend and from that token we are identifying req.user who created the review

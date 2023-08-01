@@ -74,6 +74,7 @@ const getPatientProfile = asyncHandler(async (req, res) => {
 const bookAppointment = asyncHandler(async (req, res) => {
   const { email } = req.user;
   const { startTime, date, doctorID } = req.body;
+
   // Separating the date components
   const [month, day, year] = date.split('/');
 
@@ -102,7 +103,7 @@ const bookAppointment = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error('Doctor doesnot exists');
   }
-  console.log('Before removing ', doctor.availableTimeSlots);
+
   //Will use this in payment
   //Removing the appointed slot from doctor's available slots
   //Assigninng new array value to doctor.availableTimeSlots

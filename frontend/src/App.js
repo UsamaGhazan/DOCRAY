@@ -23,7 +23,7 @@ import Navbar from './Components/Navbar';
 import ContactUsScreen from './Screens/ContactUsScreen';
 import PneumoniaDocScreen from './Screens/DoctorScreens/PneumoniaDocScreen';
 import TbDocScreen from './Screens/DoctorScreens/TbDocScreen';
-import BookAppointmentScreen from './Screens/PatientScreens/BookAppointmentScreen';
+import PatientBookAppointmentScreen from './Screens/PatientScreens/PatientBookAppointmentScreen';
 function App() {
   return (
     <BrowserRouter>
@@ -39,7 +39,7 @@ function App() {
           <Route path="/doctors/:id" element={<DoctorDetailScreen />} />={' '}
           <Route
             path="/doctors/bookAppointment/:id"
-            element={<BookAppointmentScreen />}
+            element={<PatientBookAppointmentScreen />}
           />
           = <Route path="/login" element={<PatientLoginScreen />} />={' '}
           <Route path="/register" element={<PatientRegisterScreen />} />={' '}

@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import { FaSun } from 'react-icons/fa';
+import { bookPatient } from '../Features/PatientFeature/bookPatientApptSlice';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { BOOK_PATIENT_RESET } from '../Features/PatientFeature/bookPatientApptSlice';
 import {
   IconButton,
   Text,
@@ -43,10 +47,20 @@ const formatTime = date => {
 };
 
 const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
   const [startDate, setStartDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState('');
+  const { loading, success, error } = useSelector(store => store.patientAppt);
+  console.log(success);
+  useEffect(() => {
+    if (success) {
+      navigate(`/payment/${doctorID}`);
+    }
+    dispatch(BOOK_PATIENT_RESET);
+  });
   const today = new Date();
   const day = today.getDate();
   const month = today.getMonth() + 1;
@@ -88,11 +102,14 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   };
 
   const continueBooking = () => {
-    console.log(selectedDate);
-    console.log(selectedTime);
-    console.log(doctorID);
+    dispatch(
+      bookPatient({
+        startTime: selectedTime,
+        date: selectedDate,
+        doctorID: doctorID,
+      })
+    );
   };
-
   return (
     <Box
       width="742px"
@@ -270,7 +287,6 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
       <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalCloseButton />
           <ModalBody>
             <VStack alignItems="start">
               <Box width={450} bg="brand.60" marginRight="40px" mt={1}>

@@ -66,7 +66,7 @@ const DoctorDetailScreen = () => {
       <VStack align="flex-start">
         {loading ? (
           <div className="spinner-container">
-            <Spinner size="xl" />
+            <Spinner size="xl" mt="100px" ml="50px" />
           </div>
         ) : (
           <>
@@ -167,8 +167,8 @@ const DoctorDetailScreen = () => {
 
                   {/* Book Video Consultation Button */}
                   <Button
-                    as={RouterLink}
-                    to="/register"
+                    as={Link}
+                    to={`/doctors/bookAppointment/${doctor._id}`}
                     size="lg"
                     width="100%"
                     mt="20px"

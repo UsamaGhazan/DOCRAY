@@ -28,7 +28,6 @@ const PaymentScreen = () => {
   const doctorId = params.id;
   const { doctor, loading, error } = useSelector(store => store.doctorDetails);
   const { patientInfo } = useSelector(store => store.patientLogin);
-  const { data, setData } = useState('');
   const {
     loading: patientLoading,
     data: successData,
@@ -70,8 +69,6 @@ const PaymentScreen = () => {
         navigate('/appointmentSuccess');
       }
       return data;
-      // Payment successful, navigate to the success page or perform any other actions
-      // navigate('/success');
     } catch (error) {
       console.log(error.response.data);
     }
@@ -120,10 +117,22 @@ const PaymentScreen = () => {
               <strong>Charges:</strong> ${doctor?.charges}
             </Text>
           </Box>
-          <Stripe
-            stripeKey="pk_test_51NBUB0SH4AJANTU5XiEHxXYpURC9qeSUkPWDuHFJ8gwlwIf3XOKcmBsDMOhh7NwTz3uhtrFZezpCLkzj8ByLBbCf00Mmu9i13b"
-            token={tokenHandler}
-          />
+          <Box display="flex" justifyContent="center">
+            <Stripe
+              stripeKey="pk_test_51NBUB0SH4AJANTU5XiEHxXYpURC9qeSUkPWDuHFJ8gwlwIf3XOKcmBsDMOhh7NwTz3uhtrFZezpCLkzj8ByLBbCf00Mmu9i13b"
+              token={tokenHandler}
+            >
+              <Button
+                bg="#000066"
+                size="lg"
+                colorScheme="blue"
+                _hover={{ bg: '#000033' }}
+                _active={{ bg: '#000033' }}
+              >
+                Pay Now
+              </Button>
+            </Stripe>
+          </Box>
         </>
       )}
     </Box>

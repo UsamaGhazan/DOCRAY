@@ -69,16 +69,19 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   const [selectedDate, setSelectedDate] = useState(formattedDate);
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
-    nextStartDate.setDate(startDate.getDate() + 4);
+    nextStartDate.setDate(startDate.getDate() + 1);
     setStartDate(nextStartDate);
-    setSelectedDate(null);
+    setSelectedDate(nextStartDate);
+    console.log(nextStartDate);
   };
 
   const handlePrevDates = () => {
     const prevStartDate = new Date(startDate);
-    prevStartDate.setDate(startDate.getDate() - 4);
+    console.log(startDate);
+    prevStartDate.setDate(startDate.getDate() - 1);
     setStartDate(prevStartDate);
-    setSelectedDate(null);
+    setSelectedDate(prevStartDate);
+    console.log(prevStartDate);
   };
 
   const handleDateClick = date => {

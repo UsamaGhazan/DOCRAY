@@ -102,6 +102,8 @@ const HomeScreen = () => {
                     lineHeight="1.5"
                     borderRadius="4px"
                     className="purplebtn"
+                    _hover={{ bg: '#000033' }}
+                    _active={{ bg: '#000033' }}
                   >
                     Test Now {'>'}
                   </Button>
@@ -138,6 +140,8 @@ const HomeScreen = () => {
                     lineHeight="1.5"
                     borderRadius="4px"
                     className="goldbtn"
+                    _hover={{ bg: '#faa63a' }}
+                    _active={{ bg: '#faa63a' }}
                   >
                     Book Appointment
                   </Button>
@@ -177,6 +181,8 @@ const HomeScreen = () => {
                     lineHeight="1.5"
                     borderRadius="4px"
                     className="purplebtn"
+                    _hover={{ bg: '#000033' }}
+                    _active={{ bg: '#000033' }}
                   >
                     Test Now {'>'}
                   </Button>

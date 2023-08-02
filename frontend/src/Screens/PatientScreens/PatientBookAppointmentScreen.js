@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDoctorDetails } from '../../Features/DoctorFeature/doctorDetailSlice';
-import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import { Box, Text, Avatar, Spinner, Flex, Icon } from '@chakra-ui/react';
-import DateBox from '../../Components/DatesBox';
+import DateBox from '../../Components/Patient Components/DatesBox';
 const PatientBookAppointmentScreen = () => {
   const params = useParams();
   const dispatch = useDispatch();

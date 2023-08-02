@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import DoctorModal from '../Components/DoctorModal';
+import DoctorModal from '../Components/Doctor Components/DoctorModal';
+import SearchDoctor from '../Components/Doctor Components/SearchDoctor';
 import {
   HStack,
   Heading,
@@ -13,7 +14,6 @@ import {
   Card,
   Center,
 } from '@chakra-ui/react';
-import SearchDoctor from '../Components/SearchDoctor';
 const HomeScreen = () => {
   const [text, setText] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);

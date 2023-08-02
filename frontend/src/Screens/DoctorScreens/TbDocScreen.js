@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import DoctorCard from '../../Components/DoctorCard.js';
+import DoctorCard from '../../Components/Doctor Components/DoctorCard.js';
 import {
   Card,
   CardHeader,

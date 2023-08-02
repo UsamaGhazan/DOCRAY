@@ -13,6 +13,7 @@ import ContactUsScreen from './Screens/ContactUsScreen';
 import PneumoniaDocScreen from './Screens/DoctorScreens/PneumoniaDocScreen';
 import TbDocScreen from './Screens/DoctorScreens/TbDocScreen';
 import PatientBookAppointmentScreen from './Screens/PatientScreens/PatientBookAppointmentScreen';
+import DoctorRegisterScreen from './Screens/DoctorScreens/DoctorRegisterScreen';
 function App() {
   return (
     <BrowserRouter>
@@ -30,8 +31,9 @@ function App() {
             path="/doctors/bookAppointment/:id"
             element={<PatientBookAppointmentScreen />}
           />
-          = <Route path="/login" element={<PatientLoginScreen />} />={' '}
+          <Route path="/login" element={<PatientLoginScreen />} />={' '}
           <Route path="/register" element={<PatientRegisterScreen />} />={' '}
+          <Route path="/docRegister" element={<PatientRegisterScreen />} />={' '}
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
         </Routes>
       </main>

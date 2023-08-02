@@ -1,21 +1,13 @@
 import React from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AiOutlineVideoCamera, AiOutlinePercentage } from 'react-icons/ai';
 import {
   Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
   Box,
   HStack,
   Avatar,
-  AvatarBadge,
-  AvatarGroup,
   VStack,
-  Heading,
   Text,
-  Spinner,
-  Image,
   Button,
 } from '@chakra-ui/react';
 

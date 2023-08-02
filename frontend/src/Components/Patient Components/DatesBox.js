@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import { FaSun } from 'react-icons/fa';
-import { bookPatient } from '../Features/PatientFeature/bookPatientApptSlice';
+import { bookPatient } from '../../Features/PatientFeature/bookPatientApptSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { BOOK_PATIENT_RESET } from '../Features/PatientFeature/bookPatientApptSlice';
+import { BOOK_PATIENT_RESET } from '../../Features/PatientFeature/bookPatientApptSlice';
 import {
   IconButton,
   Text,

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDoctorDetails } from '../../Features/DoctorFeature/doctorDetailSlice';
-import Rating from '../../Components/Rating';
+import Rating from '../../Components/Doctor Components/Rating';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {

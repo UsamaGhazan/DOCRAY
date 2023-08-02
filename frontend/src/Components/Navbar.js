@@ -2,6 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../Features/PatientFeature/loginPatientSlice';
+import { FaChevronDown } from 'react-icons/fa';
+import DoctorOptions from './Doctor Components/DoctorOptions';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -14,9 +17,6 @@ import {
   HStack,
   Link,
 } from '@chakra-ui/react';
-import { FaChevronDown } from 'react-icons/fa';
-import DoctorOptions from './DoctorOptions';
-import { Link as RouterLink } from 'react-router-dom';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -104,6 +104,8 @@ const Navbar = () => {
                 Login/SignUp
               </Button>
               <Button
+                as={RouterLink}
+                to="/docRegister"
                 variant="outline"
                 color="brand.50"
                 fontSize="14px"

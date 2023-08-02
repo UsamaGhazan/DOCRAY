@@ -26,6 +26,7 @@ import {
   VStack,
   Avatar,
   Heading,
+  Spinner,
 } from '@chakra-ui/react';
 
 const formatDate = date => {
@@ -315,15 +316,19 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
           </ModalBody>
 
           <ModalFooter alignItems={'center'} justifyContent={'center'}>
-            <Button
-              bg="brand.60"
-              color={'white'}
-              mr={3}
-              onClick={() => continueBooking()}
-              mt={50}
-            >
-              Continue
-            </Button>
+            {loading ? (
+              <Spinner size="md" mt={50} />
+            ) : (
+              <Button
+                bg="brand.60"
+                color={'white'}
+                mr={3}
+                onClick={() => continueBooking()}
+                mt={50}
+              >
+                Continue
+              </Button>
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>

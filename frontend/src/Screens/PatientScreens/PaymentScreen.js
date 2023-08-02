@@ -38,7 +38,12 @@ const PaymentScreen = () => {
   useEffect(() => {
     dispatch(getDoctorDetails(doctorId));
   }, [doctorId, dispatch]);
-
+  //If user leaves the Paymentscreen without payment
+  useEffect(() => {
+    return () => {
+      dispatch(BOOK_PATIENT_RESET());
+    };
+  }, [dispatch]);
   const handleToken = async (totalAmount, token) => {
     const config = {
       headers: {

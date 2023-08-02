@@ -59,6 +59,11 @@ const PaymentScreen = () => {
         },
         config
       );
+      console.log(data);
+      if (data.last_payment_error === null) {
+        dispatch(BOOK_PATIENT_RESET());
+        navigate('/appointmentSuccess');
+      }
       return data;
       // Payment successful, navigate to the success page or perform any other actions
       // navigate('/success');

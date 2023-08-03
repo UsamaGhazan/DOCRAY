@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import asynHandler from 'express-async-handler';
 import Patient from '../Models/patientModel.js';
+import Doctor from '../Models/doctorModel.js';
 
 const protect = asynHandler(async (req, res, next) => {
   let token;
@@ -12,8 +13,14 @@ const protect = asynHandler(async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
       const verify = jwt.verify(token, process.env.JWT_SECRET);
       console.log(verify);
-      //Identifying user after getting the token from frontend and verifying it
-      req.user = await Patient.findById(verify.id).select('-password');
+      const patient = await Patient.findById(verify.id).select('-password');
+      const doctor = await Doctor.findById(verify.id).select('-password');
+      if (patient) {
+        req.user = patient;
+      }
+      if (doctor) {
+        req.user = doctor;
+      }
       next();
     } catch (error) {
       res.status(401);

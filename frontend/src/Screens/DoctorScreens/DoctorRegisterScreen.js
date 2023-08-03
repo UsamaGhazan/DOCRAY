@@ -23,14 +23,13 @@ const DoctorRegisterScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [gender, setGender] = useState('Male');
-  const [dob, setDob] = useState('');
   const [specialization, setSpecialization] = useState('');
   const [degree, setDegree] = useState('');
   const [charges, setCharges] = useState('');
   const [category, setCategory] = useState('');
   const [experience, setExperience] = useState('');
   const [areaname, setAreaName] = useState('');
-  const [clinicName, setClinicName] = useState('');
+  const [clinicname, setClinicname] = useState('');
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -52,7 +51,7 @@ const DoctorRegisterScreen = () => {
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
     } else {
-      dispatch(register({ name, email, password, gender, dob }));
+      dispatch(register({ name, email, password, gender }));
     }
   };
 
@@ -124,8 +123,8 @@ const DoctorRegisterScreen = () => {
           <Input
             maxLength="59"
             type="text"
-            value={clinicName}
-            onChange={e => setClinicName(e.target.value)}
+            value={clinicname}
+            onChange={e => setClinicname(e.target.value)}
             placeholder="Enter your Clinic name"
           />
         </FormControl>
@@ -190,16 +189,6 @@ const DoctorRegisterScreen = () => {
         </FormControl>
       </Box>
 
-      <Box w="48%" mb="20px">
-        <FormControl>
-          <FormLabel>Date Of Birth</FormLabel>
-          <Input
-            type="Date"
-            value={dob}
-            onChange={e => setDob(e.target.value)}
-          />
-        </FormControl>
-      </Box>
       <Box w="48%" mb="20px">
         <FormControl>
           <FormLabel>Password:</FormLabel>

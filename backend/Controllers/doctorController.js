@@ -16,6 +16,59 @@ const getSingleDoctor = asyncHandler(async (req, res) => {
   }
 });
 
+const registerDoctor = asyncHandler(async (req, res) => {
+  const {
+    name,
+    email,
+    password,
+    gender,
+    specialization,
+    degree,
+    charges,
+    category,
+    experience,
+    areaname,
+    clinicname,
+  } = req.body;
+
+  const doctorExists = await Doctor.findOne({ email });
+  if (doctorExists) {
+    res.status(400);
+    throw new Error('Doctor already registered');
+  }
+
+  const doctor = await Doctor.create({
+    name,
+    email,
+    password,
+    gender,
+    specialization,
+    degree,
+    charges,
+    category,
+    experience,
+    areaname,
+    clinicname,
+    // Will change later
+    image: '/images/doctor5.jpg',
+  });
+  if (doctor) {
+    res.status(201).json({
+      _id: doctor._id,
+      name: doctor.name,
+      gender: doctor.gender,
+      specialization: doctor.specialization,
+      degree: doctor.specialization,
+      charges: doctor.charges,
+      category: doctor.category,
+      experience: doctor.experience,
+      areaname: doctor.areaname,
+      clinicName: doctor.clinicname,
+      image: doctor.image,
+    });
+  }
+});
+
 const createDoctorReview = asyncHandler(async (req, res) => {
   console.log(req, res);
   const { rating, comment } = req.body;
@@ -53,4 +106,4 @@ const createDoctorReview = asyncHandler(async (req, res) => {
   }
 });
 
-export { getAllDoctors, getSingleDoctor, createDoctorReview };
+export { getAllDoctors, getSingleDoctor, createDoctorReview, registerDoctor };

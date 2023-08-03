@@ -11,6 +11,7 @@ const protect = asynHandler(async (req, res, next) => {
     try {
       token = req.headers.authorization.split(' ')[1];
       const verify = jwt.verify(token, process.env.JWT_SECRET);
+      console.log(verify);
       //Identifying user after getting the token from frontend and verifying it
       req.user = await Patient.findById(verify.id).select('-password');
       next();

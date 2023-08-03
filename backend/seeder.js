@@ -5,6 +5,7 @@ import patients from './data/patients.js';
 import Patient from './Models/patientModel.js';
 import Doctor from './models/doctorModel.js';
 import connectDb from './config/db.js';
+import Appointment from './Models/appointmentModel.js';
 dotenv.config();
 connectDb();
 
@@ -33,7 +34,6 @@ const importData = async () => {
         await Patient.create(patient);
       }
     }
-
     console.log('Data imported!');
     process.exit();
   } catch (error) {
@@ -46,6 +46,7 @@ const destroyData = async () => {
   try {
     await Doctor.deleteMany();
     await Patient.deleteMany();
+    await Appointment.deleteMany();
 
     console.log('Data Destroyed!');
     process.exit();

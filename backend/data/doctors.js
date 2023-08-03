@@ -17,7 +17,7 @@ const doctors = [
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
     unsatisfied: 2,
     experience: 10,
-    gender: 'male',
+    gender: 'Male',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
     reviews: {
@@ -44,7 +44,7 @@ const doctors = [
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
-    gender: 'male',
+    gender: 'Male',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
     availableTimeSlots: [
@@ -72,7 +72,7 @@ const doctors = [
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
-    gender: 'male',
+    gender: 'Male',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
     availableTimeSlots: [
@@ -158,7 +158,7 @@ const doctors = [
     unsatisfied: 2,
     experience: 10,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
-    gender: 'female',
+    gender: 'Female',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
     reviews: {
@@ -190,7 +190,7 @@ const doctors = [
     experience: 10,
     unsatisfied: 2,
     degree: 'M.B.B.S., F.C.P.S. (Dermatology)',
-    gender: 'female',
+    gender: 'Female',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
     availableTimeSlots: [

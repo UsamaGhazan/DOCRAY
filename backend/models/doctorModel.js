@@ -43,7 +43,6 @@ const doctorSchema = mongoose.Schema(
     },
     image: {
       type: String,
-      required: true,
     },
     specialization: {
       type: String,

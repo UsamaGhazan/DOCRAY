@@ -84,6 +84,8 @@ const doctorSchema = mongoose.Schema(
     },
     gender: {
       type: String,
+      enum: ['Male', 'Female', 'Other'],
+
       required: true,
     },
     experience: { type: Number, required: true },
@@ -101,7 +103,6 @@ const doctorSchema = mongoose.Schema(
     },
     availableTimeSlots: {
       type: [timeSlotSchema],
-      required: true,
     },
   },
   {

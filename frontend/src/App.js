@@ -33,7 +33,7 @@ function App() {
           />
           <Route path="/login" element={<PatientLoginScreen />} />={' '}
           <Route path="/register" element={<PatientRegisterScreen />} />={' '}
-          <Route path="/docRegister" element={<PatientRegisterScreen />} />={' '}
+          <Route path="/docRegister" element={<DoctorRegisterScreen />} />={' '}
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
         </Routes>
       </main>

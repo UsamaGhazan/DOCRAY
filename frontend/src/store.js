@@ -17,9 +17,9 @@ const initialState = {
   patientLogin: {
     patientInfo: patientInfoFromStorage,
   },
-  doctorLogin: {
-    doctorInfo: doctorInfoFromStorage,
-  },
+  // doctorLogin: {
+  //   doctorInfo: doctorInfoFromStorage,
+  // },
 };
 
 export const store = configureStore({

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { register } from '../../Features/PatientFeature/registerPatientSlice';
+import { registerDoc } from '../../Features/DoctorFeature/registerDoctorSlice';
 import {
   Box,
   Heading,
@@ -26,7 +26,7 @@ const DoctorRegisterScreen = () => {
   const [specialization, setSpecialization] = useState('');
   const [degree, setDegree] = useState('');
   const [charges, setCharges] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('Tuberculosis');
   const [experience, setExperience] = useState('');
   const [areaname, setAreaName] = useState('');
   const [clinicname, setClinicname] = useState('');
@@ -40,18 +40,32 @@ const DoctorRegisterScreen = () => {
   const genderOptions = ['Male', 'Female', 'Other'];
   const categories = ['Tuberculosis', 'Pneumonia'];
 
-  useEffect(() => {
-    if (patientInfo) {
-      navigate(redirect);
-    }
-  }, [patientInfo, navigate, redirect]);
+  // useEffect(() => {
+  //   if (patientInfo) {
+  //     navigate(redirect);
+  //   }
+  // }, [patientInfo, navigate, redirect]);
 
   const handleRegister = e => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
     } else {
-      dispatch(register({ name, email, password, gender }));
+      dispatch(
+        registerDoc({
+          name,
+          email,
+          password,
+          gender,
+          specialization,
+          degree,
+          charges,
+          category,
+          experience,
+          areaname,
+          clinicname,
+        })
+      );
     }
   };
 

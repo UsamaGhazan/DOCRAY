@@ -9,7 +9,6 @@ export const registerDoc = createAsyncThunk(
       email,
       password,
       gender,
-      dob,
       specialization,
       degree,
       charges,
@@ -21,9 +20,9 @@ export const registerDoc = createAsyncThunk(
     thunkAPI
   ) => {
     try {
+      console.log(category);
       const config = {
         headers: {
-          // 'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',
         },
       };
@@ -47,7 +46,7 @@ export const registerDoc = createAsyncThunk(
       //loggingin user as he is registered
       //   thunkAPI.dispatch(login({ email, password }));
       // Setting User data to local storage which we are getting from backend
-      localStorage.setItem('doctorInfo', JSON.stringify(data));
+      // localStorage.setItem('doctorInfo', JSON.stringify(data));
       return data;
     } catch (error) {
       const newError =

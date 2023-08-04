@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import bcrypt from 'bcryptjs';
 const reviewSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -115,7 +115,7 @@ doctorSchema.methods.matchPassword = async function (enteredPassword) {
 
 doctorSchema.pre('save', async function (next) {
   //Run this only of password field is set for the first time or modified
-  if (!this.modified('password')) {
+  if (!this.isModified('password')) {
     next();
   }
   const salt = await bcrypt.genSalt(10);

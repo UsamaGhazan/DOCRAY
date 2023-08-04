@@ -32,6 +32,7 @@ const authDoctor = asyncHandler(async (req, res) => {
   }
 });
 const registerDoctor = asyncHandler(async (req, res) => {
+  console.log('registerDoctor');
   const {
     name,
     email,
@@ -45,7 +46,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
     areaname,
     clinicname,
   } = req.body;
-
+  console.log('category: ', category);
   const doctorExists = await Doctor.findOne({ email });
   if (doctorExists) {
     res.status(400);

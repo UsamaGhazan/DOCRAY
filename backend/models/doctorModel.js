@@ -109,6 +109,18 @@ const doctorSchema = mongoose.Schema(
   }
 );
 
+doctorSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+doctorSchema.pre('save', async function (next) {
+  //Run this only of password field is set for the first time or modified
+  if (!this.modified('password')) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 const Doctor = mongoose.model('Doctor', doctorSchema);
 
 export default Doctor;

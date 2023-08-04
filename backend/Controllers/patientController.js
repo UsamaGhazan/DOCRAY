@@ -3,7 +3,6 @@ import Patient from '../Models/patientModel.js';
 import Appointment from '../Models/appointmentModel.js';
 import Doctor from '../Models/doctorModel.js';
 import generateToken from '../utils/generateToken.js';
-import moment from 'moment-timezone';
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;

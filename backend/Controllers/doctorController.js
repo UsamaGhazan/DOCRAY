@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Doctor from '../Models/doctorModel.js';
+import generateToken from '../utils/generateToken.js';
 
 const getAllDoctors = asyncHandler(async (req, res) => {
   const doctors = await Doctor.find({});
@@ -15,7 +16,21 @@ const getSingleDoctor = asyncHandler(async (req, res) => {
     throw new Error('Doctor not found');
   }
 });
-
+const authDoctor = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  const doctor = await Doctor.findOne({ email });
+  if (doctor && (await doctor.matchPassword(password))) {
+    res.json({
+      _id: doctor._id,
+      name: doctor.name,
+      email: doctor.email,
+      token: generateToken(doctor._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error('Invalid email or password');
+  }
+});
 const registerDoctor = asyncHandler(async (req, res) => {
   const {
     name,

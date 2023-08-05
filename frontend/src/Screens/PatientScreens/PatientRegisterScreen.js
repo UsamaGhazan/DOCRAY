@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Link as RouterLink } from 'react-router-dom';
 import { register } from '../../Features/PatientFeature/registerPatientSlice';
 import {
   Box,
@@ -30,8 +30,8 @@ const PatientRegisterScreen = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const redirect = location.search ? location.search.split('=')[1] : '/';
-  const patientRegister = useSelector(store => store.patientRegister);
-  const { loading, error, patientInfo } = patientRegister;
+  const patientLogin = useSelector(store => store.patientLogin);
+  const { loading, error, patientInfo } = patientLogin;
   console.log(gender);
   const genderOptions = ['Male', 'Female', 'Other'];
 
@@ -130,7 +130,7 @@ const PatientRegisterScreen = () => {
       </Button>
       <Text textAlign="center">
         Already Signed Up?{' '}
-        <Link color="teal" href="/login">
+        <Link as={RouterLink} color="teal" to="/login">
           Login
         </Link>
       </Text>

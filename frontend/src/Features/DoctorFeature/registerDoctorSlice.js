@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import { login } from './loginPatientSlice';
+import { loginDoc } from './doctorLoginSlice';
 export const registerDoc = createAsyncThunk(
   'registerDoctor',
   async (
@@ -43,10 +43,10 @@ export const registerDoc = createAsyncThunk(
         },
         config
       );
-      //loggingin user as he is registered
-      //   thunkAPI.dispatch(login({ email, password }));
+      // loggingin user as he is registered
+      thunkAPI.dispatch(loginDoc({ email, password }));
       // Setting User data to local storage which we are getting from backend
-      // localStorage.setItem('doctorInfo', JSON.stringify(data));
+      localStorage.setItem('doctorInfo', JSON.stringify(data));
       return data;
     } catch (error) {
       const newError =

@@ -17,11 +17,9 @@ const doctorInfoFromStorage = localStorage.getItem('doctorInfo')
 const initialState = {
   patientLogin: {
     patientInfo: patientInfoFromStorage,
-    userType: 'patient',
   },
   doctorLogin: {
     doctorInfo: doctorInfoFromStorage,
-    userType: 'doctor',
   },
 };
 

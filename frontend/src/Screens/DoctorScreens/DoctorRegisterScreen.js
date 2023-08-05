@@ -35,17 +35,17 @@ const DoctorRegisterScreen = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const redirect = location.search ? location.search.split('=')[1] : '/';
-  const patientRegister = useSelector(store => store.patientRegister);
-  const { loading, error, patientInfo } = patientRegister;
+  const doctorLogin = useSelector(store => store.doctorLogin);
+  const { loading, error, doctorInfo } = doctorLogin;
+  console.log(doctorInfo);
   const genderOptions = ['Male', 'Female', 'Other'];
   const categories = ['Tuberculosis', 'Pneumonia'];
 
-  // useEffect(() => {
-  //   if (patientInfo) {
-  //     navigate(redirect);
-  //   }
-  // }, [patientInfo, navigate, redirect]);
-
+  useEffect(() => {
+    if (doctorInfo) {
+      navigate(redirect);
+    }
+  }, [doctorInfo, navigate, redirect]);
   const handleRegister = e => {
     e.preventDefault();
     if (password !== confirmPassword) {

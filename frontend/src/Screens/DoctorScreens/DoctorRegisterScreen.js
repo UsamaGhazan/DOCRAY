@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Link as RouterLink } from 'react-router-dom';
 import { registerDoc } from '../../Features/DoctorFeature/registerDoctorSlice';
 import {
   Box,
@@ -236,7 +236,7 @@ const DoctorRegisterScreen = () => {
       </Button>
       <Text textAlign="center" width="100%">
         Already Signed Up?{' '}
-        <Link color="teal" href="/login">
+        <Link as={RouterLink} color="teal" to="/docLogin">
           Login
         </Link>
       </Text>

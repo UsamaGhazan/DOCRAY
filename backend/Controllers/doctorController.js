@@ -122,4 +122,10 @@ const createDoctorReview = asyncHandler(async (req, res) => {
   }
 });
 
-export { getAllDoctors, getSingleDoctor, createDoctorReview, registerDoctor };
+export {
+  getAllDoctors,
+  getSingleDoctor,
+  createDoctorReview,
+  registerDoctor,
+  authDoctor,
+};

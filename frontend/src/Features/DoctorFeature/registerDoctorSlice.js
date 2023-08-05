@@ -73,7 +73,7 @@ export const registerDoctorSlice = createSlice({
     [registerDoc.fulfilled]: (state, action) => {
       return {
         loading: false,
-        patientInfo: action.payload,
+        doctorInfo: action.payload,
       };
     },
 

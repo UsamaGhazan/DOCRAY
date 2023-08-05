@@ -6,6 +6,7 @@ import registerPatientReducer from './Features/PatientFeature/registerPatientSli
 import doctorReviewReducer from './Features/DoctorFeature/doctorReviewSlice';
 import bookPatientApptReducer from './Features/PatientFeature/bookPatientApptSlice';
 import registerDoctorReducer from './Features/DoctorFeature/registerDoctorSlice';
+import doctorLoginReducer from './Features/DoctorFeature/doctorLoginSlice';
 const patientInfoFromStorage = localStorage.getItem('patientInfo')
   ? JSON.parse(localStorage.getItem('patientInfo'))
   : null;
@@ -16,10 +17,12 @@ const doctorInfoFromStorage = localStorage.getItem('doctorInfo')
 const initialState = {
   patientLogin: {
     patientInfo: patientInfoFromStorage,
+    userType: 'patient',
   },
-  // doctorLogin: {
-  //   doctorInfo: doctorInfoFromStorage,
-  // },
+  doctorLogin: {
+    doctorInfo: doctorInfoFromStorage,
+    userType: 'doctor',
+  },
 };
 
 export const store = configureStore({
@@ -31,6 +34,7 @@ export const store = configureStore({
     doctorReview: doctorReviewReducer,
     patientAppt: bookPatientApptReducer,
     doctorRegister: registerDoctorReducer,
+    doctorLogin: doctorLoginReducer,
   },
   preloadedState: initialState,
 });

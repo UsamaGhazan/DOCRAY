@@ -5,6 +5,7 @@ import { logout } from '../Features/PatientFeature/loginPatientSlice';
 import { FaChevronDown } from 'react-icons/fa';
 import DoctorOptions from './Doctor Components/DoctorOptions';
 import { Link as RouterLink } from 'react-router-dom';
+import { logoutDoc } from '../Features/DoctorFeature/doctorLoginSlice';
 import {
   Box,
   Button,
@@ -23,10 +24,15 @@ const Navbar = () => {
   const navigate = useNavigate();
   //Getting patient data from backend
   const patientLogin = useSelector(store => store.patientLogin);
+  const { doctorInfo } = useSelector(store => store.doctorLogin);
   //patientInfo showing user is logged in
   const { patientInfo } = patientLogin;
   const logoutHandler = () => {
-    dispatch(logout());
+    if (patientInfo) {
+      dispatch(logout());
+    } else if (doctorInfo) {
+      dispatch(logoutDoc());
+    }
   };
 
   return (
@@ -83,6 +89,23 @@ const Navbar = () => {
               <Menu>
                 <MenuButton as={Box} p="2">
                   {patientInfo.name}
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>Profile</MenuItem>
+                  <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            </Box>
+          ) : doctorInfo ? (
+            <Box
+              ml="800px"
+              mt="16px"
+              border="2px solid #000066"
+              _hover={{ cursor: 'pointer' }}
+            >
+              <Menu>
+                <MenuButton as={Box} p="2">
+                  {doctorInfo.name}
                 </MenuButton>
                 <MenuList>
                   <MenuItem>Profile</MenuItem>

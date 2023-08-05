@@ -25,7 +25,7 @@ const DoctorLoginScreen = () => {
 
   useEffect(() => {
     if (doctorInfo && redirect === '/') {
-      navigate('/');
+      navigate('/dashboard');
     } else if (doctorInfo && redirect) {
       navigate(`/${redirect}`);
     }

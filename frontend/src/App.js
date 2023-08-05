@@ -1,6 +1,13 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+  useParams,
+  Link,
+} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import HomeScreen from './Screens/HomeScreen';
 import DoctorsListScreen from './Screens/DoctorScreens/DoctorsListScreen';
 import DoctorDetailScreen from './Screens/DoctorScreens/DoctorDetailScreen';
@@ -15,10 +22,13 @@ import TbDocScreen from './Screens/DoctorScreens/TbDocScreen';
 import PatientBookAppointmentScreen from './Screens/PatientScreens/PatientBookAppointmentScreen';
 import DoctorRegisterScreen from './Screens/DoctorScreens/DoctorRegisterScreen';
 import DoctorLoginScreen from './Screens/DoctorScreens/DoctorLoginScreen';
+import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
 function App() {
+  const { doctorInfo } = useSelector(store => store.doctorLogin);
+  console.log(doctorInfo);
   return (
     <BrowserRouter>
-      <Navbar />
+      {!doctorInfo && <Navbar />}
       <main>
         <Routes>
           <Route path="/" element={<HomeScreen />} />={' '}
@@ -37,6 +47,7 @@ function App() {
           <Route path="/docRegister" element={<DoctorRegisterScreen />} />={' '}
           <Route path="/docLogin" element={<DoctorLoginScreen />} />={' '}
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
+          <Route path="/Dashboard" element={<DashboardScreen />} />={' '}
         </Routes>
       </main>
     </BrowserRouter>

@@ -8,10 +8,16 @@ const PatientBookAppointmentScreen = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const doctorId = params.id;
+  const navigate = useNavigate();
   const { doctor, loading, error } = useSelector(store => store.doctorDetails);
+  const { patientInfo } = useSelector(store => store.patientLogin);
+  const { doctorInfo } = useSelector(store => store.doctorLogin);
   const [date, setDate] = useState('');
 
   useEffect(() => {
+    if (!patientInfo && !doctorInfo) {
+      navigate('/login');
+    }
     dispatch(getDoctorDetails(doctorId));
   }, [dispatch, doctorId]);
 

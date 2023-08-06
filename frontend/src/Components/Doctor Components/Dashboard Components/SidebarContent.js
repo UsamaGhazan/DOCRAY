@@ -6,21 +6,22 @@ import {
   CloseButton,
   Icon,
   useColorModeValue,
+  Image,
 } from '@chakra-ui/react';
 import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
   FiSettings,
+  FiBarChart2,
+  FiCalendar,
+  FiDollarSign,
+  FiMessageSquare,
 } from 'react-icons/fi';
 import NavItem from './NavItem';
 
 const LinkItems = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
+  { name: 'Overview', icon: FiBarChart2 },
+  { name: 'Appointments', icon: FiCalendar },
+  { name: 'Payments', icon: FiDollarSign },
+  { name: 'Feedback', icon: FiMessageSquare },
   { name: 'Settings', icon: FiSettings },
 ];
 
@@ -37,9 +38,15 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
+        <Box>
+          <Image
+            src={require('../../../images/logo.png')}
+            alt="logo"
+            width="150px"
+            maxW="100%"
+            mr={40}
+          />
+        </Box>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (

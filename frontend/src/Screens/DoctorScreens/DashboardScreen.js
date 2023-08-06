@@ -3,6 +3,7 @@ import { useDisclosure, Box } from '@chakra-ui/react';
 import SidebarContent from '../../Components/Doctor Components/Dashboard Components/SidebarContent';
 import MobileNav from '../../Components/Doctor Components/Dashboard Components/MobileNav';
 import DrawerComponent from '../../Components/Doctor Components/Dashboard Components/DrawerComponent';
+import { useSelector } from 'react-redux';
 const Dashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 

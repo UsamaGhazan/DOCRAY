@@ -37,11 +37,7 @@ const Navbar = () => {
 
   return (
     <>
-      <HStack
-        align="flex-start" // align items to the top
-        justify="flex-start"
-        paddingBottom="10px"
-      >
+      <HStack align="flex-start" justify="flex-start" paddingBottom="10px">
         <Box>
           <Image
             src={require('../images/logo.png')}

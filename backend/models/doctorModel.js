@@ -66,9 +66,7 @@ const doctorSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    isBooked: {
-      type: Boolean,
-    },
+
     category: {
       type: String,
       required: true,
@@ -102,6 +100,10 @@ const doctorSchema = mongoose.Schema(
     },
     availableTimeSlots: {
       type: [timeSlotSchema],
+    },
+    profileViews: {
+      type: Number,
+      default: 0,
     },
   },
   {

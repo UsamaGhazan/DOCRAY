@@ -12,6 +12,7 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  Image,
 } from '@chakra-ui/react';
 import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
@@ -47,19 +48,17 @@ const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
+      <Box>
+        <Image
+          src={require('../../../images/logo.png')}
+          alt="logo"
+          width="150px"
+          maxW="100%"
+          display={{ base: 'flex', md: 'none' }}
+        />
+      </Box>
       <HStack spacing={{ base: '0', md: '6' }} alignItems="center">
         <Flex alignItems="center">
-          <Box as="button" onClick={handleLogout}>
-            <FiBell />
-          </Box>
           <Menu>
             <MenuButton
               py={2}

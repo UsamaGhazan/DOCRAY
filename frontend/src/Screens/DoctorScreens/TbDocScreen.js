@@ -39,10 +39,10 @@ const TbDocScreen = () => {
         ) : (
           doctors
             .filter(doctor => {
-              return doctor.category === 'Tb';
+              return doctor.category === 'Tuberculosis';
             })
             .map(doctor => {
-              return <DoctorCard doctor={doctor} />;
+              return <DoctorCard doctor={doctor} key={doctor._id} />;
             })
         )}
       </div>

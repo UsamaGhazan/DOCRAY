@@ -43,7 +43,7 @@ const DoctorRegisterScreen = () => {
 
   useEffect(() => {
     if (doctorInfo) {
-      navigate(redirect);
+      navigate('/dashboard');
     }
   }, [doctorInfo, navigate, redirect]);
   const handleRegister = e => {

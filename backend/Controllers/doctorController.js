@@ -24,6 +24,19 @@ const authDoctor = asyncHandler(async (req, res) => {
       _id: doctor._id,
       name: doctor.name,
       email: doctor.email,
+      gender: doctor.gender,
+      specialization: doctor.specialization,
+      degree: doctor.specialization,
+      charges: doctor.charges,
+      category: doctor.category,
+      experience: doctor.experience,
+      areaname: doctor.areaname,
+      clinicName: doctor.clinicname,
+      image: doctor.image,
+      patientsChecked: doctor.patientsChecked,
+      satisfiedPatients: doctor.satisfied,
+      unsatisfiedPatients: doctor.unsatisfied,
+
       token: generateToken(doctor._id),
     });
   } else {
@@ -72,15 +85,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: doctor._id,
       name: doctor.name,
-      gender: doctor.gender,
-      specialization: doctor.specialization,
-      degree: doctor.specialization,
-      charges: doctor.charges,
-      category: doctor.category,
-      experience: doctor.experience,
-      areaname: doctor.areaname,
-      clinicName: doctor.clinicname,
-      image: doctor.image,
+      email: doctor.email,
     });
   }
 });
@@ -122,10 +127,25 @@ const createDoctorReview = asyncHandler(async (req, res) => {
   }
 });
 
+const profileViewCount = asyncHandler(async (req, res) => {
+  const { doctorId } = req.body;
+  const doctor = await Doctor.findById(doctorId);
+
+  if (doctor) {
+    doctor.profileViews += 1;
+    await doctor.save();
+    res.status(201).json({ message: 'Profile view added' });
+  } else {
+    res.status(404);
+    throw new Error('Doctor not found');
+  }
+});
+
 export {
   getAllDoctors,
   getSingleDoctor,
   createDoctorReview,
   registerDoctor,
   authDoctor,
+  profileViewCount,
 };

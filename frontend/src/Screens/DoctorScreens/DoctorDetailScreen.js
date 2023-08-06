@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDoctorDetails } from '../../Features/DoctorFeature/doctorDetailSlice';
 import Rating from '../../Components/Doctor Components/Rating';
 import { Link as RouterLink } from 'react-router-dom';
-
+import axios from 'axios';
 import {
   Card,
   CardHeader,
@@ -44,14 +44,31 @@ const DoctorDetailScreen = () => {
   const [comment, setComment] = useState('');
   const { doctor, loading, error } = useSelector(store => store.doctorDetails);
   const { patientInfo } = useSelector(store => store.patientLogin);
-  console.log(doctor);
   const { success: successDoctorReview, error: errorDoctorReview } =
     useSelector(store => store.doctorReview);
-
   const submitHandler = e => {
     e.preventDefault();
     dispatch(createDoctorReview({ doctorId, review: { rating, comment } }));
   };
+
+  useEffect(() => {
+    const profileViewCount = async () => {
+      try {
+        // Checking if doctor._id is not undefined or null
+        if (doctor?._id) {
+          const { data } = await axios.post('/api/doctors/profileViewCount', {
+            doctorId: doctor._id,
+          });
+        }
+      } catch (error) {
+        // Handle error
+        console.error(error);
+      }
+    };
+
+    profileViewCount();
+  }, []);
+
   useEffect(() => {
     if (successDoctorReview) {
       setRating(0);
@@ -167,7 +184,7 @@ const DoctorDetailScreen = () => {
 
                   {/* Book Video Consultation Button */}
                   <Button
-                    as={Link}
+                    as={RouterLink}
                     to={`/doctors/bookAppointment/${doctor._id}`}
                     size="lg"
                     width="100%"

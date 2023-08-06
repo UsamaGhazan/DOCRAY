@@ -1,2 +1,6 @@
 Profile Views
 Total Earningsd
+
+Test Results: Display recent test results and diagnostic reports for each patient, such as blood tests, X-rays, 
+and other imaging reports.
+

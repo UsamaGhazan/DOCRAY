@@ -25,7 +25,6 @@ import DoctorLoginScreen from './Screens/DoctorScreens/DoctorLoginScreen';
 import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
-  console.log(doctorInfo);
   return (
     <BrowserRouter>
       {!doctorInfo && <Navbar />}

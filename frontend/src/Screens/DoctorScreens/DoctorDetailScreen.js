@@ -80,6 +80,7 @@ const DoctorDetailScreen = () => {
 
   return (
     <section className="doctorDetailScreen ">
+      x
       <VStack align="flex-start">
         {loading ? (
           <div className="spinner-container">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Icon, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Heading, Icon, useColorModeValue } from '@chakra-ui/react';
 
 const NavItem = ({ icon, children, ...rest }) => {
   return (

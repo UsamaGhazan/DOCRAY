@@ -13,9 +13,10 @@ import {
   MenuItem,
   MenuDivider,
   Image,
+  Heading,
 } from '@chakra-ui/react';
 import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logoutDoc } from '../../../Features/DoctorFeature/doctorLoginSlice';
 import { useColorModeValue } from '@chakra-ui/react'; // Add this line
@@ -23,6 +24,9 @@ import { useColorModeValue } from '@chakra-ui/react'; // Add this line
 const MobileNav = ({ onOpen, ...rest }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, error, doctorInfo } = useSelector(
+    store => store.doctorLogin
+  );
 
   const handleLogout = () => {
     dispatch(logoutDoc());
@@ -41,6 +45,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}
     >
+      <Heading position={'absolute'} left={250} size="md">
+        Welcome back, Dr. {doctorInfo.name}
+      </Heading>
+
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}

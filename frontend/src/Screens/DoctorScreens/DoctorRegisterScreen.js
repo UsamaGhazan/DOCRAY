@@ -40,7 +40,7 @@ const DoctorRegisterScreen = () => {
   console.log(doctorInfo);
   const genderOptions = ['Male', 'Female', 'Other'];
   const categories = ['Tuberculosis', 'Pneumonia'];
-
+  console.log(name);
   useEffect(() => {
     if (doctorInfo) {
       navigate('/dashboard');

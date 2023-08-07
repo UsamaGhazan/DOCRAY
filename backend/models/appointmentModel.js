@@ -28,6 +28,9 @@ const appointmentSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  patientimage: {
+    type: String,
+  },
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);

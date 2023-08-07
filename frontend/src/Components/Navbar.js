@@ -5,7 +5,10 @@ import { logout } from '../Features/PatientFeature/loginPatientSlice';
 import { FaChevronDown } from 'react-icons/fa';
 import DoctorOptions from './Doctor Components/DoctorOptions';
 import { Link as RouterLink } from 'react-router-dom';
+
 import { logoutDoc } from '../Features/DoctorFeature/doctorLoginSlice';
+import { AiOutlineUser } from 'react-icons/ai';
+
 import {
   Box,
   Button,
@@ -84,7 +87,10 @@ const Navbar = () => {
             >
               <Menu>
                 <MenuButton as={Box} p="2">
-                  {patientInfo.name}
+                  <HStack>
+                    <Icon as={AiOutlineUser} />
+                    <Box>{patientInfo.name}</Box>
+                  </HStack>
                 </MenuButton>
                 <MenuList>
                   <MenuItem>Profile</MenuItem>

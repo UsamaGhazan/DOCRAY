@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../Features/PatientFeature/loginPatientSlice';
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   FormControl,
@@ -40,8 +42,6 @@ const PatientLoginScreen = () => {
 
   return (
     <Box display="flex" justifyContent="center" height="100vh" padding="2rem">
-      {loading && <Spinner />}
-
       <Box width="300px">
         <FormControl marginBottom="1rem">
           <FormLabel>Email</FormLabel>
@@ -65,8 +65,14 @@ const PatientLoginScreen = () => {
           marginBottom="1rem"
           width="100%"
         >
-          Login
+          {loading ? <Spinner /> : <Box>Login</Box>}
         </Button>
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            {error}{' '}
+          </Alert>
+        )}
       </Box>
     </Box>
   );

@@ -38,6 +38,8 @@ const registerUser = asyncHandler(async (req, res) => {
     gender,
     contactNumber: contact,
     dateOfBirth: dob,
+    //will change later
+    image: '/images/patient1.jpg',
   });
 
   // logging in the user right after registration
@@ -108,6 +110,7 @@ const bookAppointment = asyncHandler(async (req, res) => {
     doctorName: doctor.name,
     patientName: patient.name,
     startTime: formattedDate,
+    patientimage: patient.image,
   });
   await doctor.save();
   await bookedAppointment.save();

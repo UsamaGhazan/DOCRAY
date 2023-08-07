@@ -32,7 +32,6 @@ const PatientRegisterScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const patientLogin = useSelector(store => store.patientLogin);
   const { loading, error, patientInfo } = patientLogin;
-  console.log(gender);
   const genderOptions = ['Male', 'Female', 'Other'];
 
   useEffect(() => {

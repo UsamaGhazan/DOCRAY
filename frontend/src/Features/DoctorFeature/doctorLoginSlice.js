@@ -25,7 +25,6 @@ export const loginDoc = createAsyncThunk(
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message;
-      //This will end up in rejected section as payload... just error return karny sy fulfilled action run hora tha
       return thunkAPI.rejectWithValue(newError);
     }
   }

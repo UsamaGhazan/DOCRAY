@@ -1,11 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = {
-  loading: true,
-  doctorDetails: [],
-};
-
 export const getDoctorDetails = createAsyncThunk(
   'doctorDetails',
   async (id, thunkAPI) => {
@@ -13,10 +8,18 @@ export const getDoctorDetails = createAsyncThunk(
       const { data } = await axios(`/api/doctors/${id}`);
       return data;
     } catch (error) {
-      return error;
+      const newError =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      return thunkAPI.rejectWithValue(newError);
     }
   }
 );
+const initialState = {
+  loading: true,
+  doctorDetails: [],
+};
 
 const doctorDetailSlice = createSlice({
   name: 'Order Details',

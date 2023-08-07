@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const getAppointments = createAsyncThunk(
+export const getAppointments = createAsyncThunk(
   'appointment details',
   async (doctorId, thunkAPI) => {
+    console.log(doctorId);
     try {
       const { data } = await axios('/api/doctors/getAppointments', {
         doctorId,

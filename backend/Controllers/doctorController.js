@@ -45,7 +45,6 @@ const authDoctor = asyncHandler(async (req, res) => {
   }
 });
 const registerDoctor = asyncHandler(async (req, res) => {
-  console.log('registerDoctor');
   const {
     name,
     email,
@@ -59,7 +58,6 @@ const registerDoctor = asyncHandler(async (req, res) => {
     areaname,
     clinicname,
   } = req.body;
-  console.log('category: ', category);
   const doctorExists = await Doctor.findOne({ email });
   if (doctorExists) {
     res.status(400);
@@ -91,7 +89,6 @@ const registerDoctor = asyncHandler(async (req, res) => {
 });
 
 const createDoctorReview = asyncHandler(async (req, res) => {
-  console.log(req, res);
   const { rating, comment } = req.body;
   const doctor = await Doctor.findById(req.params.id);
   //We are sending token from frontend and from that token we are identifying req.user who created the review

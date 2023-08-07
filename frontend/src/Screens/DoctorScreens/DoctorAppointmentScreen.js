@@ -1,3 +1,6 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAppointments } from '../../Features/DoctorFeature/appointmentDetailSlice';
 import {
   AiOutlineCalendar,
   AiOutlineVideoCameraAdd,
@@ -14,9 +17,18 @@ import {
   Icon,
   Text,
 } from '@chakra-ui/react';
-import React from 'react';
 
 const DoctorAppointmentScreen = () => {
+  const dispatch = useDispatch();
+  const { doctorInfo } = useSelector(store => store.doctorLogin);
+  const { loading, error, appointments } = useSelector(
+    store => store.appointmentDetails
+  );
+  console.log(appointments);
+  useEffect(() => {
+    console.log(doctorInfo._id);
+    dispatch(getAppointments(doctorInfo._id));
+  }, [doctorInfo._id, dispatch]);
   return (
     <Box ml={{ base: 0, md: 60 }} p="4">
       <Box w={1200} h="110px" border="2px solid red" borderRadius="8px">

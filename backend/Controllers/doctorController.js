@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Doctor from '../Models/doctorModel.js';
 import generateToken from '../utils/generateToken.js';
-
+import Appointment from '../Models/appointmentModel.js';
 const getAllDoctors = asyncHandler(async (req, res) => {
   const doctors = await Doctor.find({});
   res.json(doctors);
@@ -166,6 +166,18 @@ const profileViewCount = asyncHandler(async (req, res) => {
   }
 });
 
+const getAppointments = asyncHandler(async (req, res) => {
+  const { doctorId } = req.body;
+  console.log(doctorId);
+  const appointments = await Appointment.find({ doctorId });
+  console.log(appointments);
+  if (appointments) {
+    res.json(appointments);
+  } else {
+    res.status(404).json({ message: 'No new appointments' });
+  }
+});
+
 export {
   getAllDoctors,
   getSingleDoctor,
@@ -173,4 +185,5 @@ export {
   registerDoctor,
   authDoctor,
   profileViewCount,
+  getAppointments,
 };

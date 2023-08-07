@@ -8,7 +8,6 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const patient = await Patient.findOne({ email });
-
   if (patient && (await patient.matchPassword(password))) {
     res.json({
       _id: patient._id,

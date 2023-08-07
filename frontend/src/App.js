@@ -1,4 +1,5 @@
 import React from 'react';
+import DashboardRedirect from './Components/DashboardRedirect';
 import {
   BrowserRouter,
   Routes,
@@ -29,6 +30,8 @@ function App() {
   return (
     <BrowserRouter>
       {!doctorInfo && <Navbar />}
+      <DashboardRedirect doctorInfo={doctorInfo} />
+
       <main>
         <Routes>
           <Route path="/" element={<HomeScreen />} />={' '}

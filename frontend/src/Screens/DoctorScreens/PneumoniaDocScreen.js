@@ -39,7 +39,7 @@ const PneumoniaDocScreen = () => {
         ) : (
           doctors
             .filter(doctor => {
-              return doctor.category === 'pneumonia';
+              return doctor.category === 'Pneumonia';
             })
             .map(doctor => {
               return <DoctorCard doctor={doctor} />;

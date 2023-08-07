@@ -8,12 +8,14 @@ import {
   registerDoctor,
   authDoctor,
   profileViewCount,
+  getAppointments,
 } from '../Controllers/doctorController.js';
 import { protect } from '../Middlewares/authMiddleware.js';
 router.get('/', getAllDoctors);
 router.post('/login', authDoctor);
 router.post('/', registerDoctor);
 router.post('/profileViewCount', profileViewCount);
+router.get('/getAppointments', getAppointments);
 router.post('/:id/reviews', protect, createDoctorReview);
 
 router.get('/:id', getSingleDoctor);

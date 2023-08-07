@@ -84,9 +84,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">{doctorInfo.name}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                    Doctor
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>

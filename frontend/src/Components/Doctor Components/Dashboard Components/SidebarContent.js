@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DoctorAppointmentScreen from '../../../Screens/DoctorScreens/DoctorAppointmentScreen';
 import {
   Box,
   Flex,
@@ -25,7 +26,7 @@ const LinkItems = [
   { name: 'Settings', icon: FiSettings },
 ];
 
-const SidebarContent = ({ onClose, ...rest }) => {
+const SidebarContent = ({ onClose, setSelectedOption, ...rest }) => {
   return (
     <Box
       transition="3s ease"
@@ -50,7 +51,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          onClick={() => setSelectedOption(link.name)}
+        >
           {link.name}
         </NavItem>
       ))}

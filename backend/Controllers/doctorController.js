@@ -134,9 +134,9 @@ const profileViewCount = asyncHandler(async (req, res) => {
 
   if (doctor) {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset the time to 00:00:00
+    today.setHours(0, 0, 0, 0); // Resetting the time to 00:00:00
 
-    // Find if a view entry for today already exists in profileViewsHistory
+    // Finding if a view entry for today already exists in profileViewsHistory
     const existingView = doctor.profileViewsHistory.find(
       (entry) => entry.date.getTime() === today.getTime()
     );
@@ -152,10 +152,10 @@ const profileViewCount = asyncHandler(async (req, res) => {
       });
     }
 
-    // Limit the profileViewsHistory array to the last 7 days
+    // Limiting the profileViewsHistory array to the last 7 days
     doctor.profileViewsHistory = doctor.profileViewsHistory.slice(-7);
 
-    // Increment the total profile views
+    // Incrementing the total profile views
     doctor.profileViews += 1;
 
     await doctor.save();

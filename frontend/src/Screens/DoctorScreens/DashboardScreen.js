@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import OverviewScreen from './OverviewScreen';
+import DoctorAppointmentScreen from './DoctorAppointmentScreen';
 import {
   useDisclosure,
   Box,
@@ -24,48 +26,36 @@ const Dashboard = () => {
   const { loading, error, doctorInfo } = useSelector(
     store => store.doctorLogin
   );
+  const [selectedOption, setSelectedOption] = useState('Overview');
+  console.log(selectedOption);
+
+  //setting option in sidebarcontent
+  const setOption = option => {
+    setSelectedOption(option);
+  };
+
+  const renderScreen = () => {
+    switch (selectedOption) {
+      case 'Overview':
+        return <OverviewScreen />;
+      case 'Appointments':
+        return <DoctorAppointmentScreen />;
+      default:
+        return <DoctorAppointmentScreen />;
+    }
+  };
 
   return (
     <Box minH="100vh">
       <SidebarContent
         onClose={onClose}
         display={{ base: 'none', md: 'block' }}
+        setSelectedOption={setOption}
       />
       <DrawerComponent isOpen={isOpen} onClose={onClose} />
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        <VStack alignItems="flex-start">
-          <Card
-            overflow="hidden"
-            variant="outline"
-            bg="blackAlpha.900"
-            height="150px"
-            width="300px"
-          >
-            <CardBody>
-              <Stat>
-                {/* First row */}
-                <StatLabel color="white">
-                  <Icon as={FiBarChart2} mr="2" />
-                  Profile Views
-                </StatLabel>
-                {/* Second row */}
-                <StatNumber color="white">345,670</StatNumber>
-                <StatHelpText color="white">
-                  <StatArrow
-                    focusable="false"
-                    aria-hidden="true"
-                    type="increase"
-                  ></StatArrow>
-                  23.36%
-                </StatHelpText>
-              </Stat>
-            </CardBody>
-          </Card>
-        </VStack>
-      </Box>
+      <Box>{renderScreen()}</Box>
     </Box>
   );
 };
-
 export default Dashboard;

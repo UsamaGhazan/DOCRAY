@@ -23,6 +23,7 @@ import PatientBookAppointmentScreen from './Screens/PatientScreens/PatientBookAp
 import DoctorRegisterScreen from './Screens/DoctorScreens/DoctorRegisterScreen';
 import DoctorLoginScreen from './Screens/DoctorScreens/DoctorLoginScreen';
 import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
+import DoctorAppointmentScreen from './Screens/DoctorScreens/DoctorAppointmentScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   return (
@@ -47,6 +48,8 @@ function App() {
           <Route path="/docLogin" element={<DoctorLoginScreen />} />={' '}
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
           <Route path="/Dashboard" element={<DashboardScreen />} />={' '}
+          <Route path="/docAppointment" element={<DoctorAppointmentScreen />} />
+          ={' '}
         </Routes>
       </main>
     </BrowserRouter>

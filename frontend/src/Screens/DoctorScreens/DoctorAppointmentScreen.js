@@ -61,11 +61,6 @@ const DoctorAppointmentScreen = () => {
           <>
             {appointments &&
               appointments.map(info => {
-                {
-                  /* const { formattedDate, formattedTime } = formatDateAndTime(
-                  info.startTime
-                ); */
-                }
                 return info.feePayed ? (
                   <Box
                     w={1200}

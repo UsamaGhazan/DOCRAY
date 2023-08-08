@@ -15,7 +15,7 @@ router.get('/', getAllDoctors);
 router.post('/login', authDoctor);
 router.post('/', registerDoctor);
 router.post('/profileViewCount', profileViewCount);
-router.get('/getAppointments', getAppointments);
+router.get('/getAppointments/:id', getAppointments);
 router.post('/:id/reviews', protect, createDoctorReview);
 
 router.get('/:id', getSingleDoctor);

@@ -6,9 +6,9 @@ export const getAppointments = createAsyncThunk(
   async (doctorId, thunkAPI) => {
     console.log(doctorId);
     try {
-      const { data } = await axios('/api/doctors/getAppointments', {
-        doctorId,
-      });
+      const { data } = await axios.get(
+        `/api/doctors/getAppointments/${doctorId}`
+      );
       return data;
     } catch (error) {
       const newError =

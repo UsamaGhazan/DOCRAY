@@ -25,104 +25,122 @@ const DoctorAppointmentScreen = () => {
     dispatch(getAppointments(doctorInfo._id));
   }, [doctorInfo._id, dispatch]);
 
-  const formatDateAndTime = timestamp => {
-    const date = new Date(timestamp);
-    const optionsDate = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    };
-    const optionsTime = {
-      hour: 'numeric',
-      minute: 'numeric',
-    };
-
-    const formattedDate = date.toLocaleDateString('en-US', optionsDate);
-    const formattedTime = date.toLocaleTimeString('en-US', optionsTime);
-
-    return { formattedDate, formattedTime };
+  const formatDate = date => {
+    const options = { month: 'long', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
   };
 
+  const formatTime = date => {
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true, // Use 12-hour format (AM/PM)
+      timeZone: 'UTC', // Set the timeZone option to 'UTC' since our input date is in UTC
+    };
+
+    const utcDate = new Date(date);
+    const localTime = utcDate.toLocaleString(undefined, options);
+    return localTime;
+  };
   return (
-    <Box ml={{ base: 0, md: 60 }} p="4">
-      {loading ? (
-        <Spinner />
-      ) : (
-        <Box
-          w={1200}
-          h="110px"
-          borderWidth="2px"
-          borderStyle="solid"
-          borderColor="gray.200"
-          borderRadius="6px"
-          boxShadow="md"
-        >
-          {appointments &&
-            appointments.map(info => {
-              const { formattedDate, formattedTime } = formatDateAndTime(
-                info.startTime
-              );
-
-              return (
-                <Grid
-                  key={info._id}
-                  templateColumns="auto 1fr auto"
-                  gap="4"
-                  alignItems="center"
-                  p="4"
-                >
-                  <Avatar
-                    name={info.patientName}
-                    src="/images/patient1.jpg"
-                    size="lg"
-                  />
-
-                  <Flex align="center">
-                    <Flex direction="column">
-                      <Text fontSize="lg" fontWeight="bold">
-                        {info.patientName}
-                      </Text>
-                      <HStack
-                        mt="2"
-                        spacing={10}
-                        fontSize="sm"
-                        color="gray.600"
-                      >
-                        <HStack>
-                          <Icon as={AiOutlineCalendar} boxSize="5" />
-                          <span fontSize="sm">
-                            {formattedDate}-{formattedTime}
-                          </span>
-                        </HStack>
-                        <HStack fontSize="sm" color="gray.600">
-                          <Icon as={AiOutlineVideoCameraAdd} boxSize="5" />
-                          <span fontSize="md">Online Video Consultation</span>
-                        </HStack>
-                      </HStack>
-                    </Flex>
-                  </Flex>
-
-                  {/* Cancel Appointment Button */}
-                  <Button
-                    bg="#000066"
-                    color="white"
-                    size="md"
-                    _hover={{
-                      transition: 'background-color 0.3s ease-in-out',
-
-                      bg: '#3333CC',
-                    }}
-                    mr={10}
-                    mt={3}
+    <>
+      <Text ml="275px" fontWeight={600} mt={10}>
+        Upcomming
+      </Text>
+      <Box
+        bg="
+#f7f8fb"
+        w="100%"
+        h="100vh"
+      >
+        {loading ? (
+          <Flex alignItems="center" justifyContent="center">
+            <Spinner />
+          </Flex>
+        ) : (
+          <>
+            {appointments &&
+              appointments.map(info => {
+                {
+                  /* const { formattedDate, formattedTime } = formatDateAndTime(
+                  info.startTime
+                ); */
+                }
+                return info.feePayed ? (
+                  <Box
+                    w={1200}
+                    h="110px"
+                    borderWidth="2px"
+                    borderStyle="solid"
+                    borderColor="gray.200"
+                    borderRadius="6px"
+                    boxShadow="md"
+                    ml="275px"
+                    mt="25px"
+                    key={info._id}
                   >
-                    Cancel Appointment
-                  </Button>
-                </Grid>
-              );
-            })}
-        </Box>
-      )}
-    </Box>
+                    <Grid
+                      templateColumns="auto 1fr auto"
+                      gap="4"
+                      alignItems="center"
+                      p="4"
+                    >
+                      <Avatar
+                        name={info.patientName}
+                        src="/images/patient1.jpg"
+                        size="lg"
+                      />
+
+                      <Flex align="center">
+                        <Flex direction="column">
+                          <Text fontSize="lg" fontWeight="bold">
+                            {info.patientName}
+                          </Text>
+                          <HStack
+                            mt="2"
+                            spacing={10}
+                            fontSize="sm"
+                            color="gray.600"
+                          >
+                            <HStack>
+                              <Icon as={AiOutlineCalendar} boxSize="5" />
+                              <span fontSize="sm">
+                                {formatDate(info.startTime)}-
+                                {formatTime(info.startTime)}
+                              </span>
+                            </HStack>
+                            <HStack fontSize="sm" color="gray.600">
+                              <Icon as={AiOutlineVideoCameraAdd} boxSize="5" />
+                              <span fontSize="md">
+                                Online Video Consultation
+                              </span>
+                            </HStack>
+                          </HStack>
+                        </Flex>
+                      </Flex>
+
+                      {/* Cancel Appointment Button */}
+                      <Button
+                        bg="#000066"
+                        color="white"
+                        size="md"
+                        _hover={{
+                          transition: 'background-color 0.3s ease-in-out',
+                          bg: '#3333CC',
+                        }}
+                        mr={10}
+                        mt={3}
+                      >
+                        Cancel Appointment
+                      </Button>
+                    </Grid>
+                  </Box>
+                ) : null;
+              })}
+          </>
+        )}
+      </Box>
+    </>
   );
 };
 

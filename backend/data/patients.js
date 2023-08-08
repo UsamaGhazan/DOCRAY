@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 const patients = [
   {
     name: 'John Doe',
-    password: bcrypt.hashSync('12345', 10),
+    password: '12345',
     image: '/images/patient1.jpg',
     dateOfBirth: new Date('1990-01-01'),
     email: 'johndoe@yahoo.com',
@@ -13,7 +13,7 @@ const patients = [
   },
   {
     name: 'Jane Smith',
-    password: bcrypt.hashSync('password', 10),
+    password: 'password',
     image: '/images/patient2.jpg',
     dateOfBirth: new Date('1985-05-15'),
     email: 'janesmith@yahoo.com',
@@ -23,7 +23,7 @@ const patients = [
   },
   {
     name: 'Michael Johnson',
-    password: bcrypt.hashSync('secret', 10),
+    password: 'secret',
     image: '/images/patient3.jpg',
     dateOfBirth: new Date('1978-11-27'),
     email: 'michaeljohnson@yahoo.com',
@@ -33,7 +33,7 @@ const patients = [
   },
   {
     name: 'Emily Davis',
-    password: bcrypt.hashSync('qwerty', 10),
+    password: 'qwerty',
     image: '/images/patient4.jpg',
     dateOfBirth: new Date('1992-07-10'),
     email: 'emilydavis@yahoo.com',
@@ -43,7 +43,7 @@ const patients = [
   },
   {
     name: 'William Wilson',
-    password: bcrypt.hashSync('pass123', 10),
+    password: 'pass123',
     image: '/images/patient5.jpg',
     dateOfBirth: new Date('1980-03-22'),
     email: 'williamwilson@yahoo.com',

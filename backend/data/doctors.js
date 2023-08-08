@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 const doctors = [
   {
     name: 'Dr John Smith',
-    password: bcrypt.hashSync('12345', 10),
+    password: '12345',
     image: '/images/doctor1.jpg',
     specialization: 'Dermatologist, Cosmetologist',
     email: 'johnsmith@yahoo.com',
@@ -30,7 +30,7 @@ const doctors = [
   },
   {
     name: 'Dr Jane Smith',
-    password: bcrypt.hashSync('12345', 10),
+    password: '12345',
     image: '/images/doctor2.jpg',
     specialization: 'Cardiologist M.B.B.S, M.D (Cardiology)',
     email: 'janesmith@yahoo.com',
@@ -58,7 +58,7 @@ const doctors = [
   },
   {
     name: 'Dr David Johnson',
-    password: bcrypt.hashSync('12345', 10),
+    password: '12345',
     image: '/images/doctor3.jpg',
     specialization: 'Orthopedic Surgeon M.B.B.S, D.Ortho, M.S (Ortho)',
     email: 'davidjohnson@yahoo.com',
@@ -144,7 +144,7 @@ const doctors = [
   },
   {
     name: 'Dr Sarah Williams',
-    password: bcrypt.hashSync('12345', 10),
+    password: '12345',
     image: '/images/doctor4.jpg',
     specialization: 'Pediatrician M.B.B.S, D.C.H',
     email: 'sarahwilliams@yahoo.com',
@@ -176,7 +176,7 @@ const doctors = [
   },
   {
     name: 'Dr Michael Davis',
-    password: bcrypt.hashSync('12345', 10),
+    password: '12345',
     image: '/images/doctor5.jpg',
     specialization: 'Neurologist M.B.B.S, D.M (Neurology)',
     email: 'michaeldavis@yahoo.com',

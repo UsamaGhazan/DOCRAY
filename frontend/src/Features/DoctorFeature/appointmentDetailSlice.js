@@ -21,7 +21,7 @@ export const getAppointments = createAsyncThunk(
 );
 
 const initialState = {
-  laoding: true,
+  loading: true,
 };
 
 const appointmentDetailSlice = createSlice({

@@ -164,10 +164,8 @@ const profileViewCount = asyncHandler(async (req, res) => {
 });
 
 const getAppointments = asyncHandler(async (req, res) => {
-  console.log(req.params);
   const { id } = req.params;
   const appointments = await Appointment.find({ id });
-  console.log(appointments);
   if (appointments) {
     res.json(appointments);
   } else {

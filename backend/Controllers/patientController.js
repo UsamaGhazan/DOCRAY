@@ -98,6 +98,7 @@ const bookAppointment = asyncHandler(async (req, res) => {
   const formattedDate = dateObj.toISOString();
   const doctor = await Doctor.findById(doctorID);
   const patient = await Patient.findOne({ email });
+  console.log(patient);
   if (!doctor) {
     res.status(401);
     throw new Error('Doctor doesnot exists');

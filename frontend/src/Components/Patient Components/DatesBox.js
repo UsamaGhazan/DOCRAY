@@ -53,6 +53,7 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
   const [startDate, setStartDate] = useState(new Date());
+  console.log('startDate ', startDate);
   const [selectedTime, setSelectedTime] = useState('');
   const { loading, data, error } = useSelector(store => store.patientAppt);
   useEffect(() => {
@@ -67,21 +68,24 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   const year = today.getFullYear();
   const formattedDate = `${month}/${day}/${year}`;
   const [selectedDate, setSelectedDate] = useState(formattedDate);
+  console.log('selectedDate: ', selectedDate);
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
+    console.log('nextStartDate ', nextStartDate);
     nextStartDate.setDate(startDate.getDate() + 1);
     setStartDate(nextStartDate);
-    setSelectedDate(nextStartDate);
-    console.log(nextStartDate);
+    setSelectedDate(
+      nextStartDate.toLocaleDateString(undefined, { timeZone: 'UTC' })
+    );
   };
 
   const handlePrevDates = () => {
     const prevStartDate = new Date(startDate);
-    console.log(startDate);
     prevStartDate.setDate(startDate.getDate() - 1);
     setStartDate(prevStartDate);
-    setSelectedDate(prevStartDate);
-    console.log(prevStartDate);
+    setSelectedDate(
+      prevStartDate.toLocaleDateString(undefined, { timeZone: 'UTC' })
+    );
   };
 
   const handleDateClick = date => {

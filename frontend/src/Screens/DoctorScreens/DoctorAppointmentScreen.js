@@ -13,6 +13,7 @@ import {
   Text,
   Spinner,
 } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 
 const DoctorAppointmentScreen = () => {
   const dispatch = useDispatch();
@@ -44,15 +45,24 @@ const DoctorAppointmentScreen = () => {
   };
   return (
     <>
-      <Text ml="275px" fontWeight={600} mt={10}>
-        Upcomming
-      </Text>
-      <Box
-        bg="
-#f7f8fb"
-        w="100%"
-        h="100vh"
-      >
+      <HStack mt={10} spacing={890}>
+        <Text ml="275px" fontWeight={600}>
+          Upcomming
+        </Text>
+        <Button
+          as={RouterLink}
+          to="/setAvailability"
+          marginLeft="17px"
+          bg="#ff9e24"
+          _hover={{ bg: '#faa63a' }}
+          _active={{ bg: '#faa63a' }}
+          color={'white'}
+        >
+          Set Availability
+        </Button>
+      </HStack>
+
+      <Box bg="#f7f8fb" w="100%" h="100vh">
         {loading ? (
           <Flex alignItems="center" justifyContent="center">
             <Spinner />

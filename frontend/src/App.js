@@ -1,5 +1,4 @@
 import React from 'react';
-import DashboardRedirect from './Components/DashboardRedirect';
 import {
   BrowserRouter,
   Routes,
@@ -25,12 +24,12 @@ import DoctorRegisterScreen from './Screens/DoctorScreens/DoctorRegisterScreen';
 import DoctorLoginScreen from './Screens/DoctorScreens/DoctorLoginScreen';
 import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
 import DoctorAppointmentScreen from './Screens/DoctorScreens/DoctorAppointmentScreen';
+import SetAvailabilityScreen from './Screens/DoctorScreens/SetAvailabilityScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   return (
     <BrowserRouter>
       {!doctorInfo && <Navbar />}
-      <DashboardRedirect doctorInfo={doctorInfo} />
 
       <main>
         <Routes>
@@ -52,7 +51,7 @@ function App() {
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
           <Route path="/Dashboard" element={<DashboardScreen />} />={' '}
           <Route path="/docAppointment" element={<DoctorAppointmentScreen />} />
-          ={' '}
+          <Route path="/setAvailability" element={<SetAvailabilityScreen />} />={' '}
         </Routes>
       </main>
     </BrowserRouter>

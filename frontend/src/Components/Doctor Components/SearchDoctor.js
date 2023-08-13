@@ -9,7 +9,12 @@ const SearchDoctor = () => {
         placeholder="Search for Pneumonia and TB Specialists"
         size="lg"
       />{' '}
-      <Button size="lg" className="goldbtn">
+      <Button
+        size="lg"
+        className="goldbtn"
+        _hover={{ bg: '#faa63a' }}
+        _active={{ bg: '#faa63a' }}
+      >
         Search{' '}
       </Button>
     </HStack>

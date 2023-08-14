@@ -170,6 +170,8 @@ const DoctorCard = ({ doctor }) => {
             to={`/doctors/bookAppointment/${doctor._id}`}
             fontSize="14px"
             className="goldbtn bookbtn"
+            _hover={{ bg: '#ff9e24' }}
+            _active={{ bg: '#ff9e24' }}
           >
             Book Appointment
           </Button>

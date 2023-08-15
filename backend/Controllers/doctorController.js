@@ -173,6 +173,66 @@ const getAppointments = asyncHandler(async (req, res) => {
   }
 });
 
+const setAvailableSlots = asyncHandler(async (req, res) => {
+  const doctorId = req.user.id; // Assuming you're using req.user to get the doctor's ID
+  const { timeSlots } = req.body;
+  console.log(timeSlots);
+
+  try {
+    const doctor = await Doctor.findById(doctorId);
+
+    if (!doctor) {
+      return res.status(404).json({ error: 'Doctor not found' });
+    }
+
+    // Convert incoming time slots to match the schema
+    const convertedTimeSlots = [];
+
+    for (const slot of timeSlots) {
+      const dateParts = slot.date.split('/'); // Split date into parts
+      const month = parseInt(dateParts[0]) - 1; // Months are 0-based in JavaScript Date
+      const day = parseInt(dateParts[1]);
+      const year = parseInt(dateParts[2]);
+
+      for (const time of slot.time) {
+        const [timeString, period] = time.split(' '); // Split time and AM/PM
+
+        let [hours, minutes] = timeString.split(':'); // Split hours and minutes
+        hours = parseInt(hours);
+
+        // Adjust hours for AM/PM
+        if (period === 'PM' && hours !== 12) {
+          hours += 12;
+        } else if (period === 'AM' && hours === 12) {
+          hours = 0;
+        }
+
+        const startTime = new Date(year, month, day, hours, minutes);
+
+        // Check if the Date object is valid
+        if (isNaN(startTime)) {
+          throw new Error(`Invalid date-time format: ${slot.date} ${time}`);
+        }
+
+        convertedTimeSlots.push({
+          startTime: startTime,
+        });
+      }
+    }
+
+    // Update the availableTimeSlots field
+    doctor.availableTimeSlots = convertedTimeSlots;
+
+    // Save the doctor's updated information
+    await doctor.save();
+
+    return res.json({ message: 'Time slots saved successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
 export {
   getAllDoctors,
   getSingleDoctor,
@@ -181,4 +241,5 @@ export {
   authDoctor,
   profileViewCount,
   getAppointments,
+  setAvailableSlots,
 };

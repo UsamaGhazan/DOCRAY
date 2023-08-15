@@ -21,9 +21,6 @@ const timeSlotSchema = new mongoose.Schema({
   startTime: {
     type: Date,
   },
-  endTime: {
-    type: Date,
-  },
 });
 
 const doctorSchema = mongoose.Schema(

@@ -5,9 +5,13 @@ export const setAvailability = createAsyncThunk(
   'setAvailability',
   async (selectedSlots, thunkAPI) => {
     try {
+      const {
+        doctorLogin: { doctorInfo },
+      } = thunkAPI.getState();
+
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          Authorization: `Bearer ${doctorInfo.token}`,
         },
       };
       const { data } = await axios.post(
@@ -15,7 +19,6 @@ export const setAvailability = createAsyncThunk(
         selectedSlots,
         config
       );
-
       return data;
     } catch (error) {
       const newError =

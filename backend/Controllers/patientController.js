@@ -73,7 +73,7 @@ const getPatientProfile = asyncHandler(async (req, res) => {
 const bookAppointment = asyncHandler(async (req, res) => {
   const { email } = req.user;
   const { startTime, date, doctorID } = req.body;
-
+  console.log(startTime, date);
   // Separating the date components
   const [month, day, year] = date.split('/');
 

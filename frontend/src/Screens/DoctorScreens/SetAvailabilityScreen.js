@@ -131,9 +131,8 @@ const SetAvailabilityScreen = () => {
     for (const date in selectedTime) {
       selectedSlots.push({ date, time: selectedTime[date] });
     }
-    console.log(selectedSlots);
 
-    dispatch(setAvailability(selectedSlots));
+    dispatch(setAvailability({ timeSlots: selectedSlots }));
   };
   return (
     <Box

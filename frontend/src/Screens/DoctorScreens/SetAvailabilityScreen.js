@@ -2,7 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import { FaSun } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { IconButton, Text, Flex, Box, Icon, HStack } from '@chakra-ui/react';
+import {
+  IconButton,
+  Text,
+  Flex,
+  Box,
+  Icon,
+  HStack,
+  Button,
+} from '@chakra-ui/react';
+import axios from 'axios';
 
 const timeSlots = [
   '8:00 AM',
@@ -31,12 +40,16 @@ const timeSlots = [
 ];
 const formatDate = date => {
   const options = { month: 'long', day: 'numeric' };
+
   return new Date(date).toLocaleDateString(undefined, options);
 };
 const SetAvailabilityScreen = () => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(formatDate(new Date()));
+  const defaultDate = new Date().toLocaleDateString(undefined, {
+    timeZone: 'UTC',
+  });
+  const [selectedDate, setSelectedDate] = useState(defaultDate);
   const { loading, data, error } = useSelector(store => store.patientAppt);
   const [selectedTime, setSelectedTime] = useState({});
 
@@ -59,6 +72,7 @@ const SetAvailabilityScreen = () => {
   };
 
   const handleDateClick = date => {
+    console.log('handle date click ', date);
     setSelectedDate(date.toLocaleDateString(undefined, { timeZone: 'UTC' }));
     setSelectedTime(prevSelectedTime => {
       const updatedTime = { ...prevSelectedTime };
@@ -71,9 +85,6 @@ const SetAvailabilityScreen = () => {
     });
   };
 
-  // const handleSlotClick = timeSlot => {
-  // selectedTime.map(slot=>slot.date===selectedDate?setSelectedTime([...slot,{date:selectedDate,time:[...slot.time,timeSlot]}]))
-  // };
   const handleSlotClick = timeSlot => {
     setSelectedTime(prevSelectedTime => {
       const updatedTime = { ...prevSelectedTime };
@@ -82,11 +93,18 @@ const SetAvailabilityScreen = () => {
         updatedTime[selectedDate] = [];
       }
 
-      updatedTime[selectedDate] = [...updatedTime[selectedDate], timeSlot];
+      const timeIndex = updatedTime[selectedDate].indexOf(timeSlot);
+
+      if (timeIndex === -1) {
+        updatedTime[selectedDate].push(timeSlot); // Add the time slot
+      } else {
+        updatedTime[selectedDate].splice(timeIndex, 1); // Remove the time slot
+      }
 
       return updatedTime;
     });
   };
+
   useEffect(() => {
     console.log('Selected Date ', selectedDate);
     if (selectedTime[selectedDate] && selectedTime[selectedDate].length > 0) {
@@ -94,6 +112,35 @@ const SetAvailabilityScreen = () => {
     }
   }, [selectedDate, selectedTime]);
 
+  // Checking if any times are selected for the given dates
+
+  const hasSelectedTime = () => {
+    for (const date in selectedTime) {
+      if (selectedTime[date].length > 0) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const handleSubmit = () => {
+    const selectedSlots = [];
+    for (const date in selectedTime) {
+      selectedSlots.push({ date, time: selectedTime[date] });
+    }
+    console.log(selectedSlots);
+    // Prepare your Axios request here
+    // For example:
+    // axios.post('/api/schedule', selectedSlots)
+    //   .then(response => {
+    //     console.log('Successfully submitted:', response.data);
+    // You can handle success actions here
+    //   })
+    //   .catch(error => {
+    //     console.error('Error submitting:', error);
+    // You can handle error actions here
+    //   });
+  };
   return (
     <Box
       width="742px"
@@ -175,11 +222,7 @@ const SetAvailabilityScreen = () => {
                   alignItems="center"
                   justifyContent="center"
                   textAlign="center"
-                  cursor={
-                    selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'not-allowed'
-                      : 'pointer'
-                  }
+                  cursor="pointer"
                   _hover={{
                     color: selectedTime[selectedDate]?.includes(timeslot)
                       ? 'initial'
@@ -187,19 +230,24 @@ const SetAvailabilityScreen = () => {
                     borderColor: selectedTime[selectedDate]?.includes(timeslot)
                       ? 'initial'
                       : '#FF9E15',
-                    transition: 'all 0.5s ease-in-out',
+                    transition: 'all 0.2s ease-in-out',
                   }}
                   fontSize={14}
                   fontWeight={600}
-                  onClick={() => {
-                    if (!selectedTime[selectedDate]?.includes(timeslot)) {
-                      handleSlotClick(timeslot);
-                    }
-                  }}
+                  onClick={() => handleSlotClick(timeslot)} // Handle the click
                   style={{
                     color: selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'gray'
+                      ? 'white'
                       : 'black',
+                    // Add a class to indicate selected slots for styling
+                    backgroundColor: selectedTime[selectedDate]?.includes(
+                      timeslot
+                    )
+                      ? '#FF9E15'
+                      : 'white',
+                    borderColor: selectedTime[selectedDate]?.includes(timeslot)
+                      ? '#FF9E15'
+                      : '#E6E5F0',
                   }}
                   // Add a class to indicate disabled slots for styling
                   className={
@@ -222,7 +270,7 @@ const SetAvailabilityScreen = () => {
             Afternoon Slots:
           </Text>
         </HStack>
-        <Flex flexWrap="wrap" mt={47} ml="44px">
+        <Flex flexWrap="wrap" mt={83} ml="44px">
           {timeSlots.map((timeslot, index) => {
             const formattedStartTime = timeslot;
 
@@ -242,14 +290,31 @@ const SetAvailabilityScreen = () => {
                   textAlign="center"
                   cursor="pointer"
                   _hover={{
-                    color: '#FF9E15',
-                    borderColor: '#FF9E15',
-                    transition: 'all 0.5s ease-in-out',
+                    color: selectedTime[selectedDate]?.includes(timeslot)
+                      ? 'initial'
+                      : '#FF9E15',
+                    borderColor: selectedTime[selectedDate]?.includes(timeslot)
+                      ? 'initial'
+                      : '#FF9E15',
+                    transition: 'all 0.2s ease-in-out',
                   }}
                   fontSize={14}
                   fontWeight={600}
-                  mt={35}
-                  onClick={() => handleSlotClick(timeslot)}
+                  onClick={() => handleSlotClick(timeslot)} // Handle the click
+                  style={{
+                    color: selectedTime[selectedDate]?.includes(timeslot)
+                      ? 'white'
+                      : 'black',
+                    // Add a class to indicate selected slots for styling
+                    backgroundColor: selectedTime[selectedDate]?.includes(
+                      timeslot
+                    )
+                      ? '#FF9E15'
+                      : 'white',
+                    borderColor: selectedTime[selectedDate]?.includes(timeslot)
+                      ? '#FF9E15'
+                      : '#E6E5F0',
+                  }}
                 >
                   {formattedStartTime}
                 </Box>
@@ -259,6 +324,18 @@ const SetAvailabilityScreen = () => {
             return null;
           })}
         </Flex>
+        <Button
+          mt={10}
+          bg="button.60"
+          _hover={{ bg: '#000033' }}
+          _active={{ bg: '#000033' }}
+          onClick={handleSubmit}
+          color="white"
+          ml={'260'}
+          isDisabled={!hasSelectedTime()} // Disable the button if no times are selected
+        >
+          Submit
+        </Button>
       </Box>
     </Box>
   );

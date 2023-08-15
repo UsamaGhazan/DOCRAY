@@ -8,7 +8,7 @@ const theme = extendTheme({
     },
     button: {
       50: '#ff9e24',
-      100: '#000066',
+      60: '#000066',
     },
   },
   fonts: {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import { FaSun } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { setAvailability } from '../../Features/DoctorFeature/setAvailabilitySlice';
 import {
   IconButton,
   Text,
@@ -46,16 +47,19 @@ const formatDate = date => {
 const SetAvailabilityScreen = () => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
-  const defaultDate = new Date().toLocaleDateString(undefined, {
-    timeZone: 'UTC',
-  });
-  const [selectedDate, setSelectedDate] = useState(defaultDate);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toLocaleDateString(undefined, {
+      timeZone: 'UTC',
+    })
+  );
   const { loading, data, error } = useSelector(store => store.patientAppt);
   const [selectedTime, setSelectedTime] = useState({});
 
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
-    nextStartDate.setDate(startDate.getDate() + 1);
+
+    nextStartDate.setDate(nextStartDate.getDate() + 1);
+
     setStartDate(nextStartDate);
     setSelectedDate(
       nextStartDate.toLocaleDateString(undefined, { timeZone: 'UTC' })
@@ -96,9 +100,9 @@ const SetAvailabilityScreen = () => {
       const timeIndex = updatedTime[selectedDate].indexOf(timeSlot);
 
       if (timeIndex === -1) {
-        updatedTime[selectedDate].push(timeSlot); // Add the time slot
+        updatedTime[selectedDate].push(timeSlot); // Adding the time slot
       } else {
-        updatedTime[selectedDate].splice(timeIndex, 1); // Remove the time slot
+        updatedTime[selectedDate].splice(timeIndex, 1); // Removing the time slot
       }
 
       return updatedTime;
@@ -113,7 +117,6 @@ const SetAvailabilityScreen = () => {
   }, [selectedDate, selectedTime]);
 
   // Checking if any times are selected for the given dates
-
   const hasSelectedTime = () => {
     for (const date in selectedTime) {
       if (selectedTime[date].length > 0) {
@@ -129,17 +132,8 @@ const SetAvailabilityScreen = () => {
       selectedSlots.push({ date, time: selectedTime[date] });
     }
     console.log(selectedSlots);
-    // Prepare your Axios request here
-    // For example:
-    // axios.post('/api/schedule', selectedSlots)
-    //   .then(response => {
-    //     console.log('Successfully submitted:', response.data);
-    // You can handle success actions here
-    //   })
-    //   .catch(error => {
-    //     console.error('Error submitting:', error);
-    // You can handle error actions here
-    //   });
+
+    dispatch(setAvailability(selectedSlots));
   };
   return (
     <Box

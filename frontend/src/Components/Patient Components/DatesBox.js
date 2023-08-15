@@ -51,7 +51,6 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const finalRef = React.useRef(null);
   const [startDate, setStartDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState('');
   const { loading, data, error } = useSelector(store => store.patientAppt);

@@ -228,11 +228,20 @@ const setAvailableSlots = asyncHandler(async (req, res) => {
 
     return res.json(doctor.availableTimeSlots);
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: 'An error occurred' });
   }
 });
+const getAvailableSlots = asyncHandler(async (req, res) => {
+  console.log('Inside getAAVailableSlots');
+  const { _id } = req.user;
+  const doctor = await Doctor.findById(_id);
 
+  if (!doctor) {
+    res.status(404);
+    throw new Error('Doctor not found');
+  }
+  res.status(200).json(doctor.availableTimeSlots);
+});
 export {
   getAllDoctors,
   getSingleDoctor,
@@ -242,4 +251,5 @@ export {
   profileViewCount,
   getAppointments,
   setAvailableSlots,
+  getAvailableSlots,
 };

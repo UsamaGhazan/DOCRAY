@@ -1,24 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const setAvailability = createAsyncThunk(
-  'setAvailability',
-  async (selectedSlots, thunkAPI) => {
+export const getAvailability = createAsyncThunk(
+  'getAvailability',
+  async (_, thunkAPI) => {
     try {
+      console.log('getAvailbilty running');
       const {
         doctorLogin: { doctorInfo },
       } = thunkAPI.getState();
-
       const config = {
         headers: {
           Authorization: `Bearer ${doctorInfo.token}`,
         },
       };
-      const { data } = await axios.post(
-        `/api/doctors/setAvailableSlots`,
-        selectedSlots,
-        config
-      );
+      const { data } = await axios(`/api/doctors/getAvailableSlots`, config);
       return data;
     } catch (error) {
       const newError =
@@ -30,27 +26,27 @@ export const setAvailability = createAsyncThunk(
   }
 );
 
-const initialState = { message: { success: false } };
+const initialState = {};
 
-export const setAvailabilitySlice = createSlice({
-  name: 'setAvailability',
+export const getAvailabilitySlice = createSlice({
+  name: 'getAvailability',
   initialState,
 
   extraReducers: {
-    [setAvailability.pending]: () => {
+    [getAvailability.pending]: () => {
       return {
         loading: true,
       };
     },
 
-    [setAvailability.fulfilled]: (state, action) => {
+    [getAvailability.fulfilled]: (state, action) => {
       return {
         loading: false,
-        message: action.payload,
+        availableSlots: action.payload,
       };
     },
 
-    [setAvailability.rejected]: (state, action) => {
+    [getAvailability.rejected]: (state, action) => {
       return {
         loading: false,
         error: action.payload,
@@ -58,4 +54,4 @@ export const setAvailabilitySlice = createSlice({
     },
   },
 });
-export default setAvailabilitySlice.reducer;
+export default getAvailabilitySlice.reducer;

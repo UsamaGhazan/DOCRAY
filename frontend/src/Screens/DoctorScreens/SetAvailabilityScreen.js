@@ -3,6 +3,7 @@ import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai';
 import { FaSun } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAvailability } from '../../Features/DoctorFeature/setAvailabilitySlice';
+import { getAvailability } from '../../Features/DoctorFeature/getAvailabilitySlice';
 import {
   IconButton,
   Text,
@@ -71,11 +72,14 @@ const SetAvailabilityScreen = () => {
     })
   );
 
-  const { loading, error } = useSelector(store => store.doctorAvailableSlots);
-  const { doctorInfo } = useSelector(store => store.doctorLogin);
-  console.log(doctorInfo.availableTimeSlots);
-  const initialSelectedTime = doctorInfo.availableTimeSlots.reduce(
-    (acc, slot) => {
+  const { loading, error, message } = useSelector(
+    store => store.doctorSetSlots
+  );
+  const { availableSlots } = useSelector(store => store.doctorAvailableSlots);
+
+  const initialSelectedTime =
+    availableSlots &&
+    availableSlots.reduce((acc, slot) => {
       const date = new Date(slot.startTime).toLocaleDateString(undefined, {
         timeZone: 'UTC',
       });
@@ -84,9 +88,7 @@ const SetAvailabilityScreen = () => {
       }
       acc[date].push(formatTime(slot.startTime)); // Assuming you have a function to format the time
       return acc;
-    },
-    {}
-  );
+    }, {});
   const [selectedTime, setSelectedTime] = useState(initialSelectedTime);
 
   const handleNextDates = () => {
@@ -110,7 +112,6 @@ const SetAvailabilityScreen = () => {
   };
 
   const handleDateClick = date => {
-    console.log('handle date click ', date);
     setSelectedDate(date.toLocaleDateString(undefined, { timeZone: 'UTC' }));
     setSelectedTime(prevSelectedTime => {
       const updatedTime = { ...prevSelectedTime };
@@ -144,11 +145,8 @@ const SetAvailabilityScreen = () => {
   };
 
   useEffect(() => {
-    console.log('Selected Date ', selectedDate);
-    if (selectedTime[selectedDate] && selectedTime[selectedDate].length > 0) {
-      console.log('Selected Time', selectedTime[selectedDate]);
-    }
-  }, [selectedDate, selectedTime]);
+    dispatch(getAvailability());
+  }, [dispatch]);
 
   // Checking if any times are selected for the given dates
   const hasSelectedTime = () => {

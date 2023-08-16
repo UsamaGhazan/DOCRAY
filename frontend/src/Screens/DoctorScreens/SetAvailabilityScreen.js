@@ -11,6 +11,11 @@ import {
   Icon,
   HStack,
   Button,
+  Spinner,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from '@chakra-ui/react';
 import axios from 'axios';
 
@@ -44,6 +49,19 @@ const formatDate = date => {
 
   return new Date(date).toLocaleDateString(undefined, options);
 };
+const formatTime = dateTimeString => {
+  const date = new Date(dateTimeString);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const amPm = hours >= 12 ? 'PM' : 'AM';
+
+  // Convert 24-hour format to 12-hour format
+  const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+
+  return `${formattedHours}:${formattedMinutes} ${amPm}`;
+};
+
 const SetAvailabilityScreen = () => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
@@ -52,8 +70,24 @@ const SetAvailabilityScreen = () => {
       timeZone: 'UTC',
     })
   );
-  const { loading, data, error } = useSelector(store => store.patientAppt);
-  const [selectedTime, setSelectedTime] = useState({});
+
+  const { loading, error } = useSelector(store => store.doctorAvailableSlots);
+  const { doctorInfo } = useSelector(store => store.doctorLogin);
+  console.log(doctorInfo.availableTimeSlots);
+  const initialSelectedTime = doctorInfo.availableTimeSlots.reduce(
+    (acc, slot) => {
+      const date = new Date(slot.startTime).toLocaleDateString(undefined, {
+        timeZone: 'UTC',
+      });
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(formatTime(slot.startTime)); // Assuming you have a function to format the time
+      return acc;
+    },
+    {}
+  );
+  const [selectedTime, setSelectedTime] = useState(initialSelectedTime);
 
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
@@ -145,6 +179,12 @@ const SetAvailabilityScreen = () => {
       mt="31px"
       className="dateBox"
     >
+      {error && (
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle>{error}</AlertTitle>
+        </Alert>
+      )}
       <Flex justifyContent="space-between" alignItems="center">
         <IconButton
           icon={<AiOutlineLeft />}
@@ -327,7 +367,7 @@ const SetAvailabilityScreen = () => {
           ml={'260'}
           isDisabled={!hasSelectedTime()} // Disable the button if no times are selected
         >
-          Submit
+          {loading ? <Spinner /> : <Box>Submit</Box>}
         </Button>
       </Box>
     </Box>

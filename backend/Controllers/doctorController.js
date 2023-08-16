@@ -36,7 +36,7 @@ const authDoctor = asyncHandler(async (req, res) => {
       patientsChecked: doctor.patientsChecked,
       satisfiedPatients: doctor.satisfied,
       unsatisfiedPatients: doctor.unsatisfied,
-
+      availableTimeSlots: doctor.availableTimeSlots,
       token: generateToken(doctor._id),
     });
   } else {
@@ -174,7 +174,7 @@ const getAppointments = asyncHandler(async (req, res) => {
 });
 
 const setAvailableSlots = asyncHandler(async (req, res) => {
-  const doctorId = req.user.id; // Assuming you're using req.user to get the doctor's ID
+  const doctorId = req.user.id;
   const { timeSlots } = req.body;
   console.log(timeSlots);
 

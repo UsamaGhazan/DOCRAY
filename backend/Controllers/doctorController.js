@@ -174,6 +174,7 @@ const getAppointments = asyncHandler(async (req, res) => {
 });
 
 const setAvailableSlots = asyncHandler(async (req, res) => {
+  console.log('Inside setAvailableSlots');
   const doctorId = req.user.id;
   const { timeSlots } = req.body;
   console.log(timeSlots);

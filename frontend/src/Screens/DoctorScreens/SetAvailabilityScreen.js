@@ -50,17 +50,17 @@ const formatDate = date => {
 
   return new Date(date).toLocaleDateString(undefined, options);
 };
-const formatTime = dateTimeString => {
-  const date = new Date(dateTimeString);
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const amPm = hours >= 12 ? 'PM' : 'AM';
+const formatTime = date => {
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true, // Use 12-hour format (AM/PM)
+    timeZone: 'UTC', // Set the timeZone option to 'UTC' since our input date is in UTC
+  };
 
-  // Convert 24-hour format to 12-hour format
-  const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
-  const formattedMinutes = minutes.toString().padStart(2, '0');
-
-  return `${formattedHours}:${formattedMinutes} ${amPm}`;
+  const utcDate = new Date(date);
+  const localTime = utcDate.toLocaleString(undefined, options);
+  return localTime;
 };
 
 const SetAvailabilityScreen = () => {
@@ -76,21 +76,25 @@ const SetAvailabilityScreen = () => {
     store => store.doctorSetSlots
   );
   const { availableSlots } = useSelector(store => store.doctorAvailableSlots);
-
-  const initialSelectedTime =
-    availableSlots &&
-    availableSlots.reduce((acc, slot) => {
-      const date = new Date(slot.startTime).toLocaleDateString(undefined, {
-        timeZone: 'UTC',
-      });
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(formatTime(slot.startTime)); // Assuming you have a function to format the time
-      return acc;
-    }, {});
-  const [selectedTime, setSelectedTime] = useState(initialSelectedTime);
-
+  console.log(availableSlots);
+  const [selectedTime, setSelectedTime] = useState({});
+  console.log(selectedTime);
+  useEffect(() => {
+    if (availableSlots && availableSlots.length > 0) {
+      setSelectedTime(
+        availableSlots.reduce((acc, slot) => {
+          const date = new Date(slot.startTime).toLocaleDateString(undefined, {
+            timeZone: 'UTC',
+          });
+          if (!acc[date]) {
+            acc[date] = [];
+          }
+          acc[date].push(formatTime(slot.startTime));
+          return acc;
+        }, {})
+      );
+    }
+  }, [availableSlots]);
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
 

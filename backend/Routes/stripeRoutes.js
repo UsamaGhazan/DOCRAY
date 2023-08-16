@@ -17,7 +17,7 @@ router.post(
   asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const { token, amount, doctorId, formattedDate } = req.body;
-
+    console.log('formatted Date ', formattedDate);
     //using findOne to get a single appointment object
     const appointment = await Appointment.findOne({
       doctorId: doctorId,
@@ -25,6 +25,7 @@ router.post(
     });
 
     const doctor = await Doctor.findById(doctorId);
+    console.log('doctor.availableTimeSlots before', doctor.availableTimeSlots);
 
     if (doctor) {
       //Removing the appointed slot from doctor's available slots
@@ -32,6 +33,7 @@ router.post(
       doctor.availableTimeSlots = doctor.availableTimeSlots.filter((slot) => {
         return slot.startTime.toISOString() !== formattedDate;
       });
+      console.log('doctor.availableTimeSlots after', doctor.availableTimeSlots);
       await doctor.save();
     } else {
       res.status(401);

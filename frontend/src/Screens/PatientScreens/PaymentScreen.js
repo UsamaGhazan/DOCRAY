@@ -50,6 +50,7 @@ const PaymentScreen = () => {
       },
     };
     try {
+      console.log('inside useeffect ', successData);
       const { data } = await axios.post(
         'http://localhost:5000/api/stripe/pay',
         {

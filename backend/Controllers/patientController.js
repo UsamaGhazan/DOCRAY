@@ -73,13 +73,13 @@ const getPatientProfile = asyncHandler(async (req, res) => {
 const bookAppointment = asyncHandler(async (req, res) => {
   const { email } = req.user;
   const { startTime, date, doctorID } = req.body;
-  console.log(startTime, date);
-  // Separating the date components
-  const [month, day, year] = date.split('/');
 
-  // Separating the time components
+  // Parsing the startTime components
   const [time, meridiem] = startTime.split(' ');
   const [hours, minutes] = time.split(':');
+
+  // Parsing the date components
+  const [day, month, year] = date.split('/');
 
   // Converting hours to 24-hour format if the time is PM
   const hours24 =
@@ -100,9 +100,8 @@ const bookAppointment = asyncHandler(async (req, res) => {
   const patient = await Patient.findOne({ email });
   if (!doctor) {
     res.status(401);
-    throw new Error('Doctor doesnot exists');
+    throw new Error('Doctor does not exist');
   }
-
   const bookedAppointment = await Appointment.create({
     doctorId: doctorID,
     patientId: patient._id,
@@ -114,7 +113,6 @@ const bookAppointment = asyncHandler(async (req, res) => {
   await doctor.save();
   await bookedAppointment.save();
   if (bookedAppointment) {
-    //Sending startTime to use in PaymentScreen
     res.status(201).json({
       success: true,
       startTime: formattedDate,

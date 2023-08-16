@@ -12,7 +12,6 @@ const protect = asynHandler(async (req, res, next) => {
     try {
       token = req.headers.authorization.split(' ')[1];
       const verify = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(verify);
       const patient = await Patient.findById(verify.id).select('-password');
       const doctor = await Doctor.findById(verify.id).select('-password');
       if (patient) {

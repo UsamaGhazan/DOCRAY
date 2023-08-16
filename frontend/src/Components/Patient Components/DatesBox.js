@@ -66,6 +66,9 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   const year = today.getFullYear();
   const formattedDate = `${month}/${day}/${year}`;
   const [selectedDate, setSelectedDate] = useState(formattedDate);
+  console.log(selectedDate);
+  const [selectedDay, selectedMonth, selectedYear] = selectedDate.split('/');
+  const formattedSelectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
 
@@ -313,7 +316,7 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
                   </Heading>
                 </HStack>
                 <HStack fontSize="16px" fontWeight={600}>
-                  <Text>{formatDate(selectedDate)},</Text>
+                  <Text>{formatDate(new Date(formattedSelectedDate))},</Text>
                   <Text>{selectedTime}</Text>
                 </HStack>
               </HStack>

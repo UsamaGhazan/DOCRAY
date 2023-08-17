@@ -227,7 +227,7 @@ const setAvailableSlots = asyncHandler(async (req, res) => {
 
     await doctor.save();
 
-    return res.json(doctor.availableTimeSlots);
+    return res.json({ success: true });
   } catch (error) {
     return res.status(500).json({ error: 'An error occurred' });
   }

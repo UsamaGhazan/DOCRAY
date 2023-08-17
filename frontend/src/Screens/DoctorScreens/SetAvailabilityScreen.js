@@ -76,9 +76,23 @@ const SetAvailabilityScreen = () => {
     store => store.doctorSetSlots
   );
   const { availableSlots } = useSelector(store => store.doctorAvailableSlots);
-  console.log(availableSlots);
   const [selectedTime, setSelectedTime] = useState({});
-  console.log(selectedTime);
+
+  const [successAlert, setSuccessAlert] = useState(false);
+  console.log(successAlert);
+  useEffect(() => {
+    if (message && message.success) {
+      setSuccessAlert(true);
+
+      const timeout = setTimeout(() => {
+        setSuccessAlert(false);
+      }, 3000);
+
+      // Cleanup the timeout when the component unmounts or when the alert is hidden
+      return () => clearTimeout(timeout);
+    }
+  }, [message]);
+
   useEffect(() => {
     if (availableSlots && availableSlots.length > 0) {
       setSelectedTime(
@@ -181,6 +195,18 @@ const SetAvailabilityScreen = () => {
       mt="31px"
       className="dateBox"
     >
+      {/* Added classes for animation */}
+      <div className="alert-overlay">
+        {successAlert && (
+          <Alert
+            status="success"
+            className={successAlert ? 'fade-in-slide-down' : ''}
+          >
+            <AlertIcon />
+            <AlertDescription>Slots set successfully</AlertDescription>
+          </Alert>
+        )}
+      </div>
       {error && (
         <Alert status="error">
           <AlertIcon />

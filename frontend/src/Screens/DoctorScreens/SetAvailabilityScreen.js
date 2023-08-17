@@ -4,6 +4,8 @@ import { FaSun } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAvailability } from '../../Features/DoctorFeature/setAvailabilitySlice';
 import { getAvailability } from '../../Features/DoctorFeature/getAvailabilitySlice';
+import MobileNav from '../../Components/Doctor Components/Dashboard Components/MobileNav';
+import Dashboard from './DashboardScreen';
 import {
   IconButton,
   Text,
@@ -185,220 +187,231 @@ const SetAvailabilityScreen = () => {
     dispatch(setAvailability({ timeSlots: selectedSlots }));
   };
   return (
-    <Box
-      width="742px"
-      height="313px"
-      bg="#ffffff"
-      borderRadius="md"
-      p={4}
-      ml="388px"
-      mt="31px"
-      className="dateBox"
-    >
-      {/* Added classes for animation */}
-      <div className="alert-overlay">
-        {successAlert && (
-          <Alert
-            status="success"
-            className={successAlert ? 'fade-in-slide-down' : ''}
-          >
+    <>
+      <MobileNav />
+      <Box
+        width="742px"
+        height="313px"
+        bg="#ffffff"
+        borderRadius="md"
+        p={4}
+        ml="388px"
+        mt="31px"
+        className="dateBox"
+      >
+        {/* Added classes for animation */}
+        <div className="alert-overlay">
+          {successAlert && (
+            <Alert
+              status="success"
+              className={successAlert ? 'fade-in-slide-down' : ''}
+            >
+              <AlertIcon />
+              <AlertDescription>Slots set successfully</AlertDescription>
+            </Alert>
+          )}
+        </div>
+        {error && (
+          <Alert status="error">
             <AlertIcon />
-            <AlertDescription>Slots set successfully</AlertDescription>
+            <AlertTitle>{error}</AlertTitle>
           </Alert>
         )}
-      </div>
-      {error && (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertTitle>{error}</AlertTitle>
-        </Alert>
-      )}
-      <Flex justifyContent="space-between" alignItems="center">
-        <IconButton
-          icon={<AiOutlineLeft />}
-          aria-label="Previous Dates"
-          onClick={handlePrevDates}
-        />
-        {[...Array(4)].map((_, index) => {
-          const date = new Date(startDate);
-          date.setDate(startDate.getDate() + index);
-          return (
-            <Text
-              key={index}
-              fontSize="14px"
-              fontWeight={600}
-              mx={2}
-              cursor="pointer"
-              onClick={() => handleDateClick(date)}
-              style={{
-                borderBottom:
-                  selectedDate ===
-                  date.toLocaleDateString(undefined, {
-                    timeZone: 'UTC',
-                  })
-                    ? '2px solid #FF9E15'
-                    : 'none',
-                color:
-                  selectedDate ===
-                  date.toLocaleDateString(undefined, {
-                    timeZone: 'UTC',
-                  })
-                    ? '#FF9E15'
-                    : 'black',
-                cursor: 'pointer',
-              }}
-            >
-              {formatDate(date)}
+        <Flex justifyContent="space-between" alignItems="center">
+          <IconButton
+            icon={<AiOutlineLeft />}
+            aria-label="Previous Dates"
+            onClick={handlePrevDates}
+          />
+          {[...Array(4)].map((_, index) => {
+            const date = new Date(startDate);
+            date.setDate(startDate.getDate() + index);
+            return (
+              <Text
+                key={index}
+                fontSize="14px"
+                fontWeight={600}
+                mx={2}
+                cursor="pointer"
+                onClick={() => handleDateClick(date)}
+                style={{
+                  borderBottom:
+                    selectedDate ===
+                    date.toLocaleDateString(undefined, {
+                      timeZone: 'UTC',
+                    })
+                      ? '2px solid #FF9E15'
+                      : 'none',
+                  color:
+                    selectedDate ===
+                    date.toLocaleDateString(undefined, {
+                      timeZone: 'UTC',
+                    })
+                      ? '#FF9E15'
+                      : 'black',
+                  cursor: 'pointer',
+                }}
+              >
+                {formatDate(date)}
+              </Text>
+            );
+          })}
+          <IconButton
+            icon={<AiOutlineRight />}
+            aria-label="Next Dates"
+            onClick={handleNextDates}
+          />
+        </Flex>
+        <Box mt={4}>
+          <HStack>
+            <Icon as={FaSun} color="orange" />
+            <Text fontSize="12px" fontWeight="600" mt={4} color="#8C9196">
+              Morning Slots:
             </Text>
-          );
-        })}
-        <IconButton
-          icon={<AiOutlineRight />}
-          aria-label="Next Dates"
-          onClick={handleNextDates}
-        />
-      </Flex>
-      <Box mt={4}>
-        <HStack>
-          <Icon as={FaSun} color="orange" />
-          <Text fontSize="12px" fontWeight="600" mt={4} color="#8C9196">
-            Morning Slots:
-          </Text>
-        </HStack>
-        <Flex flexWrap="wrap" mt={5} ml="44px">
-          {timeSlots.map((timeslot, index) => {
-            const formattedStartTime = timeslot;
+          </HStack>
+          <Flex flexWrap="wrap" mt={5} ml="44px">
+            {timeSlots.map((timeslot, index) => {
+              const formattedStartTime = timeslot;
 
-            if (formattedStartTime.includes('AM')) {
-              return (
-                <Box
-                  key={index}
-                  width="109px"
-                  height="41px"
-                  p={2}
-                  m={1}
-                  borderRadius="10px"
-                  bg="white"
-                  border="2px solid #E6E5F0"
-                  alignItems="center"
-                  justifyContent="center"
-                  textAlign="center"
-                  cursor="pointer"
-                  _hover={{
-                    color: selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'initial'
-                      : '#FF9E15',
-                    borderColor: selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'initial'
-                      : '#FF9E15',
-                    transition: 'all 0.2s ease-in-out',
-                  }}
-                  fontSize={14}
-                  fontWeight={600}
-                  onClick={() => handleSlotClick(timeslot)} // Handle the click
-                  style={{
-                    color: selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'white'
-                      : 'black',
-                    // Add a class to indicate selected slots for styling
-                    backgroundColor: selectedTime[selectedDate]?.includes(
-                      timeslot
-                    )
-                      ? '#FF9E15'
-                      : 'white',
-                    borderColor: selectedTime[selectedDate]?.includes(timeslot)
-                      ? '#FF9E15'
-                      : '#E6E5F0',
-                  }}
-                  // Add a class to indicate disabled slots for styling
-                  className={
-                    selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'disabled-slot'
-                      : ''
-                  }
-                >
-                  {formattedStartTime}
-                </Box>
-              );
-            }
+              if (formattedStartTime.includes('AM')) {
+                return (
+                  <Box
+                    key={index}
+                    width="109px"
+                    height="41px"
+                    p={2}
+                    m={1}
+                    borderRadius="10px"
+                    bg="white"
+                    border="2px solid #E6E5F0"
+                    alignItems="center"
+                    justifyContent="center"
+                    textAlign="center"
+                    cursor="pointer"
+                    _hover={{
+                      color: selectedTime[selectedDate]?.includes(timeslot)
+                        ? 'initial'
+                        : '#FF9E15',
+                      borderColor: selectedTime[selectedDate]?.includes(
+                        timeslot
+                      )
+                        ? 'initial'
+                        : '#FF9E15',
+                      transition: 'all 0.2s ease-in-out',
+                    }}
+                    fontSize={14}
+                    fontWeight={600}
+                    onClick={() => handleSlotClick(timeslot)} // Handle the click
+                    style={{
+                      color: selectedTime[selectedDate]?.includes(timeslot)
+                        ? 'white'
+                        : 'black',
+                      // Add a class to indicate selected slots for styling
+                      backgroundColor: selectedTime[selectedDate]?.includes(
+                        timeslot
+                      )
+                        ? '#FF9E15'
+                        : 'white',
+                      borderColor: selectedTime[selectedDate]?.includes(
+                        timeslot
+                      )
+                        ? '#FF9E15'
+                        : '#E6E5F0',
+                    }}
+                    // Add a class to indicate disabled slots for styling
+                    className={
+                      selectedTime[selectedDate]?.includes(timeslot)
+                        ? 'disabled-slot'
+                        : ''
+                    }
+                  >
+                    {formattedStartTime}
+                  </Box>
+                );
+              }
 
-            return null;
-          })}
-        </Flex>
-        <HStack mt={10} position="absolute">
-          <Icon as={FaSun} color="orange" />
-          <Text fontSize="12px" fontWeight="600" color="#8C9196">
-            Afternoon Slots:
-          </Text>
-        </HStack>
-        <Flex flexWrap="wrap" mt={83} ml="44px">
-          {timeSlots.map((timeslot, index) => {
-            const formattedStartTime = timeslot;
+              return null;
+            })}
+          </Flex>
+          <HStack mt={10} position="absolute">
+            <Icon as={FaSun} color="orange" />
+            <Text fontSize="12px" fontWeight="600" color="#8C9196">
+              Afternoon Slots:
+            </Text>
+          </HStack>
+          <Flex flexWrap="wrap" mt={83} ml="44px">
+            {timeSlots.map((timeslot, index) => {
+              const formattedStartTime = timeslot;
 
-            if (formattedStartTime.includes('PM')) {
-              return (
-                <Box
-                  key={index}
-                  width="109px"
-                  height="41px"
-                  p={2}
-                  m={1}
-                  borderRadius="10px"
-                  bg="white"
-                  border="2px solid #E6E5F0"
-                  alignItems="center"
-                  justifyContent="center"
-                  textAlign="center"
-                  cursor="pointer"
-                  _hover={{
-                    color: selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'initial'
-                      : '#FF9E15',
-                    borderColor: selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'initial'
-                      : '#FF9E15',
-                    transition: 'all 0.2s ease-in-out',
-                  }}
-                  fontSize={14}
-                  fontWeight={600}
-                  onClick={() => handleSlotClick(timeslot)} // Handle the click
-                  style={{
-                    color: selectedTime[selectedDate]?.includes(timeslot)
-                      ? 'white'
-                      : 'black',
-                    // Add a class to indicate selected slots for styling
-                    backgroundColor: selectedTime[selectedDate]?.includes(
-                      timeslot
-                    )
-                      ? '#FF9E15'
-                      : 'white',
-                    borderColor: selectedTime[selectedDate]?.includes(timeslot)
-                      ? '#FF9E15'
-                      : '#E6E5F0',
-                  }}
-                >
-                  {formattedStartTime}
-                </Box>
-              );
-            }
+              if (formattedStartTime.includes('PM')) {
+                return (
+                  <Box
+                    key={index}
+                    width="109px"
+                    height="41px"
+                    p={2}
+                    m={1}
+                    borderRadius="10px"
+                    bg="white"
+                    border="2px solid #E6E5F0"
+                    alignItems="center"
+                    justifyContent="center"
+                    textAlign="center"
+                    cursor="pointer"
+                    _hover={{
+                      color: selectedTime[selectedDate]?.includes(timeslot)
+                        ? 'initial'
+                        : '#FF9E15',
+                      borderColor: selectedTime[selectedDate]?.includes(
+                        timeslot
+                      )
+                        ? 'initial'
+                        : '#FF9E15',
+                      transition: 'all 0.2s ease-in-out',
+                    }}
+                    fontSize={14}
+                    fontWeight={600}
+                    onClick={() => handleSlotClick(timeslot)} // Handle the click
+                    style={{
+                      color: selectedTime[selectedDate]?.includes(timeslot)
+                        ? 'white'
+                        : 'black',
+                      // Add a class to indicate selected slots for styling
+                      backgroundColor: selectedTime[selectedDate]?.includes(
+                        timeslot
+                      )
+                        ? '#FF9E15'
+                        : 'white',
+                      borderColor: selectedTime[selectedDate]?.includes(
+                        timeslot
+                      )
+                        ? '#FF9E15'
+                        : '#E6E5F0',
+                    }}
+                  >
+                    {formattedStartTime}
+                  </Box>
+                );
+              }
 
-            return null;
-          })}
-        </Flex>
-        <Button
-          mt={10}
-          bg="button.60"
-          _hover={{ bg: '#000033' }}
-          _active={{ bg: '#000033' }}
-          onClick={handleSubmit}
-          color="white"
-          ml={'260'}
-          isDisabled={!hasSelectedTime()} // Disable the button if no times are selected
-        >
-          {loading ? <Spinner /> : <Box>Submit</Box>}
-        </Button>
+              return null;
+            })}
+          </Flex>
+          <Button
+            mt={10}
+            bg="button.60"
+            _hover={{ bg: '#000033' }}
+            _active={{ bg: '#000033' }}
+            onClick={handleSubmit}
+            color="white"
+            ml={'260'}
+            isDisabled={!hasSelectedTime()} // Disable the button if no times are selected
+          >
+            {loading ? <Spinner /> : <Box>Submit</Box>}
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

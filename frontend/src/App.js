@@ -51,7 +51,10 @@ function App() {
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
           <Route path="/Dashboard" element={<DashboardScreen />} />={' '}
           <Route path="/docAppointment" element={<DoctorAppointmentScreen />} />
-          <Route path="/setAvailability" element={<SetAvailabilityScreen />} />={' '}
+          <Route
+            path="/setAvailability"
+            element={<SetAvailabilityScreen />}
+          />={' '}
         </Routes>
       </main>
     </BrowserRouter>

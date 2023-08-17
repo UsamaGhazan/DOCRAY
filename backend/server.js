@@ -5,11 +5,7 @@ import cors from 'cors';
 import doctorRoutes from './Routes/doctorRoutes.js';
 import patientRoutes from './Routes/patientRoutes.js';
 import stripeRoutes from './Routes/stripeRoutes.js';
-import stripe from 'stripe';
-import Patient from './Models/patientModel.js';
-
-import { v4 as uuidv4 } from 'uuid';
-import { protect } from './Middlewares/authMiddleware.js';
+import imageUpload from './Routes/imageUpload.js';
 import {
   notFound,
   errorHandler,
@@ -30,6 +26,7 @@ app.get('/', (req, res) => {
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/stripe', stripeRoutes);
+app.use('/api/image', imageUpload);
 app.use(notFound);
 app.use(errorHandler);
 

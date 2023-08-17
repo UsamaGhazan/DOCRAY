@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import OverviewScreen from './OverviewScreen';
 import DoctorAppointmentScreen from './DoctorAppointmentScreen';
+import SetAvailabilityScreen from './SetAvailabilityScreen';
 import {
   useDisclosure,
   Box,
@@ -27,7 +28,6 @@ const Dashboard = () => {
     store => store.doctorLogin
   );
   const [selectedOption, setSelectedOption] = useState('Overview');
-  console.log(selectedOption);
 
   //setting option in sidebarcontent
   const setOption = option => {

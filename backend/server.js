@@ -28,12 +28,13 @@ app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/stripe', stripeRoutes);
 app.use('/api/image', imageUpload);
-app.use(notFound);
-app.use(errorHandler);
 
 //Making the upload folder static so we can access it from frontend
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads'))); //------------------------------
+
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(

@@ -92,7 +92,7 @@ const DoctorAppointmentScreen = () => {
                     >
                       <Avatar
                         name={info.patientName}
-                        src="/uploads\image-1692367885858.png"
+                        src={info.patientimage}
                         size="lg"
                       />
 

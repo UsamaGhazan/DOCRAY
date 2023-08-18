@@ -36,30 +36,34 @@ const PatientRegisterScreen = () => {
   const { loading, error, patientInfo } = patientLogin;
   const genderOptions = ['Male', 'Female', 'Other'];
   const [file, setFile] = useState(null);
+  console.log(file);
   const [imageUrl, setImageUrl] = useState('');
+  console.log(imageUrl);
   const {
     loading: imageLoading,
     error: imageError,
     response,
   } = useSelector(store => store.uploadImage);
+  console.log('Response ', response);
   const handleFileChange = e => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    handleUpload(selectedFile);
   };
 
-  const handleUpload = async () => {
+  const handleUpload = file => {
     const formData = new FormData();
     console.log('form data ', formData);
     formData.append('image', file);
 
-    try {
-      dispatch(uploadImage({ formData }));
-    } catch (error) {
-      console.log('Error upload image: ', error);
-    }
+    dispatch(uploadImage({ formData }));
   };
+
   useEffect(() => {
-    if (response && response.imageURL) {
-      setImageUrl(response.imageURL);
+    console.log('useEffect running');
+    if (response && response.image) {
+      console.log(response.image);
+      setImageUrl(response.image);
     }
   }, [response]);
 
@@ -71,11 +75,20 @@ const PatientRegisterScreen = () => {
 
   const handleRegister = e => {
     e.preventDefault();
-    handleUpload();
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
     } else {
-      dispatch(register({ name, email, password, gender, contact, dob }));
+      dispatch(
+        register({
+          name,
+          email,
+          password,
+          gender,
+          contact,
+          dob,
+          image: imageUrl,
+        })
+      );
     }
   };
 

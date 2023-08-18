@@ -13,6 +13,7 @@ const authUser = asyncHandler(async (req, res) => {
       _id: patient._id,
       name: patient.name,
       email: patient.email,
+
       token: generateToken(patient._id),
     });
   } else {
@@ -21,8 +22,8 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, gender, contact, dob } = req.body;
-
+  const { name, email, password, gender, contact, dob, image } = req.body;
+  console.log(image);
   const patientExists = await Patient.findOne({ email });
 
   if (patientExists) {
@@ -37,8 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
     gender,
     contactNumber: contact,
     dateOfBirth: dob,
-    //will change later
-    image: '/images/patient1.jpg',
+    image,
   });
 
   // logging in the user right after registration
@@ -47,6 +47,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: patient._id,
       name: patient.name,
       email: patient.email,
+      image: patient.image,
       token: generateToken(patient._id),
     });
   } else {

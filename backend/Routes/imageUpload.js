@@ -5,22 +5,35 @@ const router = express.Router();
 // Configuring Multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); //-------
+    cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
+    cb(
+      null,
+      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+    );
   },
 });
-const upload = multer({ storage: storage });
 
-// Define a route to handle image uploads
-router.post('/upload', upload.single('image'), (req, res) => {
-  console.log('inside upload image');
-  if (!req.file) {
-    return res.status(400).json({ message: 'No file uploaded' });
+//Checking for valid image type
+function checkFileType(file, cb) {
+  const filetypes = /jpg|jpeg|png/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+  if (extname && mimetype) {
+    return cb(null, true);
+  } else {
+    cb('Images only!');
   }
-  const imageUrl = req.file.filename;
-  res.json({ imageUrl });
+}
+
+const upload = multer({ storage });
+
+router.post('/upload', upload.single('image'), (req, res) => {
+  console.log('Inside upload image');
+  res.send({
+    message: 'Image Uploaded',
+    image: `/${req.file.path}`,
+  });
 });
 export default router;

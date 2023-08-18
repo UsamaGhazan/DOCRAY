@@ -6,6 +6,7 @@ import doctorRoutes from './Routes/doctorRoutes.js';
 import patientRoutes from './Routes/patientRoutes.js';
 import stripeRoutes from './Routes/stripeRoutes.js';
 import imageUpload from './Routes/imageUpload.js';
+import path from 'path';
 import {
   notFound,
   errorHandler,
@@ -29,6 +30,10 @@ app.use('/api/stripe', stripeRoutes);
 app.use('/api/image', imageUpload);
 app.use(notFound);
 app.use(errorHandler);
+
+//Making the upload folder static so we can access it from frontend
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads'))); //------------------------------
 
 const PORT = process.env.PORT || 5000;
 app.listen(

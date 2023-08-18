@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { register } from '../../Features/PatientFeature/registerPatientSlice';
+import { uploadImage } from '../../Features/uploadImageSlice';
+import axios from 'axios';
 import {
   Box,
   Heading,
@@ -33,6 +35,33 @@ const PatientRegisterScreen = () => {
   const patientLogin = useSelector(store => store.patientLogin);
   const { loading, error, patientInfo } = patientLogin;
   const genderOptions = ['Male', 'Female', 'Other'];
+  const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
+  const {
+    loading: imageLoading,
+    error: imageError,
+    response,
+  } = useSelector(store => store.uploadImage);
+  const handleFileChange = e => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    const formData = new FormData();
+    console.log('form data ', formData);
+    formData.append('image', file);
+
+    try {
+      dispatch(uploadImage({ formData }));
+    } catch (error) {
+      console.log('Error upload image: ', error);
+    }
+  };
+  useEffect(() => {
+    if (response && response.imageURL) {
+      setImageUrl(response.imageURL);
+    }
+  }, [response]);
 
   useEffect(() => {
     if (patientInfo) {
@@ -42,6 +71,7 @@ const PatientRegisterScreen = () => {
 
   const handleRegister = e => {
     e.preventDefault();
+    handleUpload();
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
     } else {
@@ -117,6 +147,10 @@ const PatientRegisterScreen = () => {
           value={confirmPassword}
           onChange={e => setConfirmPassword(e.target.value)}
         />
+      </FormControl>
+      <FormControl mb="20px">
+        <FormLabel>Upload Image</FormLabel>
+        <Input type="file" onChange={handleFileChange} />
       </FormControl>
       <Button
         colorScheme="teal"

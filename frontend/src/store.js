@@ -10,6 +10,7 @@ import doctorLoginReducer from './Features/DoctorFeature/doctorLoginSlice';
 import appointmentDetailReducer from './Features/DoctorFeature/appointmentDetailSlice';
 import setAvailabilityReducer from './Features/DoctorFeature/setAvailabilitySlice';
 import getAvailabilityReducer from './Features/DoctorFeature/getAvailabilitySlice';
+import uploadImageReducer from './Features/uploadImageSlice';
 const patientInfoFromStorage = localStorage.getItem('patientInfo')
   ? JSON.parse(localStorage.getItem('patientInfo'))
   : null;
@@ -39,6 +40,7 @@ export const store = configureStore({
     appointmentDetails: appointmentDetailReducer,
     doctorSetSlots: setAvailabilityReducer,
     doctorAvailableSlots: getAvailabilityReducer,
+    uploadImage: uploadImageReducer,
   },
   preloadedState: initialState,
 });

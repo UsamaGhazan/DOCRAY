@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../Features/PatientFeature/loginPatientSlice';
+import axios from 'axios';
 import {
   Alert,
   AlertIcon,
@@ -16,16 +17,15 @@ import {
 const PatientLoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
   const navigate = useNavigate();
   // for redirecting the user to a specific page after a login
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
   const patientLogin = useSelector(store => store.patientLogin);
   const { loading, error, patientInfo } = patientLogin;
-  console.log(patientInfo);
 
   useEffect(() => {
     if (patientInfo && redirect === '/') {

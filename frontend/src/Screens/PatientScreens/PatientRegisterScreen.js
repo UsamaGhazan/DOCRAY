@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { register } from '../../Features/PatientFeature/registerPatientSlice';
 import { uploadImage } from '../../Features/uploadImageSlice';
-import axios from 'axios';
 import {
   Box,
   Heading,
@@ -38,7 +37,6 @@ const PatientRegisterScreen = () => {
   const [file, setFile] = useState(null);
   console.log(file);
   const [imageUrl, setImageUrl] = useState('');
-  console.log(imageUrl);
   const {
     loading: imageLoading,
     error: imageError,
@@ -146,6 +144,10 @@ const PatientRegisterScreen = () => {
         <Input type="Date" value={dob} onChange={e => setDob(e.target.value)} />
       </FormControl>
       <FormControl mb="20px">
+        <FormLabel>Upload Image</FormLabel>
+        <Input type="file" onChange={handleFileChange} />
+      </FormControl>
+      <FormControl mb="20px">
         <FormLabel>Password:</FormLabel>
         <Input
           type="password"
@@ -161,10 +163,7 @@ const PatientRegisterScreen = () => {
           onChange={e => setConfirmPassword(e.target.value)}
         />
       </FormControl>
-      <FormControl mb="20px">
-        <FormLabel>Upload Image</FormLabel>
-        <Input type="file" onChange={handleFileChange} />
-      </FormControl>
+
       <Button
         colorScheme="teal"
         size="md"

@@ -37,6 +37,7 @@ const authDoctor = asyncHandler(async (req, res) => {
       satisfiedPatients: doctor.satisfied,
       unsatisfiedPatients: doctor.unsatisfied,
       availableTimeSlots: doctor.availableTimeSlots,
+      image: doctor.image,
       token: generateToken(doctor._id),
     });
   } else {
@@ -57,6 +58,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
     experience,
     areaname,
     clinicname,
+    image,
   } = req.body;
   const doctorExists = await Doctor.findOne({ email });
   if (doctorExists) {
@@ -77,7 +79,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
     areaname,
     clinicname,
     // Will change later
-    image: '/images/doctor5.jpg',
+    image,
   });
   if (doctor) {
     res.status(201).json({
@@ -174,10 +176,8 @@ const getAppointments = asyncHandler(async (req, res) => {
 });
 
 const setAvailableSlots = asyncHandler(async (req, res) => {
-  console.log('Inside setAvailableSlots');
   const doctorId = req.user.id;
   const { timeSlots } = req.body;
-  console.log(timeSlots);
 
   try {
     const doctor = await Doctor.findById(doctorId);
@@ -233,7 +233,6 @@ const setAvailableSlots = asyncHandler(async (req, res) => {
   }
 });
 const getAvailableSlots = asyncHandler(async (req, res) => {
-  console.log('Inside getAAVailableSlots');
   const { _id } = req.user;
   const doctor = await Doctor.findById(_id);
 

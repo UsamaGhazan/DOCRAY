@@ -23,7 +23,6 @@ const authUser = asyncHandler(async (req, res) => {
 });
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, gender, contact, dob, image } = req.body;
-  console.log(image);
   const patientExists = await Patient.findOne({ email });
 
   if (patientExists) {

@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { registerDoc } from '../../Features/DoctorFeature/registerDoctorSlice';
+import { uploadImage } from '../../Features/uploadImageSlice';
+
 import {
   Box,
   Heading,
@@ -37,10 +39,39 @@ const DoctorRegisterScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/';
   const doctorLogin = useSelector(store => store.doctorLogin);
   const { loading, error, doctorInfo } = doctorLogin;
-  console.log(doctorInfo);
+  const {
+    loading: imageLoading,
+    error: imageError,
+    response,
+  } = useSelector(store => store.uploadImage);
   const genderOptions = ['Male', 'Female', 'Other'];
   const categories = ['Tuberculosis', 'Pneumonia'];
-  console.log(name);
+
+  const [file, setFile] = useState(null);
+  console.log(file);
+  const [imageUrl, setImageUrl] = useState('');
+
+  const handleFileChange = e => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    handleUpload(selectedFile);
+  };
+
+  const handleUpload = file => {
+    const formData = new FormData();
+    console.log('form data ', formData);
+    formData.append('image', file);
+
+    dispatch(uploadImage({ formData }));
+  };
+
+  useEffect(() => {
+    console.log('useEffect running');
+    if (response && response.image) {
+      console.log(response.image);
+      setImageUrl(response.image);
+    }
+  }, [response]);
   useEffect(() => {
     if (doctorInfo) {
       navigate('/dashboard');
@@ -64,6 +95,7 @@ const DoctorRegisterScreen = () => {
           experience,
           areaname,
           clinicname,
+          image: imageUrl,
         })
       );
     }
@@ -202,6 +234,12 @@ const DoctorRegisterScreen = () => {
           </Select>
         </FormControl>
       </Box>
+      <Box w="48%" mb="20px">
+        <FormControl mb="20px">
+          <FormLabel>Upload Image</FormLabel>
+          <Input type="file" onChange={handleFileChange} />
+        </FormControl>
+      </Box>
 
       <Box w="48%" mb="20px">
         <FormControl>
@@ -214,6 +252,7 @@ const DoctorRegisterScreen = () => {
           />
         </FormControl>
       </Box>
+
       <Box w="48%" mb="20px">
         <FormControl>
           <FormLabel>Confirm Password:</FormLabel>

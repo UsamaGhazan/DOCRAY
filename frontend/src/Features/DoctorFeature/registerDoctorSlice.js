@@ -16,6 +16,7 @@ export const registerDoc = createAsyncThunk(
       experience,
       areaname,
       clinicname,
+      image,
     },
     thunkAPI
   ) => {
@@ -40,6 +41,7 @@ export const registerDoc = createAsyncThunk(
           experience,
           areaname,
           clinicname,
+          image,
         },
         config
       );

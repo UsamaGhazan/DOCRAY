@@ -6,6 +6,8 @@ import doctorRoutes from './Routes/doctorRoutes.js';
 import patientRoutes from './Routes/patientRoutes.js';
 import stripeRoutes from './Routes/stripeRoutes.js';
 import imageUpload from './Routes/imageUpload.js';
+import { Server } from 'socket.io';
+import http from 'http';
 import path from 'path';
 import {
   notFound,
@@ -29,9 +31,21 @@ app.use('/api/patients', patientRoutes);
 app.use('/api/stripe', stripeRoutes);
 app.use('/api/image', imageUpload);
 
+const server = http.createServer(app);
+const io = new Server(server); //-----------------------------------------------
+
+//connection event tells when someone is connected to the server
+io.on('connection', (socket) => {
+  console.log('socket.id ', socket.id);
+
+  io.on('disconnect', () => {
+    console.log('User disconnected ', socket.id);
+  });
+});
+
 //Making the upload folder static so we can access it from frontend
 const __dirname = path.resolve();
-app.use('/uploads', express.static(path.join(__dirname, '/uploads'))); //------------------------------
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(notFound);
 app.use(errorHandler);

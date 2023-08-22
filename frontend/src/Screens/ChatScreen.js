@@ -7,21 +7,31 @@ const ChatScreen = () => {
 
   const [name, setName] = useState('');
   const [roomId, setRoomId] = useState('');
+  const [showChat, setShowChat] = useState(false);
   const joinRoom = () => {
     if (name !== '' && roomId !== '') {
       socket.emit('join_room', roomId);
+      setShowChat(true);
     }
   };
   return (
     <Box>
-      <h3>Join chat</h3>
-      <Input placeholder="Name..." onChange={e => setName(e.target.value)} />
-      <Input
-        placeholder="Room Id..."
-        onChange={e => setRoomId(e.target.value)}
-      />
-      <Button onClick={joinRoom}>Join Room</Button>
-      <Chat socket={socket} name={name} roomId={roomId} />
+      {!showChat ? (
+        <>
+          <h3>Join chat</h3>
+          <Input
+            placeholder="Name..."
+            onChange={e => setName(e.target.value)}
+          />
+          <Input
+            placeholder="Room Id..."
+            onChange={e => setRoomId(e.target.value)}
+          />
+          <Button onClick={joinRoom}>Join Room</Button>
+        </>
+      ) : (
+        <Chat socket={socket} name={name} roomId={roomId} />
+      )}
     </Box>
   );
 };

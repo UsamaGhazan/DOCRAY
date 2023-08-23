@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react';
 const Chat = ({ socket, name, roomId }) => {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const [remoteSocketId, setRemoteSocketId] = useState(null);
   // Joining the room when the component mounts
   useEffect(() => {
-    socket.emit('join_room', roomId);
-  }, [socket, roomId]);
+    socket.emit('join_room', { name, roomId });
+  }, [socket, roomId, name]);
 
   const sendMessage = async () => {
     if (currentMessage !== '') {
@@ -76,7 +77,10 @@ const Chat = ({ socket, name, roomId }) => {
           onChange={e => setCurrentMessage(e.target.value)}
           value={currentMessage}
         />
+
         <Button onClick={sendMessage}>&#9658;</Button>
+
+        <Button onClick={handleCallUser}>CALL</Button>
       </Box>
     </Box>
   );

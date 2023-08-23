@@ -39,13 +39,22 @@ const io = new Server(server, {
   },
 });
 
+const emailToSocketIdMap = new Map(); //Currently using name
+const socketidToEmailMap = new Map();
+
 //connection event tells when someone is connected to the server
 io.on('connection', (socket) => {
-  console.log('socket.id ', socket.id);
+  console.log('socket.id "connected" ', socket.id);
 
   socket.on('join_room', (data) => {
-    socket.join(data);
-    console.log(`User with id ${socket.id} joined room ${data} `);
+    console.log('data ', data);
+    console.log('Join_room');
+    const { name, roomId } = data;
+    console.log('room ID  ', roomId);
+    emailToSocketIdMap.set(name, socket.id);
+    socketidToEmailMap.set(socket.id, name);
+    // io.to(roomId).emit('user:joined', { name, id: socket.id });
+    socket.join(roomId);
   });
 
   socket.on('send_message', (data) => {

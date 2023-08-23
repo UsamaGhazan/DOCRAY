@@ -8,12 +8,15 @@ import './index.css';
 import theme from './theme';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import SocketProvider from './context/SocketProvider';
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>
-    <Provider store={store}>
-      <App />
-    </Provider>{' '}
+    <SocketProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>{' '}
+    </SocketProvider>
   </ChakraProvider>,
   document.getElementById('root')
 );

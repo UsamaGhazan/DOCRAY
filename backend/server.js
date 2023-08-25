@@ -9,6 +9,7 @@ import imageUpload from './Routes/imageUpload.js';
 import { Server } from 'socket.io';
 import http from 'http';
 import path from 'path';
+import dieaseDetectionRoutes from './Routes/diseaseDetectionRoutes.js';
 import {
   notFound,
   errorHandler,
@@ -30,6 +31,7 @@ app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/stripe', stripeRoutes);
 app.use('/api/image', imageUpload);
+app.use('/api/predict', dieaseDetectionRoutes);
 
 const server = http.createServer(app);
 const io = new Server(server, {

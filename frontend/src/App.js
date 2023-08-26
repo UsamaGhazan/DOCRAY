@@ -25,7 +25,10 @@ import DoctorLoginScreen from './Screens/DoctorScreens/DoctorLoginScreen';
 import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
 import DoctorAppointmentScreen from './Screens/DoctorScreens/DoctorAppointmentScreen';
 import SetAvailabilityScreen from './Screens/DoctorScreens/SetAvailabilityScreen';
-import ChatScreen from './Screens/ChatScreen';
+// import ChatScreen from './Screens/ChatScreen';
+import LobbyScreen from './Screens/Lobby';
+import RoomPage from './Screens/Room';
+import PneumoniaDetectionScreen from './Screens/PatientScreens/PneumoniaDetectionScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   return (
@@ -52,7 +55,13 @@ function App() {
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
           <Route path="/Dashboard" element={<DashboardScreen />} />={' '}
           <Route path="/docAppointment" element={<DoctorAppointmentScreen />} />
-          <Route path="/chat" element={<ChatScreen />} />
+          <Route
+            path="/pneumoniaDetection"
+            element={<PneumoniaDetectionScreen />}
+          />
+          {/* <Route path="/chat" element={<ChatScreen />} /> */}
+          <Route path="/lobby" element={<LobbyScreen />} />
+          <Route path="/room/:roomId" element={<RoomPage />} />
           <Route
             path="/setAvailability"
             element={<SetAvailabilityScreen />}

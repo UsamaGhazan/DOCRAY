@@ -1,7 +1,9 @@
 import asyncHandler from 'express-async-handler';
 import sharp from 'sharp';
 import * as tf from '@tensorflow/tfjs-node';
-
+import fs from 'fs';
+import path from 'path'; // Import the path module
+import multer from 'multer';
 // Load the trained model using an absolute path
 const modelPath = 'pneumonia_detection_model.h5';
 
@@ -12,14 +14,22 @@ async function loadModel() {
 
 const img_width = 150;
 const img_height = 150;
+
+// Set up multer storage for handling file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 const pneumoniaDetection = asyncHandler(async (req, res) => {
   console.log('Inside pneumonia detection');
   try {
-    console.log(req.body);
-    const imageData = req.body.imageData;
-    console.log(imageData);
+    console.log('req.file ', req.file); // Check if req.file contains the uploaded data
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image file provided.' });
+    }
+
+    const imageBuffer = req.file.buffer;
     // Preprocess the image data
-    const resizedImageData = await sharp(imageData)
+    const resizedImageData = await sharp(imageBuffer)
       .resize(img_width, img_height)
       .toBuffer();
 

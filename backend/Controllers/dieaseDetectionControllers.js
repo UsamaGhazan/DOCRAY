@@ -5,11 +5,18 @@ import fs from 'fs';
 import path from 'path'; // Import the path module
 import multer from 'multer';
 // Load the trained model using an absolute path
-const modelPath = 'pneumonia_detection_model.h5';
+const modelPath = '../../pneumonia_detection_model.h5';
 
 async function loadModel() {
-  const model = await tf.loadLayersModel(`file://${modelPath}`);
-  return model;
+  try {
+    console.log('Inside load model');
+    const model = await tf.loadLayersModel(`file://${modelPath}`);
+
+    return model;
+  } catch (error) {
+    console.error('Error loading model:', error);
+    throw error;
+  }
 }
 
 const img_width = 150;
@@ -40,12 +47,15 @@ const pneumoniaDetection = asyncHandler(async (req, res) => {
     // Converting normalizedImageData to a TensorFlow tensor
     const tensorData = tf.tensor(normalizedImageData);
     const model = await loadModel();
-
+    console.log('Before data prediction');
     // Mak pringediction using the loaded model
     const prediction = model.predict(tensorData);
+    console.log('After data prediction');
 
     // Converting the prediction tensor to a JavaScript array
     const predictionArray = prediction.arraySync();
+    const responseData = { prediction: predictionArray };
+    console.log('Response Data:', responseData); // Add this line
 
     // Sending the prediction result back to the frontend
     res.json({ prediction: predictionArray });

@@ -2,6 +2,7 @@
 Changes to be made.txt
 Dashboard.txt
 backend/pneumonia_detection_model.h5
+verify_model.py
 
 # dependencies
 node_modules

@@ -1,17 +1,19 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 import numpy as np
 import tensorflow as tf
 import cv2
 
 app = Flask(__name__)
+CORS(app)  # Apply CORS to your app
 
 # Load the pre-trained model
 model = tf.keras.models.load_model('pneumonia_detection_model.h5')
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get the image data from the request
         image_data = request.files['image'].read()
+
         
         # Preprocess the image data (resize and normalize)
         img_array = np.frombuffer(image_data, np.uint8)

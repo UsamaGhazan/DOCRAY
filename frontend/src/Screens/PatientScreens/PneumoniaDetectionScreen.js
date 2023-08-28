@@ -14,7 +14,6 @@ const PneumoniaDetectionScreen = () => {
     error: imageError,
     response,
   } = useSelector(store => store.uploadImage);
-  console.log(response);
   const handleFileChange = e => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -39,10 +38,11 @@ const PneumoniaDetectionScreen = () => {
       };
 
       const response = await axios.post(
-        '/api/predict/pneumonia',
+        'http://localhost:8000/predict',
         formData,
         config
       );
+
       console.log('response', response.data);
       return response.data;
     } catch (error) {
@@ -51,9 +51,7 @@ const PneumoniaDetectionScreen = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect running');
     if (response && response.image) {
-      console.log(response.image);
       setImageUrl(response.image);
     }
   }, [response]);

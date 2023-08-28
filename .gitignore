@@ -3,7 +3,7 @@ Changes to be made.txt
 Dashboard.txt
 backend/pneumonia_detection_model.h5
 verify_model.py
-
+flask_backend/venv
 # dependencies
 node_modules
 node_modules/

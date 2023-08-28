@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 import ReactPlayer from 'react-player';
 import peer from '../service/peer';
 import { useSocket } from '../context/SocketProvider';
-
+import { Alert, AlertIcon, AlertTitle, Button } from '@chakra-ui/react';
 const RoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
@@ -47,6 +47,8 @@ const RoomPage = () => {
 
   const handleCallAccepted = useCallback(
     ({ from, ans }) => {
+      alert('Call accepted');
+
       peer.setLocalDescription(ans);
       console.log('Call Accepted!');
       sendStreams();
@@ -113,10 +115,18 @@ const RoomPage = () => {
     <div>
       <h1>Room Page</h1>
       <h4>{remoteSocketId ? 'Connected' : 'No one in room'}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
       {myStream && (
-        <>
+        <Button onClick={sendStreams} colorScheme="blue" mt={2}>
+          Send Stream
+        </Button>
+      )}
+      {remoteSocketId && (
+        <Button onClick={handleCallUser} colorScheme="green" mt={2}>
+          CALL
+        </Button>
+      )}
+      {myStream && (
+        <div>
           <h1>My Stream</h1>
           <ReactPlayer
             playing
@@ -125,10 +135,10 @@ const RoomPage = () => {
             width="200px"
             url={myStream}
           />
-        </>
+        </div>
       )}
       {remoteStream && (
-        <>
+        <div>
           <h1>Remote Stream</h1>
           <ReactPlayer
             playing
@@ -137,7 +147,7 @@ const RoomPage = () => {
             width="200px"
             url={remoteStream}
           />
-        </>
+        </div>
       )}
     </div>
   );

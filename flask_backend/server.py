@@ -5,9 +5,8 @@ import tensorflow as tf
 import cv2
 
 app = Flask(__name__)
-CORS(app)  # Apply CORS to your app
-
-# Load the pre-trained model
+CORS(app)  
+# Loading model
 model = tf.keras.models.load_model('pneumonia_detection_model.h5')
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -15,16 +14,15 @@ def predict():
         image_data = request.files['image'].read()
 
         
-        # Preprocess the image data (resize and normalize)
+        # Preprocessing the image data (resizing and normalizing) using opencv
         img_array = np.frombuffer(image_data, np.uint8)
         img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
         img = cv2.resize(img, (150, 150))
-        img = img / 255.0  # Normalize pixel values
+        img = img / 255.0  # Normalizing pixel values
         
-        # Make prediction using the loaded model
+        # Making prediction
         prediction = model.predict(np.array([img]))
         
-        # Return the prediction as JSON
         return jsonify({'prediction': prediction.tolist()})
     except Exception as e:
         return jsonify({'error': str(e)})

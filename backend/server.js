@@ -39,8 +39,8 @@ const io = new Server(server, {
   },
 });
 
-const emailToSocketIdMap = new Map(); //Currently using name
-const socketidToEmailMap = new Map();
+// const emailToSocketIdMap = new Map(); //Currently using name
+// const socketidToEmailMap = new Map();
 
 //connection event tells when someone is connected to the server
 // io.on('connection', (socket) => {
@@ -80,34 +80,52 @@ const socketidToEmailMap = new Map();
 //     io.to(to).emit('peer:nego:final', { from: socket.id, ans });
 //   });
 // });
+// ----------------------------------------------------------------------------------
+// io.on('connection', (socket) => {
+//   socket.on('room:join', (data) => {
+//     console.log('Room join');
+//     const { email, room } = data;
+//     emailToSocketIdMap.set(email, socket.id);
+//     socketidToEmailMap.set(socket.id, email);
+//     io.to(room).emit('user:joined', { email, id: socket.id });
+//     socket.join(room);
+//     io.to(socket.id).emit('room:join', data);
+//   });
+
+//   socket.on('user:call', ({ to, offer }) => {
+//     io.to(to).emit('incomming:call', { from: socket.id, offer });
+//   });
+
+//   socket.on('call:accepted', ({ to, ans }) => {
+//     io.to(to).emit('call:accepted', { from: socket.id, ans });
+//   });
+
+//   socket.on('peer:nego:needed', ({ to, offer }) => {
+//     console.log('peer:nego:needed', offer);
+//     io.to(to).emit('peer:nego:needed', { from: socket.id, offer });
+//   });
+
+//   socket.on('peer:nego:done', ({ to, ans }) => {
+//     console.log('peer:nego:done', ans);
+//     io.to(to).emit('peer:nego:final', { from: socket.id, ans });
+//   });
+// });
+
+// ------------------------------------------------------------------------------------------------------
 
 io.on('connection', (socket) => {
-  socket.on('room:join', (data) => {
-    console.log('Room join');
-    const { email, room } = data;
-    emailToSocketIdMap.set(email, socket.id);
-    socketidToEmailMap.set(socket.id, email);
-    io.to(room).emit('user:joined', { email, id: socket.id });
-    socket.join(room);
-    io.to(socket.id).emit('room:join', data);
+  socket.emit('me', socket.id);
+
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('callEnded');
   });
 
-  socket.on('user:call', ({ to, offer }) => {
-    io.to(to).emit('incomming:call', { from: socket.id, offer });
+  socket.on('callUser', ({ userToCall, signalData, from, name }) => {
+    io.to(userToCall).emit('callUser', { signal: signalData, from, name });
   });
 
-  socket.on('call:accepted', ({ to, ans }) => {
-    io.to(to).emit('call:accepted', { from: socket.id, ans });
-  });
-
-  socket.on('peer:nego:needed', ({ to, offer }) => {
-    console.log('peer:nego:needed', offer);
-    io.to(to).emit('peer:nego:needed', { from: socket.id, offer });
-  });
-
-  socket.on('peer:nego:done', ({ to, ans }) => {
-    console.log('peer:nego:done', ans);
-    io.to(to).emit('peer:nego:final', { from: socket.id, ans });
+  socket.on('answerCall', (data) => {
+    io.to(data.to).emit('callAccepted', data.signal);
   });
 });
 

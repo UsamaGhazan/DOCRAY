@@ -96,6 +96,8 @@ const HomeScreen = () => {
 
                 <Box>
                   <Button
+                    as={Link}
+                    to={'/pneumoniaDetection'}
                     marginLeft="17px"
                     size="sm"
                     variant="solid"

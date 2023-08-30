@@ -26,8 +26,8 @@ import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
 import DoctorAppointmentScreen from './Screens/DoctorScreens/DoctorAppointmentScreen';
 import SetAvailabilityScreen from './Screens/DoctorScreens/SetAvailabilityScreen';
 // import ChatScreen from './Screens/ChatScreen';
-import LobbyScreen from './Screens/Lobby';
-import RoomPage from './Screens/Room';
+// import LobbyScreen from './Screens/Lobby';
+// import RoomPage from './Screens/Room';
 import PneumoniaDetectionScreen from './Screens/PatientScreens/PneumoniaDetectionScreen';
 import VideoCallScreen from './Screens/VideoCallScreen';
 function App() {
@@ -62,8 +62,8 @@ function App() {
             element={<PneumoniaDetectionScreen />}
           />
           {/* <Route path="/chat" element={<ChatScreen />} /> */}
-          <Route path="/lobby" element={<LobbyScreen />} />
-          <Route path="/room/:roomId" element={<RoomPage />} />
+          {/* <Route path="/lobby" element={<LobbyScreen />} /> */}
+          {/* <Route path="/room/:roomId" element={<RoomPage />} /> */}
           <Route
             path="/setAvailability"
             element={<SetAvailabilityScreen />}

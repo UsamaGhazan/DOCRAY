@@ -6,13 +6,14 @@ import { SocketContext } from '../../context/SocketProvider';
 const VideoPlayer = () => {
   const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } =
     useContext(SocketContext);
+  console.log('Call accepted ', callAccepted);
+  console.log('Call ended ', callEnded);
 
   const videoStyle = useStyleConfig('VideoPlayer'); // Use Chakra UI style configuration
 
   return (
     <Grid
       container
-      justifyContent="center"
       flexDirection={{ base: 'column', md: 'row' }} // Responsive flexDirection
     >
       {stream && (

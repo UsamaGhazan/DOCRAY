@@ -13,7 +13,7 @@ import { FaCopy, FaPhone, FaPhoneSlash } from 'react-icons/fa'; // Import icons 
 import { SocketContext } from '../../context/SocketProvider';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const Sidebar = ({ children }) => {
+const Options = ({ children }) => {
   const { me, callAccepted, name, setName, callEnded, leaveCall, callUser } =
     useContext(SocketContext);
   const [idToCall, setIdToCall] = useState();
@@ -104,4 +104,4 @@ const Sidebar = ({ children }) => {
   );
 };
 
-export default Sidebar;
+export default Options;

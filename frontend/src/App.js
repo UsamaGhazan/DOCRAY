@@ -25,7 +25,7 @@ import DoctorLoginScreen from './Screens/DoctorScreens/DoctorLoginScreen';
 import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
 import DoctorAppointmentScreen from './Screens/DoctorScreens/DoctorAppointmentScreen';
 import SetAvailabilityScreen from './Screens/DoctorScreens/SetAvailabilityScreen';
-// import ChatScreen from './Screens/ChatScreen';
+import ChatScreen from './Screens/ChatScreen';
 
 import PneumoniaDetectionScreen from './Screens/PatientScreens/PneumoniaDetectionScreen';
 import VideoCallScreen from './Screens/VideoCallScreen';
@@ -60,7 +60,7 @@ function App() {
             path="/pneumoniaDetection"
             element={<PneumoniaDetectionScreen />}
           />
-          {/* <Route path="/chat" element={<ChatScreen />} /> */}
+          <Route path="/chat" element={<ChatScreen />} />
           <Route
             path="/setAvailability"
             element={<SetAvailabilityScreen />}

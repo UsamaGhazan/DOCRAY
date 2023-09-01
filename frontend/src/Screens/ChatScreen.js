@@ -1,42 +1,46 @@
-// import { Box, Button, Input } from '@chakra-ui/react';
-// import React, { useState } from 'react';
-// import io from 'socket.io-client';
-// import Chat from '../Components/Chat';
-// import { useSocket } from '../context/SocketProvider';
+import io from 'socket.io-client';
+import { useState } from 'react';
+import Chat from '../Components/Chat';
+const socket = io.connect('http://localhost:5000');
 
-// const ChatScreen = () => {
-//   // const socket = useSocket();
-//   const socket = io.connect('http://localhost:5000');
+function ChatScreen() {
+  const [username, setUsername] = useState('');
+  const [room, setRoom] = useState('');
+  const [showChat, setShowChat] = useState(false);
 
-//   const [name, setName] = useState(''); //Might change it to email
-//   const [roomId, setRoomId] = useState('');
-//   const [showChat, setShowChat] = useState(false);
-//   const joinRoom = () => {
-//     if (name !== '' && roomId !== '') {
-//       socket.emit('join_room', { name, roomId });
-//       setShowChat(true);
-//     }
-//   };
-//   return (
-//     <Box>
-//       {!showChat ? (
-//         <>
-//           <h3>Join chat</h3>
-//           <Input
-//             placeholder="Name..."
-//             onChange={e => setName(e.target.value)}
-//           />
-//           <Input
-//             placeholder="Room Id..."
-//             onChange={e => setRoomId(e.target.value)}
-//           />
-//           <Button onClick={joinRoom}>Join Room</Button>
-//         </>
-//       ) : (
-//         <Chat socket={socket} name={name} roomId={roomId} />
-//       )}
-//     </Box>
-//   );
-// };
+  const joinRoom = () => {
+    if (username !== '' && room !== '') {
+      socket.emit('join_room', room);
+      setShowChat(true);
+    }
+  };
 
-// export default ChatScreen;
+  return (
+    <div className="App">
+      {!showChat ? (
+        <div className="joinChatContainer">
+          <h3>Join A Chat</h3>
+          <input
+            type="text"
+            placeholder="John..."
+            onChange={event => {
+              setUsername(event.target.value);
+            }}
+          />
+          <input
+            type="text"
+            placeholder="Room ID..."
+            onChange={event => {
+              setRoom(event.target.value);
+            }}
+          />
+          <button onClick={joinRoom}>Join A Room</button>
+        </div>
+      ) : (
+        <Chat socket={socket} username={username} room={room} />
+      )}
+    </div>
+  );
+}
+
+export default ChatScreen;

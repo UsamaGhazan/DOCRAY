@@ -126,7 +126,6 @@ const createDoctorReview = asyncHandler(async (req, res) => {
   }
 });
 
-// doctorController.js
 const profileViewCount = asyncHandler(async (req, res) => {
   const { doctorId } = req.body;
   const doctor = await Doctor.findById(doctorId);
@@ -242,6 +241,25 @@ const getAvailableSlots = asyncHandler(async (req, res) => {
   }
   res.status(200).json(doctor.availableTimeSlots);
 });
+
+const searchDoctor = asyncHandler(async (req, res) => {
+  const { query } = req.query;
+
+  //Finding Doctors based on name or specialization
+  const doctors = await Doctor.find({
+    $or: [
+      { name: { $regex: query, $options: 'i' } }, // Case-insensitive name search
+      { specialization: { $regex: query, $options: 'i' } }, // Case-insensitive specialization search
+    ],
+  });
+
+  if (doctors && doctors.length > 0) {
+    res.status(200).json(doctors);
+  } else {
+    res.status(404).json({ message: 'No Doctors found' });
+  }
+});
+
 export {
   getAllDoctors,
   getSingleDoctor,
@@ -252,4 +270,5 @@ export {
   getAppointments,
   setAvailableSlots,
   getAvailableSlots,
+  searchDoctor,
 };

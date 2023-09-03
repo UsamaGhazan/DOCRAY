@@ -11,6 +11,7 @@ import {
   getAppointments,
   setAvailableSlots,
   getAvailableSlots,
+  searchDoctor,
 } from '../Controllers/doctorController.js';
 import { protect } from '../Middlewares/authMiddleware.js';
 router.get('/', getAllDoctors);
@@ -19,6 +20,7 @@ router.post('/', registerDoctor);
 router.post('/profileViewCount', profileViewCount);
 router.post('/setAvailableSlots', protect, setAvailableSlots);
 router.get('/getAvailableSlots', protect, getAvailableSlots);
+router.get('/searchDoctor', searchDoctor);
 router.get('/getAppointments/:id', getAppointments);
 router.post('/:id/reviews', protect, createDoctorReview);
 

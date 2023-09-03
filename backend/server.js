@@ -43,17 +43,12 @@ io.on('connection', (socket) => {
   socket.emit('me', socket.id);
 
   socket.on('disconnect', () => {
-    console.log('User Disconnected', socket.id);
     socket.broadcast.emit('callEnded');
   });
   socket.on('join_room', (data) => {
-    console.log('Join_room ', data);
-
     socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
   socket.on('send_message', (data) => {
-    console.log('send_message ', data);
     socket.to(data.room).emit('receive_message', data);
   });
 

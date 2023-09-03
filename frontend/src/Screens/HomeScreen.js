@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import DoctorModal from '../Components/Doctor Components/DoctorModal';
-import SearchDoctor from '../Components/Doctor Components/SearchDoctor';
+import SearchDoctor from '../Components/Patient Components/SearchDoctor';
 import {
   HStack,
   Heading,

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-// import ScrollToBottom from 'react-scroll-to-bottom';
-import { Box, Button, Input } from '@chakra-ui/react';
+import { Box, Button, Input, List, Text, useColorMode } from '@chakra-ui/react';
+
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
-  console.log(messageList);
   const sendMessage = async () => {
     if (currentMessage !== '') {
       const messageData = {
@@ -16,7 +15,6 @@ function Chat({ socket, username, room }) {
           ':' +
           new Date(Date.now()).getMinutes(),
       };
-      console.log('emitting send_message');
 
       await socket.emit('send_message', messageData);
       setMessageList(list => [...list, messageData]);
@@ -25,10 +23,7 @@ function Chat({ socket, username, room }) {
   };
 
   useEffect(() => {
-    console.log('Inside receive_message.on useEffect ');
-
     socket.on('receive_message', data => {
-      console.log('receive_message.on ', data);
       setMessageList(list => [...list, data]);
     });
   }, [socket]);
@@ -37,49 +32,45 @@ function Chat({ socket, username, room }) {
     <Box>
       <p>Live Chat</p>
       <Box>
-        <Box
-          border="2px solid red"
-          borderRadius="md"
-          boxShadow="lg"
+        <List
           p={4}
-          bg="white"
+          bg={'white'}
+          justifyContent="space-between"
+          alignItems="center"
         >
-          <Box>
-            {messageList.map((messageContent, index) => (
+          {messageList.map((messageContent, index) => (
+            <Box
+              key={index}
+              textAlign={messageContent.author === username ? 'left' : 'right'}
+              mb={4}
+            >
               <Box
-                key={index}
-                textAlign={
-                  messageContent.author === username ? 'left' : 'right'
+                display="inline-block"
+                bg={
+                  messageContent.author === username ? 'blue.500' : 'gray.300'
                 }
-                mb={4}
+                color={messageContent.author === username ? 'white' : 'black'}
+                borderRadius="lg"
+                p={3}
+                maxWidth="70%"
               >
-                <Box
-                  display="inline-block"
-                  bg={
-                    messageContent.author === username ? 'blue.500' : 'gray.300'
-                  }
-                  color={messageContent.author === username ? 'white' : 'black'}
-                  borderRadius="lg"
-                  p={3}
-                  maxWidth="70%"
-                >
-                  <Box fontWeight="semibold">{messageContent.author}</Box>
-                  <Box>{messageContent.message}</Box>
-                  <Box fontSize="sm" textAlign="right">
-                    {messageContent.time}
-                  </Box>
+                <Box fontWeight="semibold">{messageContent.author}</Box>
+                <Box>{messageContent.message}</Box>
+                <Box fontSize="sm" textAlign="right">
+                  {messageContent.time}
                 </Box>
               </Box>
-            ))}
-          </Box>
-        </Box>
-        <Input
-          type="text"
-          onChange={e => setCurrentMessage(e.target.value)}
-          value={currentMessage}
-        />
-        <Button onClick={sendMessage}>&#9658;</Button>
+            </Box>
+          ))}
+        </List>
       </Box>
+      <Input
+        type="text"
+        onChange={e => setCurrentMessage(e.target.value)}
+        value={currentMessage}
+        placeholder="Type a message..."
+      />
+      <Button onClick={sendMessage}>Send</Button>
     </Box>
   );
 }

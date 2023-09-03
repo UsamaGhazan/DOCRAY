@@ -246,12 +246,15 @@ const searchDoctor = asyncHandler(async (req, res) => {
   const { query } = req.query;
 
   //Finding Doctors based on name or specialization
-  const doctors = await Doctor.find({
-    $or: [
-      { name: { $regex: query, $options: 'i' } }, // Case-insensitive name search
-      { specialization: { $regex: query, $options: 'i' } }, // Case-insensitive specialization search
-    ],
-  });
+  const doctors = await Doctor.find(
+    {
+      $or: [
+        { name: { $regex: query, $options: 'i' } }, // Case-insensitive name search
+        { specialization: { $regex: query, $options: 'i' } }, // Case-insensitive specialization search
+      ],
+    },
+    { name: 1, image: 1, category: 1, _id: 1 } // Projection to include only specific fields
+  );
 
   if (doctors && doctors.length > 0) {
     res.status(200).json(doctors);

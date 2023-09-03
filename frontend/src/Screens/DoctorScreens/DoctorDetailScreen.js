@@ -98,11 +98,7 @@ const DoctorDetailScreen = () => {
             >
               <HStack align="flex-start">
                 <Box ml="32px">
-                  <Avatar
-                    name="Dr Jane Smith"
-                    src="/images/doctor2.jpg"
-                    size="2xl"
-                  />
+                  <Avatar name="Dr Jane Smith" src={doctor.image} size="2xl" />
                 </Box>
                 <VStack align="flex-start" className="cardText" spacing="30px">
                   <Box>

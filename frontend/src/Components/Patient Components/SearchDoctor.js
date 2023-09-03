@@ -9,18 +9,24 @@ import {
   Avatar,
   Divider,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const SearchDoctor = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  console.log('Search query ', searchQuery);
   const [doctors, setDoctors] = useState([]);
-  console.log(doctors);
+  const [inputFieldClicked, setInputFieldClicked] = useState(false);
+  const inputRef = useRef(null); // Create a ref for the input field
+
+  const searchHistoryFromStorage = localStorage.getItem('searchHistory')
+    ? JSON.parse(localStorage.getItem('searchHistory'))
+    : [];
 
   const handleSearch = async () => {
     console.log('handleSearch');
-
+    console.log(searchQuery);
     try {
       const { data } = await axios('/api/doctors/searchDoctor', {
         params: { query: searchQuery },
@@ -30,11 +36,39 @@ const SearchDoctor = () => {
   };
 
   const handleInputChange = e => {
-    console.log('HandleInputChange');
+    console.log('hanldeInputchange');
+    setInputFieldClicked(false);
     setSearchQuery(e.target.value);
     handleSearch();
   };
 
+  const saveSearchHistory = query => {
+    localStorage.setItem(
+      'searchHistory',
+      JSON.stringify([...searchHistoryFromStorage, query])
+    );
+  };
+  const handlePastSearch = history => {
+    console.log('handlePastSearch');
+    console.log('history ', history);
+
+    setSearchQuery(history); //problem here
+    handleSearch();
+  };
+
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        setInputFieldClicked(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
   return (
     <HStack w="full">
       <VStack w="full">
@@ -44,6 +78,8 @@ const SearchDoctor = () => {
           size="lg"
           value={searchQuery}
           onChange={handleInputChange}
+          onClick={() => setInputFieldClicked(true)}
+          ref={inputRef}
         />{' '}
         <Box
           bg={'#FFFFFF'}
@@ -54,12 +90,13 @@ const SearchDoctor = () => {
           {doctors.length > 0 && searchQuery !== ''
             ? doctors.map(doctor => {
                 return (
-                  <Link to={`/doctors/${doctor._id}`}>
+                  <Link key={doctor._id} to={`/doctors/${doctor._id}`}>
                     <Box
                       w={629}
                       h={67}
                       padding={'10px 75px 10px 10px'}
                       border={'1px solid #DEE2E6'}
+                      onClick={() => saveSearchHistory(doctor.name)}
                     >
                       <HStack>
                         <Avatar
@@ -76,6 +113,21 @@ const SearchDoctor = () => {
                       </HStack>
                     </Box>
                   </Link>
+                );
+              })
+            : inputFieldClicked
+            ? searchHistoryFromStorage.map((history, index) => {
+                return (
+                  <Box
+                    key={index}
+                    w={629}
+                    h={47}
+                    padding={'10px 75px 10px 10px'}
+                    border={'1px solid #DEE2E6'}
+                    onClick={() => handlePastSearch(history)}
+                  >
+                    {history}
+                  </Box>
                 );
               })
             : null}

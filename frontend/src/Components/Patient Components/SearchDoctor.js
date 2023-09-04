@@ -50,11 +50,14 @@ const SearchDoctor = () => {
   };
 
   const saveSearchHistory = query => {
+    const updatedHistory = new Set(searchHistoryFromStorage);
+    updatedHistory.add(query);
     localStorage.setItem(
       'searchHistory',
-      JSON.stringify([...searchHistoryFromStorage, query])
+      JSON.stringify(Array.from(updatedHistory))
     );
   };
+
   const handlePastSearch = history => {
     console.log('handlePastSearch');
     console.log('history ', history);
@@ -131,6 +134,7 @@ const SearchDoctor = () => {
                     padding={'10px 75px 10px 10px'}
                     border={'1px solid #DEE2E6'}
                     onClick={() => handlePastSearch(history)}
+                    cursor={'pointer'}
                   >
                     {history}
                   </Box>

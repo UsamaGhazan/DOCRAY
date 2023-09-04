@@ -24,22 +24,29 @@ const SearchDoctor = () => {
     ? JSON.parse(localStorage.getItem('searchHistory'))
     : [];
 
-  const handleSearch = async () => {
-    console.log('handleSearch');
-    console.log(searchQuery);
-    try {
-      const { data } = await axios('/api/doctors/searchDoctor', {
-        params: { query: searchQuery },
-      });
-      setDoctors(data);
-    } catch (error) {}
-  };
+  useEffect(() => {
+    const handleSearch = async () => {
+      console.log('handleSearch');
+      console.log(searchQuery);
+      try {
+        const { data } = await axios('/api/doctors/searchDoctor', {
+          params: { query: searchQuery },
+        });
+        setDoctors(data);
+      } catch (error) {}
+    };
+
+    // Call handleSearch whenever searchQuery changes
+    if (searchQuery !== '') {
+      handleSearch();
+    }
+  }, [searchQuery]);
 
   const handleInputChange = e => {
     console.log('hanldeInputchange');
     setInputFieldClicked(false);
-    setSearchQuery(e.target.value);
-    handleSearch();
+    setSearchQuery(e.target.value); //problem here
+    console.log('searchQuery in handleInput');
   };
 
   const saveSearchHistory = query => {
@@ -53,7 +60,6 @@ const SearchDoctor = () => {
     console.log('history ', history);
 
     setSearchQuery(history); //problem here
-    handleSearch();
   };
 
   useEffect(() => {
@@ -137,9 +143,9 @@ const SearchDoctor = () => {
       <Button
         size="lg"
         className="goldbtn"
-        _hover={{ bg: '#faa63a' }}
+        _hover={{ bg: '#d48a2c' }}
         _active={{ bg: '#faa63a' }}
-        onClick={handleSearch}
+        onClick={() => setSearchQuery(searchQuery)}
       >
         Search{' '}
       </Button>

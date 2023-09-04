@@ -244,7 +244,7 @@ const getAvailableSlots = asyncHandler(async (req, res) => {
 
 const searchDoctor = asyncHandler(async (req, res) => {
   const { query } = req.query;
-
+  console.log(query);
   //Finding Doctors based on name or specialization
   const doctors = await Doctor.find(
     {

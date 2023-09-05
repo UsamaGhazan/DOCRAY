@@ -74,12 +74,14 @@ const PneumoniaDetectionScreen = () => {
   }, [response]);
 
   return (
-    <>
-      <Box ml={'436px'} backgroundColor="#f5f5f5">
-        <Heading fontSize={'42px'} fontWeight={600} color={'#ff9e24'}>
+    <div
+      style={{ backgroundColor: '#f5f5f5', padding: '20px', height: '100vh' }}
+    >
+      <Box ml={'436px'}>
+        <Heading fontSize={'42px'} fontWeight={600} color={'#383E35'}>
           AI-Powered Chest X-Ray Analysis
         </Heading>
-        <Heading fontSize={'22px'} color={'#383E35'} ml={'76px'} mt={'25px'}>
+        <Heading fontSize={'22px'} color={'#ff9e24'} ml={'76px'} mt={'25px'}>
           Fast and Accurate Diagnosis from Chest X-rays
         </Heading>
         <FormControl mb="20px">
@@ -132,7 +134,7 @@ const PneumoniaDetectionScreen = () => {
           </Button>
         )}
       </Box>
-    </>
+    </div>
   );
 };
 

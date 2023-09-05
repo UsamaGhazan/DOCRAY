@@ -24,7 +24,7 @@ export const uploadImage = createAsyncThunk(
 );
 
 const initialState = {
-  loading: true,
+  loading: false,
 };
 
 const uploadImageSlice = createSlice({

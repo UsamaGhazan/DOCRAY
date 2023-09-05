@@ -1,4 +1,13 @@
-import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Progress,
+  Spinner,
+} from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +16,7 @@ import { uploadImage } from '../../Features/uploadImageSlice';
 const PneumoniaDetectionScreen = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [file, setFile] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const dispatch = useDispatch();
 
   const {
@@ -35,6 +45,12 @@ const PneumoniaDetectionScreen = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        onUploadProgress: progressEvent => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setUploadProgress(percentCompleted); // Update progress state
+        },
       };
 
       const response = await axios.post(
@@ -44,6 +60,7 @@ const PneumoniaDetectionScreen = () => {
       );
 
       console.log('response', response.data);
+      setUploadProgress(0);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -58,12 +75,62 @@ const PneumoniaDetectionScreen = () => {
 
   return (
     <>
-      <Box>
+      <Box ml={'436px'} backgroundColor="#f5f5f5">
+        <Heading fontSize={'42px'} fontWeight={600} color={'#ff9e24'}>
+          AI-Powered Chest X-Ray Analysis
+        </Heading>
+        <Heading fontSize={'22px'} color={'#383E35'} ml={'76px'} mt={'25px'}>
+          Fast and Accurate Diagnosis from Chest X-rays
+        </Heading>
         <FormControl mb="20px">
-          <FormLabel>Upload Image</FormLabel>
-          <Input type="file" onChange={handleFileChange} />
+          <label
+            htmlFor="fileInput"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '310px',
+              height: '79px',
+              backgroundColor: '#000066',
+              color: 'white',
+              borderRadius: '5px',
+              fontSize: '28px',
+              cursor: 'pointer',
+              marginLeft: '176px',
+              marginTop: '44px',
+            }}
+            onMouseEnter={e => (e.target.style.backgroundColor = '#000044')}
+            onMouseLeave={e => (e.target.style.backgroundColor = '#000066')}
+          >
+            {imageLoading ? (
+              <Spinner />
+            ) : file ? (
+              <Box>Image Uploaded!</Box>
+            ) : (
+              <Box>Select Image</Box>
+            )}{' '}
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
         </FormControl>
-        <Button onClick={handleTestBtn}>Test Now</Button>
+        {file && (
+          <Button
+            onClick={handleTestBtn}
+            fontSize={'20px'}
+            bg={'#ff9e24'}
+            height={'79px'}
+            ml={176}
+            width={310}
+            transition="background-color 0.3s ease" // Add transition for smooth effect
+            _hover={{ bg: '#ff7c00' }}
+          >
+            Test Now
+          </Button>
+        )}
       </Box>
     </>
   );

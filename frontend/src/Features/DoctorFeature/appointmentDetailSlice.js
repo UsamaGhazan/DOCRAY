@@ -27,6 +27,13 @@ const initialState = {
 const appointmentDetailSlice = createSlice({
   name: 'appointment details',
   initialState,
+  reducers: {
+    APPOINTMENT_RESET: (state, action) => {
+      state.appointments = state.appointments.filter(
+        appointment => appointment._id !== action.payload
+      );
+    },
+  },
   extraReducers: {
     [getAppointments.pending]: state => {
       return {
@@ -47,5 +54,5 @@ const appointmentDetailSlice = createSlice({
     },
   },
 });
-
+export const { APPOINTMENT_RESET } = appointmentDetailSlice.actions;
 export default appointmentDetailSlice.reducer;

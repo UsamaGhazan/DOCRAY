@@ -263,6 +263,18 @@ const searchDoctor = asyncHandler(async (req, res) => {
   }
 });
 
+const cancelAppointment = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const deleteAppointment = await Appointment.findByIdAndDelete(id);
+  console.log(deleteAppointment);
+  if (deleteAppointment) {
+    res.status(200).json({ message: 'Appointment Canceled Successfully!' });
+  } else {
+    res.status(404);
+    throw new Error('Appointment not found');
+  }
+});
 export {
   getAllDoctors,
   getSingleDoctor,
@@ -274,4 +286,5 @@ export {
   setAvailableSlots,
   getAvailableSlots,
   searchDoctor,
+  cancelAppointment,
 };

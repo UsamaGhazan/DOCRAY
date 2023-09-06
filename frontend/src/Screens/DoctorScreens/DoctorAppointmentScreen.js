@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAppointments } from '../../Features/DoctorFeature/appointmentDetailSlice';
 import { AiOutlineCalendar, AiOutlineVideoCameraAdd } from 'react-icons/ai';
+import { APPOINTMENT_RESET } from '../../Features/DoctorFeature/appointmentDetailSlice';
 import {
   Avatar,
   Box,
@@ -22,7 +23,13 @@ const DoctorAppointmentScreen = () => {
   const { loading, error, appointments } = useSelector(
     store => store.appointmentDetails
   );
+  const {
+    loading: cancelLoading,
+    error: cancelError,
+    message,
+  } = useSelector(store => store.cancelAppointment);
 
+  console.log('message ', message);
   useEffect(() => {
     dispatch(getAppointments(doctorInfo._id));
   }, [doctorInfo._id, dispatch]);
@@ -47,6 +54,7 @@ const DoctorAppointmentScreen = () => {
 
   const handleCancelAppointment = id => {
     dispatch(cancelAppointment(id));
+    dispatch(APPOINTMENT_RESET(id));
   };
   return (
     <>
@@ -142,7 +150,11 @@ const DoctorAppointmentScreen = () => {
                         mt={3}
                         onClick={() => handleCancelAppointment(info._id)}
                       >
-                        Cancel Appointment
+                        {cancelLoading ? (
+                          <Spinner />
+                        ) : (
+                          <Box>Cancel Appointment</Box>
+                        )}
                       </Button>
                     </Grid>
                   </Box>

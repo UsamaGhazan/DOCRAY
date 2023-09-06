@@ -12,6 +12,7 @@ import {
   setAvailableSlots,
   getAvailableSlots,
   searchDoctor,
+  cancelAppointment,
 } from '../Controllers/doctorController.js';
 import { protect } from '../Middlewares/authMiddleware.js';
 router.get('/', getAllDoctors);
@@ -23,6 +24,7 @@ router.get('/getAvailableSlots', protect, getAvailableSlots);
 router.get('/searchDoctor', searchDoctor);
 router.get('/getAppointments/:id', getAppointments);
 router.post('/:id/reviews', protect, createDoctorReview);
+router.delete('/cancelAppointment/:id', cancelAppointment);
 
 router.get('/:id', getSingleDoctor);
 

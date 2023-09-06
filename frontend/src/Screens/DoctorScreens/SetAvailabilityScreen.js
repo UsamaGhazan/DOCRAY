@@ -183,7 +183,7 @@ const SetAvailabilityScreen = () => {
     for (const date in selectedTime) {
       selectedSlots.push({ date, time: selectedTime[date] });
     }
-
+    console.log('selectedSlots ', selectedSlots);
     dispatch(setAvailability({ timeSlots: selectedSlots }));
   };
   return (

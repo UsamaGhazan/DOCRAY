@@ -5,7 +5,9 @@ export const cancelAppointment = createAsyncThunk(
   'cancelAppointment',
   async (id, thunkAPI) => {
     try {
-      const { data } = axios.delete(`/api/doctors/deleteAppointment/${id}`);
+      const { data } = await axios.delete(
+        `/api/doctors/cancelAppointment/${id}`
+      );
       return data;
     } catch (error) {
       const newError =
@@ -17,11 +19,14 @@ export const cancelAppointment = createAsyncThunk(
   }
 );
 
-const initialState = {};
+const initialState = {
+  loading: false,
+};
 
 const cancelAppointmentSlice = createSlice({
   name: 'cancelAppointment',
   initialState,
+
   extraReducers: {
     [cancelAppointment.pending]: () => {
       return { loading: true };
@@ -31,7 +36,7 @@ const cancelAppointmentSlice = createSlice({
       return { loading: false, message: action.payload };
     },
 
-    [cancelAppointment.pending]: (state, action) => {
+    [cancelAppointment.rejected]: (state, action) => {
       return { loading: false, error: action.payload };
     },
   },

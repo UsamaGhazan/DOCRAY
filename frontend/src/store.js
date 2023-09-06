@@ -11,6 +11,7 @@ import appointmentDetailReducer from './Features/DoctorFeature/appointmentDetail
 import setAvailabilityReducer from './Features/DoctorFeature/setAvailabilitySlice';
 import getAvailabilityReducer from './Features/DoctorFeature/getAvailabilitySlice';
 import uploadImageReducer from './Features/uploadImageSlice';
+import CancelAppointmentReducer from './Features/DoctorFeature/CancelAppointmentSlice';
 const patientInfoFromStorage = localStorage.getItem('patientInfo')
   ? JSON.parse(localStorage.getItem('patientInfo'))
   : null;
@@ -41,6 +42,7 @@ export const store = configureStore({
     doctorSetSlots: setAvailabilityReducer,
     doctorAvailableSlots: getAvailabilityReducer,
     uploadImage: uploadImageReducer,
+    cancelAppointment: CancelAppointmentReducer,
   },
   preloadedState: initialState,
 });

@@ -4,6 +4,7 @@ Dashboard.txt
 backend/pneumonia_detection_model.h5
 verify_model.py
 flask_backend/venv
+Remaining Things.txt
 # dependencies
 node_modules
 node_modules/

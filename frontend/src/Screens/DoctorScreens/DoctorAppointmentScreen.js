@@ -14,6 +14,7 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import { cancelAppointment } from '../../Features/DoctorFeature/CancelAppointmentSlice';
 
 const DoctorAppointmentScreen = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,10 @@ const DoctorAppointmentScreen = () => {
     const utcDate = new Date(date);
     const localTime = utcDate.toLocaleString(undefined, options);
     return localTime;
+  };
+
+  const handleCancelAppointment = id => {
+    dispatch(cancelAppointment(id));
   };
   return (
     <>
@@ -131,10 +136,11 @@ const DoctorAppointmentScreen = () => {
                         size="md"
                         _hover={{
                           transition: 'background-color 0.3s ease-in-out',
-                          bg: '#3333CC',
+                          bg: '#000044',
                         }}
                         mr={10}
                         mt={3}
+                        onClick={() => handleCancelAppointment(info._id)}
                       >
                         Cancel Appointment
                       </Button>

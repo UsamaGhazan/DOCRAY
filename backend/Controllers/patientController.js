@@ -73,13 +73,15 @@ const getPatientProfile = asyncHandler(async (req, res) => {
 const bookAppointment = asyncHandler(async (req, res) => {
   const { email } = req.user;
   const { startTime, date, doctorID } = req.body;
+  console.log('startTime ', startTime);
+  console.log('startDate ', date);
 
   // Parsing the startTime components
   const [time, meridiem] = startTime.split(' ');
   const [hours, minutes] = time.split(':');
 
   // Parsing the date components
-  const [day, month, year] = date.split('/');
+  const [month, day, year] = date.split('/'); //interchanged day and month(if error occurs in future refer to this)
 
   // Converting hours to 24-hour format if the time is PM
   const hours24 =

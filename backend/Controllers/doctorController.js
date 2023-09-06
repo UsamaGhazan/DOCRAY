@@ -244,7 +244,6 @@ const getAvailableSlots = asyncHandler(async (req, res) => {
 
 const searchDoctor = asyncHandler(async (req, res) => {
   const { query } = req.query;
-  console.log(query);
   //Finding Doctors based on name or specialization
   const doctors = await Doctor.find(
     {
@@ -265,9 +264,7 @@ const searchDoctor = asyncHandler(async (req, res) => {
 
 const cancelAppointment = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   const deleteAppointment = await Appointment.findByIdAndDelete(id);
-  console.log(deleteAppointment);
   if (deleteAppointment) {
     res.status(200).json({ message: 'Appointment Canceled Successfully!' });
   } else {

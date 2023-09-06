@@ -31,6 +31,10 @@ import {
 
 const formatDate = date => {
   const options = { month: 'long', day: 'numeric' };
+  console.log(
+    'Inside formatDate ',
+    new Date(date).toLocaleDateString(undefined, options)
+  );
   return new Date(date).toLocaleDateString(undefined, options);
 };
 
@@ -61,14 +65,17 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
     }
   }, [data, dispatch, doctorID, navigate]);
   const today = new Date();
+  console.log('today ', today);
   const day = today.getDate();
   const month = today.getMonth() + 1;
   const year = today.getFullYear();
   const formattedDate = `${month}/${day}/${year}`;
+  console.log('formattedDate ', formattedDate);
   const [selectedDate, setSelectedDate] = useState(formattedDate);
-  console.log(selectedDate);
-  const [selectedDay, selectedMonth, selectedYear] = selectedDate.split('/');
-  const formattedSelectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+  console.log('selectedDate ', selectedDate);
+  // const [selectedDay, selectedMonth, selectedYear] = selectedDate.split('/');
+  // const formattedSelectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+  // console.log('formattedSelectedDate ', formattedSelectedDate);
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
 
@@ -89,6 +96,8 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   };
 
   const handleDateClick = date => {
+    console.log('handle dat eclick ');
+    console.log(date.toLocaleDateString(undefined, { timeZone: 'UTC' }));
     setSelectedDate(date.toLocaleDateString(undefined, { timeZone: 'UTC' }));
   };
 
@@ -104,12 +113,23 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   });
 
   const handleSlotClick = timeSlot => {
-    console.log(timeSlot);
+    console.log('HandleSlotClick');
+
+    console.log('timeSlot', timeSlot);
     setSelectedTime(formatTime(new Date(timeSlot.startTime)));
     onOpen();
   };
 
   const continueBooking = () => {
+    console.log('Inside continue booking');
+    console.log(
+      'startTime:',
+      selectedTime,
+      'date:',
+      selectedDate,
+      'doctorID:',
+      doctorID
+    );
     dispatch(
       bookPatient({
         startTime: selectedTime,
@@ -137,6 +157,7 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
         />
         {[...Array(4)].map((_, index) => {
           const date = new Date(startDate);
+          console.log('datee ', date);
           date.setDate(startDate.getDate() + index);
           return (
             <Text
@@ -308,15 +329,15 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
                   Your Appointment Details
                 </Text>{' '}
               </Box>
-              <HStack spacing={140} position={'absolute'} bottom={20}>
-                <HStack>
+              <HStack spacing={210} position={'absolute'} bottom={20}>
+                <HStack ml={5}>
                   <Avatar name={name} src={image} size="xs" />
                   <Heading fontSize="16px" fontWeight={600}>
                     {name}
                   </Heading>
                 </HStack>
                 <HStack fontSize="16px" fontWeight={600}>
-                  <Text>{formatDate(new Date(formattedSelectedDate))},</Text>
+                  <Text>{formatDate(new Date(selectedDate))},</Text>
                   <Text>{selectedTime}</Text>
                 </HStack>
               </HStack>

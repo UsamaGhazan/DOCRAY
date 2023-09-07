@@ -81,7 +81,6 @@ const SetAvailabilityScreen = () => {
   const [selectedTime, setSelectedTime] = useState({});
 
   const [successAlert, setSuccessAlert] = useState(false);
-  console.log(successAlert);
   useEffect(() => {
     if (message && message.success) {
       setSuccessAlert(true);

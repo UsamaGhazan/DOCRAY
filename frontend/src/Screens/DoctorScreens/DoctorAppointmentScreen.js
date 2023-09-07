@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAppointments } from '../../Features/DoctorFeature/appointmentDetailSlice';
 import { AiOutlineCalendar, AiOutlineVideoCameraAdd } from 'react-icons/ai';
 import { APPOINTMENT_RESET } from '../../Features/DoctorFeature/appointmentDetailSlice';
+import { CANCELLATION_RESET } from '../../Features/DoctorFeature/CancelAppointmentSlice';
 import {
   Avatar,
   Box,
@@ -13,12 +14,25 @@ import {
   Icon,
   Text,
   Spinner,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { cancelAppointment } from '../../Features/DoctorFeature/CancelAppointmentSlice';
 
 const DoctorAppointmentScreen = () => {
   const dispatch = useDispatch();
+  const [successAlert, setSuccessAlert] = useState(false);
+
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   const { loading, error, appointments } = useSelector(
     store => store.appointmentDetails
@@ -29,11 +43,24 @@ const DoctorAppointmentScreen = () => {
     message,
   } = useSelector(store => store.cancelAppointment);
 
-  console.log('message ', message);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   useEffect(() => {
     dispatch(getAppointments(doctorInfo._id));
   }, [doctorInfo._id, dispatch]);
 
+  useEffect(() => {
+    if (message && message.message) {
+      setSuccessAlert(true);
+
+      const timeout = setTimeout(() => {
+        setSuccessAlert(false);
+        dispatch(CANCELLATION_RESET());
+      }, 3000);
+
+      // Cleanup the timeout when the component unmounts or when the alert is hidden
+      return () => clearTimeout(timeout);
+    }
+  }, [message]);
   const formatDate = date => {
     const options = { month: 'long', day: 'numeric' };
     return new Date(date).toLocaleDateString(undefined, options);
@@ -56,8 +83,25 @@ const DoctorAppointmentScreen = () => {
     dispatch(cancelAppointment(id));
     dispatch(APPOINTMENT_RESET(id));
   };
+
+  const handleConfirm = id => {
+    handleCancelAppointment(id);
+    onClose();
+  };
   return (
     <>
+      <div className="alert-overlay">
+        {successAlert && (
+          <Alert
+            ml="388px"
+            status="success"
+            className={successAlert ? 'fade-in-slide-down' : ''}
+          >
+            <AlertIcon />
+            <AlertDescription>{message && message.message}</AlertDescription>
+          </Alert>
+        )}
+      </div>
       <HStack mt={10} spacing={890}>
         <Text ml="275px" fontWeight={600}>
           Upcomming
@@ -148,15 +192,35 @@ const DoctorAppointmentScreen = () => {
                         }}
                         mr={10}
                         mt={3}
-                        onClick={() => handleCancelAppointment(info._id)}
+                        onClick={onOpen}
                       >
-                        {cancelLoading ? (
-                          <Spinner />
-                        ) : (
-                          <Box>Cancel Appointment</Box>
-                        )}
+                        Cancel Appointment
                       </Button>
                     </Grid>
+                    <Modal isOpen={isOpen} onClose={onClose}>
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>
+                          Are you sure you want to cancel appointment?
+                        </ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                          <HStack ml={'125px'}>
+                            <Button
+                              color={'white'}
+                              _hover={{ bg: '#000033' }}
+                              _active={{ bg: '#000033' }}
+                              bg={'#000066'}
+                              width={'80px'}
+                              onClick={() => handleConfirm(info._id)}
+                            >
+                              {cancelLoading ? <Spinner /> : <Box>Yes</Box>}
+                            </Button>
+                            <Button onClick={onClose}>Cancel</Button>
+                          </HStack>
+                        </ModalBody>
+                      </ModalContent>
+                    </Modal>
                   </Box>
                 ) : null;
               })}

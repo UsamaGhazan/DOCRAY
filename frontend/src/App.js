@@ -29,6 +29,7 @@ import ChatScreen from './Screens/ChatScreen';
 
 import PneumoniaDetectionScreen from './Screens/PatientScreens/PneumoniaDetectionScreen';
 import VideoCallScreen from './Screens/VideoCallScreen';
+import AppointmentSuccessScreen from './Screens/PatientScreens/AppointmentSuccessScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   return (
@@ -56,6 +57,10 @@ function App() {
           <Route path="/Dashboard" element={<DashboardScreen />} />={' '}
           <Route path="/docAppointment" element={<DoctorAppointmentScreen />} />
           <Route path="/videoCall" element={<VideoCallScreen />} />
+          <Route
+            path="/appointmentSuccess"
+            element={<AppointmentSuccessScreen />}
+          />
           <Route
             path="/pneumoniaDetection"
             element={<PneumoniaDetectionScreen />}

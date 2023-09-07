@@ -26,6 +26,11 @@ const initialState = {
 const cancelAppointmentSlice = createSlice({
   name: 'cancelAppointment',
   initialState,
+  reducers: {
+    CANCELLATION_RESET: (state, action) => {
+      state.message = null;
+    },
+  },
 
   extraReducers: {
     [cancelAppointment.pending]: () => {
@@ -41,5 +46,6 @@ const cancelAppointmentSlice = createSlice({
     },
   },
 });
+export const { CANCELLATION_RESET } = cancelAppointmentSlice.actions;
 
 export default cancelAppointmentSlice.reducer;

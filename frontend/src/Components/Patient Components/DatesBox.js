@@ -31,10 +31,7 @@ import {
 
 const formatDate = date => {
   const options = { month: 'long', day: 'numeric' };
-  console.log(
-    'Inside formatDate ',
-    new Date(date).toLocaleDateString(undefined, options)
-  );
+
   return new Date(date).toLocaleDateString(undefined, options);
 };
 
@@ -42,8 +39,8 @@ const formatTime = date => {
   const options = {
     hour: 'numeric',
     minute: 'numeric',
-    hour12: true, // Use 12-hour format (AM/PM)
-    timeZone: 'UTC', // Set the timeZone option to 'UTC' since our input date is in UTC
+    hour12: true, // Using 12-hour format (AM/PM)
+    timeZone: 'UTC', // Setting the timeZone option to 'UTC' since our input date is in UTC
   };
 
   const utcDate = new Date(date);
@@ -65,14 +62,11 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
     }
   }, [data, dispatch, doctorID, navigate]);
   const today = new Date();
-  console.log('today ', today);
   const day = today.getDate();
   const month = today.getMonth() + 1;
   const year = today.getFullYear();
   const formattedDate = `${month}/${day}/${year}`;
-  console.log('formattedDate ', formattedDate);
   const [selectedDate, setSelectedDate] = useState(formattedDate);
-  console.log('selectedDate ', selectedDate);
   // const [selectedDay, selectedMonth, selectedYear] = selectedDate.split('/');
   // const formattedSelectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
   // console.log('formattedSelectedDate ', formattedSelectedDate);
@@ -96,8 +90,6 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   };
 
   const handleDateClick = date => {
-    console.log('handle dat eclick ');
-    console.log(date.toLocaleDateString(undefined, { timeZone: 'UTC' }));
     setSelectedDate(date.toLocaleDateString(undefined, { timeZone: 'UTC' }));
   };
 
@@ -113,23 +105,11 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   });
 
   const handleSlotClick = timeSlot => {
-    console.log('HandleSlotClick');
-
-    console.log('timeSlot', timeSlot);
     setSelectedTime(formatTime(new Date(timeSlot.startTime)));
     onOpen();
   };
 
   const continueBooking = () => {
-    console.log('Inside continue booking');
-    console.log(
-      'startTime:',
-      selectedTime,
-      'date:',
-      selectedDate,
-      'doctorID:',
-      doctorID
-    );
     dispatch(
       bookPatient({
         startTime: selectedTime,
@@ -157,7 +137,6 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
         />
         {[...Array(4)].map((_, index) => {
           const date = new Date(startDate);
-          console.log('datee ', date);
           date.setDate(startDate.getDate() + index);
           return (
             <Text

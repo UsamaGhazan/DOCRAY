@@ -26,10 +26,10 @@ import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
 import DoctorAppointmentScreen from './Screens/DoctorScreens/DoctorAppointmentScreen';
 import SetAvailabilityScreen from './Screens/DoctorScreens/SetAvailabilityScreen';
 import ChatScreen from './Screens/ChatScreen';
-
 import PneumoniaDetectionScreen from './Screens/PatientScreens/PneumoniaDetectionScreen';
 import VideoCallScreen from './Screens/VideoCallScreen';
 import AppointmentSuccessScreen from './Screens/PatientScreens/AppointmentSuccessScreen';
+import ReportGenerationScreen from './Screens/PatientScreens/ReportGenerationScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   return (
@@ -64,6 +64,10 @@ function App() {
           <Route
             path="/pneumoniaDetection"
             element={<PneumoniaDetectionScreen />}
+          />
+          <Route
+            path="/pneumoniaDetection/report"
+            element={<ReportGenerationScreen />}
           />
           <Route path="/chat" element={<ChatScreen />} />
           <Route

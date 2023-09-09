@@ -12,6 +12,7 @@ import setAvailabilityReducer from './Features/DoctorFeature/setAvailabilitySlic
 import getAvailabilityReducer from './Features/DoctorFeature/getAvailabilitySlice';
 import uploadImageReducer from './Features/uploadImageSlice';
 import CancelAppointmentReducer from './Features/DoctorFeature/CancelAppointmentSlice';
+import pneumoniaDetectionReducer from './Features/PatientFeature/pneumoniaDetectionSlice';
 const patientInfoFromStorage = localStorage.getItem('patientInfo')
   ? JSON.parse(localStorage.getItem('patientInfo'))
   : null;
@@ -43,6 +44,7 @@ export const store = configureStore({
     doctorAvailableSlots: getAvailabilityReducer,
     uploadImage: uploadImageReducer,
     cancelAppointment: CancelAppointmentReducer,
+    pneumoniaDetection: pneumoniaDetectionReducer,
   },
   preloadedState: initialState,
 });

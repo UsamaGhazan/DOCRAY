@@ -12,18 +12,21 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from '../../Features/uploadImageSlice';
+import { useNavigate } from 'react-router-dom';
+import { detectPneumonia } from '../../Features/PatientFeature/pneumoniaDetectionSlice';
 
 const PneumoniaDetectionScreen = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [file, setFile] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     loading: imageLoading,
     error: imageError,
     response,
   } = useSelector(store => store.uploadImage);
+
   const handleFileChange = e => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -41,27 +44,9 @@ const PneumoniaDetectionScreen = () => {
       const formData = new FormData();
       formData.append('image', file);
 
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        onUploadProgress: progressEvent => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          setUploadProgress(percentCompleted); // Update progress state
-        },
-      };
+      dispatch(detectPneumonia(formData));
 
-      const response = await axios.post(
-        'http://localhost:8000/predict',
-        formData,
-        config
-      );
-
-      console.log('response', response.data);
-      setUploadProgress(0);
-      return response.data;
+      navigate('pneumoniaDetection/report');
     } catch (error) {
       console.log(error);
     }
@@ -107,9 +92,9 @@ const PneumoniaDetectionScreen = () => {
             {imageLoading ? (
               <Spinner />
             ) : file ? (
-              <Box>Image Uploaded!</Box>
+              <Box bg={'#000066'}>Image Uploaded!</Box>
             ) : (
-              <Box>Select Image</Box>
+              <Box bg={'#000066'}>Select Image</Box>
             )}{' '}
           </label>
           <input
@@ -129,8 +114,9 @@ const PneumoniaDetectionScreen = () => {
             width={310}
             transition="background-color 0.3s ease" // Add transition for smooth effect
             _hover={{ bg: '#ff7c00' }}
+            color={'#FFFFFF'}
           >
-            Test Now
+            Generate Report
           </Button>
         )}
       </Box>

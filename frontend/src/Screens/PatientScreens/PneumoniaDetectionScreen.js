@@ -46,7 +46,7 @@ const PneumoniaDetectionScreen = () => {
 
       dispatch(detectPneumonia(formData));
 
-      navigate('pneumoniaDetection/report');
+      navigate('/pneumoniaDetection/report');
     } catch (error) {
       console.log(error);
     }

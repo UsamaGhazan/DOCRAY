@@ -8,12 +8,12 @@ import {
   Progress,
   Spinner,
 } from '@chakra-ui/react';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from '../../Features/uploadImageSlice';
 import { useNavigate } from 'react-router-dom';
 import { detectPneumonia } from '../../Features/PatientFeature/pneumoniaDetectionSlice';
+import { FaCheckCircle } from 'react-icons/fa';
 
 const PneumoniaDetectionScreen = () => {
   const [imageUrl, setImageUrl] = useState('');
@@ -92,9 +92,9 @@ const PneumoniaDetectionScreen = () => {
             {imageLoading ? (
               <Spinner />
             ) : file ? (
-              <Box bg={'#000066'}>Image Uploaded!</Box>
+              <FaCheckCircle fontSize={'40px'} />
             ) : (
-              <Box bg={'#000066'}>Select Image</Box>
+              <Box>Select Image</Box>
             )}{' '}
           </label>
           <input

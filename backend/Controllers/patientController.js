@@ -13,7 +13,8 @@ const authUser = asyncHandler(async (req, res) => {
       _id: patient._id,
       name: patient.name,
       email: patient.email,
-
+      dob: patient.dateOfBirth,
+      image: patient.image,
       token: generateToken(patient._id),
     });
   } else {

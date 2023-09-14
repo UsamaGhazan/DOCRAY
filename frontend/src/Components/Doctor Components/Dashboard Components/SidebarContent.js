@@ -16,13 +16,15 @@ import {
   FiDollarSign,
   FiMessageSquare,
 } from 'react-icons/fi';
+import { FaCalendarPlus } from 'react-icons/fa';
+
 import NavItem from './NavItem';
 
 const LinkItems = [
   { name: 'Overview', icon: FiBarChart2 },
   { name: 'Appointments', icon: FiCalendar },
   { name: 'Payments', icon: FiDollarSign },
-  { name: 'Feedback', icon: FiMessageSquare },
+  { name: 'Set Availability', icon: FaCalendarPlus },
   { name: 'Settings', icon: FiSettings },
 ];
 

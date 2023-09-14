@@ -4,8 +4,7 @@ import { FaSun } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAvailability } from '../../Features/DoctorFeature/setAvailabilitySlice';
 import { getAvailability } from '../../Features/DoctorFeature/getAvailabilitySlice';
-import MobileNav from '../../Components/Doctor Components/Dashboard Components/MobileNav';
-import Dashboard from './DashboardScreen';
+
 import {
   IconButton,
   Text,
@@ -187,14 +186,13 @@ const SetAvailabilityScreen = () => {
   };
   return (
     <>
-      <MobileNav />
       <Box
-        width="742px"
+        width="800px"
         height="313px"
         bg="#ffffff"
         borderRadius="md"
         p={4}
-        ml="388px"
+        ml="450px"
         mt="31px"
         className="dateBox"
       >

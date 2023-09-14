@@ -31,6 +31,7 @@ const Dashboard = () => {
 
   //setting option in sidebarcontent
   const setOption = option => {
+    console.log(option);
     setSelectedOption(option);
   };
 
@@ -40,6 +41,8 @@ const Dashboard = () => {
         return <OverviewScreen />;
       case 'Appointments':
         return <DoctorAppointmentScreen />;
+      case 'Set Availability':
+        return <SetAvailabilityScreen />;
       default:
         return <DoctorAppointmentScreen />;
     }

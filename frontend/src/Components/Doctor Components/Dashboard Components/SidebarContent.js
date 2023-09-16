@@ -19,16 +19,18 @@ import {
 import { FaCalendarPlus } from 'react-icons/fa';
 
 import NavItem from './NavItem';
+import { useNavigate } from 'react-router-dom';
 
 const LinkItems = [
-  { name: 'Overview', icon: FiBarChart2 },
-  { name: 'Appointments', icon: FiCalendar },
-  { name: 'Payments', icon: FiDollarSign },
-  { name: 'Set Availability', icon: FaCalendarPlus },
-  { name: 'Settings', icon: FiSettings },
+  { name: 'Overview', icon: FiBarChart2, to: '/overview' },
+  { name: 'Appointments', icon: FiCalendar, to: '/docAppointment' },
+  { name: 'Payments', icon: FiDollarSign, to: '/payments' },
+  { name: 'Set Availability', icon: FaCalendarPlus, to: '/setAvailability' },
+  { name: 'Settings', icon: FiSettings, to: '/settings' },
 ];
 
-const SidebarContent = ({ onClose, setSelectedOption, ...rest }) => {
+const SidebarContent = () => {
+  const navigate = useNavigate();
   return (
     <Box
       transition="3s ease"
@@ -38,7 +40,6 @@ const SidebarContent = ({ onClose, setSelectedOption, ...rest }) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
-      {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Box>
@@ -47,16 +48,14 @@ const SidebarContent = ({ onClose, setSelectedOption, ...rest }) => {
             alt="logo"
             width="150px"
             maxW="100%"
-            mr={40}
           />
         </Box>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (
         <NavItem
           key={link.name}
           icon={link.icon}
-          onClick={() => setSelectedOption(link.name)}
+          onClick={() => navigate(link.to)}
         >
           {link.name}
         </NavItem>

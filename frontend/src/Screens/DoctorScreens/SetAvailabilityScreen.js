@@ -19,7 +19,6 @@ import {
   AlertTitle,
   AlertDescription,
 } from '@chakra-ui/react';
-import axios from 'axios';
 
 const timeSlots = [
   '8:00 AM',
@@ -181,7 +180,6 @@ const SetAvailabilityScreen = () => {
     for (const date in selectedTime) {
       selectedSlots.push({ date, time: selectedTime[date] });
     }
-    console.log('selectedSlots ', selectedSlots);
     dispatch(setAvailability({ timeSlots: selectedSlots }));
   };
   return (
@@ -401,7 +399,7 @@ const SetAvailabilityScreen = () => {
             _active={{ bg: '#000033' }}
             onClick={handleSubmit}
             color="white"
-            ml={'260'}
+            ml={'360'}
             isDisabled={!hasSelectedTime()} // Disable the button if no times are selected
           >
             {loading ? <Spinner /> : <Box>Submit</Box>}

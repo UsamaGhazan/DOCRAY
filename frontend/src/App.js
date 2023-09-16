@@ -22,7 +22,6 @@ import TbDocScreen from './Screens/DoctorScreens/TbDocScreen';
 import PatientBookAppointmentScreen from './Screens/PatientScreens/PatientBookAppointmentScreen';
 import DoctorRegisterScreen from './Screens/DoctorScreens/DoctorRegisterScreen';
 import DoctorLoginScreen from './Screens/DoctorScreens/DoctorLoginScreen';
-import DashboardScreen from './Screens/DoctorScreens/DashboardScreen';
 import DoctorAppointmentScreen from './Screens/DoctorScreens/DoctorAppointmentScreen';
 import SetAvailabilityScreen from './Screens/DoctorScreens/SetAvailabilityScreen';
 import ChatScreen from './Screens/ChatScreen';
@@ -31,11 +30,20 @@ import VideoCallScreen from './Screens/VideoCallScreen';
 import AppointmentSuccessScreen from './Screens/PatientScreens/AppointmentSuccessScreen';
 import ReportGenerationScreen from './Screens/PatientScreens/ReportGenerationScreen';
 import AIInfoScreen from './Screens/PatientScreens/AIInfoScreen';
+import SidebarContent from './Components/Doctor Components/Dashboard Components/SidebarContent';
+import MobileNav from './Components/Doctor Components/Dashboard Components/MobileNav';
+import OverviewScreen from './Screens/DoctorScreens/OverviewScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   return (
     <BrowserRouter>
-      {!doctorInfo && <Navbar />}
+      {doctorInfo ? (
+        <>
+          <SidebarContent /> <MobileNav />
+        </>
+      ) : (
+        <Navbar />
+      )}
 
       <main>
         <Routes>
@@ -55,7 +63,6 @@ function App() {
           <Route path="/docRegister" element={<DoctorRegisterScreen />} />={' '}
           <Route path="/docLogin" element={<DoctorLoginScreen />} />={' '}
           <Route path="/payment/:id" element={<PaymentScreen />} />={' '}
-          <Route path="/Dashboard" element={<DashboardScreen />} />={' '}
           <Route path="/docAppointment" element={<DoctorAppointmentScreen />} />
           <Route path="/videoCall" element={<VideoCallScreen />} />
           <Route path="/modelInfo" element={<AIInfoScreen />} />
@@ -72,6 +79,7 @@ function App() {
             element={<ReportGenerationScreen />}
           />
           <Route path="/chat" element={<ChatScreen />} />
+          <Route path="/overview" element={<OverviewScreen />} />
           <Route
             path="/setAvailability"
             element={<SetAvailabilityScreen />}

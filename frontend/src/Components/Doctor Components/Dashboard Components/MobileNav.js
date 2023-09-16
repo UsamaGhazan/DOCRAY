@@ -73,7 +73,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
               transition="all 0.3s"
               focus={{ boxShadow: 'none' }}
             >
-              <HStack>
+              <HStack mr={'80px'}>
                 <Avatar size="sm" src={doctorInfo.image} />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}

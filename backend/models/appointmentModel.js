@@ -31,6 +31,9 @@ const appointmentSchema = new mongoose.Schema({
   patientimage: {
     type: String,
   },
+  doctorimage: {
+    type: String,
+  },
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);

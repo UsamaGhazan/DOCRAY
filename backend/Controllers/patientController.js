@@ -112,6 +112,7 @@ const bookAppointment = asyncHandler(async (req, res) => {
     patientName: patient.name,
     startTime: formattedDate,
     patientimage: patient.image,
+    doctorimage: doctor.image,
   });
   await doctor.save();
   await bookedAppointment.save();

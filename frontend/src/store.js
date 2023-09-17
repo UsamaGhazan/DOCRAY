@@ -7,12 +7,13 @@ import doctorReviewReducer from './Features/DoctorFeature/doctorReviewSlice';
 import bookPatientApptReducer from './Features/PatientFeature/bookPatientApptSlice';
 import registerDoctorReducer from './Features/DoctorFeature/registerDoctorSlice';
 import doctorLoginReducer from './Features/DoctorFeature/doctorLoginSlice';
-import appointmentDetailReducer from './Features/DoctorFeature/appointmentDetailSlice';
+import appointmentListReducer from './Features/DoctorFeature/appointmentListSlice';
 import setAvailabilityReducer from './Features/DoctorFeature/setAvailabilitySlice';
 import getAvailabilityReducer from './Features/DoctorFeature/getAvailabilitySlice';
 import uploadImageReducer from './Features/uploadImageSlice';
 import CancelAppointmentReducer from './Features/DoctorFeature/CancelAppointmentSlice';
 import pneumoniaDetectionReducer from './Features/PatientFeature/pneumoniaDetectionSlice';
+import appointmentDetailsReducer from './Features/appointmentDetailsSlice';
 const patientInfoFromStorage = localStorage.getItem('patientInfo')
   ? JSON.parse(localStorage.getItem('patientInfo'))
   : null;
@@ -39,12 +40,13 @@ export const store = configureStore({
     patientAppt: bookPatientApptReducer,
     doctorRegister: registerDoctorReducer,
     doctorLogin: doctorLoginReducer,
-    appointmentDetails: appointmentDetailReducer,
+    appointmentList: appointmentListReducer,
     doctorSetSlots: setAvailabilityReducer,
     doctorAvailableSlots: getAvailabilityReducer,
     uploadImage: uploadImageReducer,
     cancelAppointment: CancelAppointmentReducer,
     pneumoniaDetection: pneumoniaDetectionReducer,
+    appointmentDetails: appointmentDetailsReducer,
   },
   preloadedState: initialState,
 });

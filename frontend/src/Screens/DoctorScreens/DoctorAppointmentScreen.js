@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAppointments } from '../../Features/DoctorFeature/appointmentDetailSlice';
+import { getAppointments } from '../../Features/DoctorFeature/appointmentListSlice';
 import { AiOutlineCalendar, AiOutlineVideoCameraAdd } from 'react-icons/ai';
-import { APPOINTMENT_RESET } from '../../Features/DoctorFeature/appointmentDetailSlice';
+import { APPOINTMENT_RESET } from '../../Features/DoctorFeature/appointmentListSlice';
 import { CANCELLATION_RESET } from '../../Features/DoctorFeature/CancelAppointmentSlice';
 import {
   Avatar,
@@ -35,7 +35,7 @@ const DoctorAppointmentScreen = () => {
 
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   const { loading, error, appointments } = useSelector(
-    store => store.appointmentDetails
+    store => store.appointmentList
   );
   const {
     loading: cancelLoading,
@@ -113,7 +113,7 @@ const DoctorAppointmentScreen = () => {
           bg="#ff9e24"
           _hover={{ bg: '#faa63a' }}
           _active={{ bg: '#faa63a' }}
-          color={'white'}
+          color={'#ffffff'}
         >
           Set Availability
         </Button>

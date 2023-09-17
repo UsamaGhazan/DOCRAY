@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Input, List, Text, useColorMode } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  Avatar,
+  Box,
+  Button,
+  HStack,
+  Heading,
+  Input,
+  List,
+  Text,
+  VStack,
+  useColorMode,
+} from '@chakra-ui/react';
 
 function Chat({ socket, username, room }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const { patientInfo } = useSelector(store => store.patientLogin);
+  const { doctorInfo } = useSelector(store => store.doctorLogin);
+
   const sendMessage = async () => {
     if (currentMessage !== '') {
       const messageData = {
@@ -30,46 +45,62 @@ function Chat({ socket, username, room }) {
 
   return (
     <Box>
-      <p>Live Chat</p>
-      <Box>
-        <List
-          p={4}
-          bg={'white'}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          {messageList.map((messageContent, index) => (
-            <Box
-              key={index}
-              textAlign={messageContent.author === username ? 'left' : 'right'}
-              mb={4}
+      <Heading size={'sm'}>Live Chat</Heading>
+      <HStack>
+        <Box width={'25%'} height={'100vh'}>
+          <Avatar></Avatar>{' '}
+        </Box>
+        <VStack width="75%" alignItems="center">
+          <Box width={'100%'}>
+            <List
+              p={4}
+              bg={'white'}
+              justifyContent="space-between"
+              alignItems="center"
+              border={'2px solid green'}
+              height={'93vh'}
             >
-              <Box
-                display="inline-block"
-                bg={
-                  messageContent.author === username ? 'blue.500' : 'gray.300'
-                }
-                color={messageContent.author === username ? 'white' : 'black'}
-                borderRadius="lg"
-                p={3}
-                maxWidth="70%"
-              >
-                <Box fontWeight="semibold">{messageContent.author}</Box>
-                <Box>{messageContent.message}</Box>
-                <Box fontSize="sm" textAlign="right">
-                  {messageContent.time}
+              {messageList.map((messageContent, index) => (
+                <Box
+                  key={index}
+                  textAlign={
+                    messageContent.author === username ? 'left' : 'right'
+                  }
+                  mb={4}
+                >
+                  <Box
+                    display="inline-block"
+                    bg={
+                      messageContent.author === username
+                        ? 'blue.500'
+                        : 'gray.300'
+                    }
+                    color={
+                      messageContent.author === username ? 'white' : 'black'
+                    }
+                    borderRadius="lg"
+                    p={3}
+                    maxWidth="70%"
+                  >
+                    <Box>{messageContent.message}</Box>
+                    <Box fontSize="sm" textAlign="right">
+                      {messageContent.time}
+                    </Box>
+                  </Box>
                 </Box>
-              </Box>
-            </Box>
-          ))}
-        </List>
-      </Box>
-      <Input
-        type="text"
-        onChange={e => setCurrentMessage(e.target.value)}
-        value={currentMessage}
-        placeholder="Type a message..."
-      />
+              ))}
+            </List>
+          </Box>
+          <Input
+            type="text"
+            onChange={e => setCurrentMessage(e.target.value)}
+            value={currentMessage}
+            placeholder="Type a message..."
+            width={'100%'}
+          />
+        </VStack>
+      </HStack>
+
       <Button onClick={sendMessage}>Send</Button>
     </Box>
   );

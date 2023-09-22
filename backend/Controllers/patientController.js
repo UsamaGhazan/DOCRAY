@@ -127,4 +127,21 @@ const bookAppointment = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, getPatientProfile, registerUser, bookAppointment };
+const getUpcommingAppointments = asyncHandler(async (req, res) => {
+  console.log('Inside getUpcommingAppointments');
+  console.log(req.params);
+  const { id } = req.params;
+  const appointments = await Appointment.find({ id });
+  if (appointments) {
+    res.json(appointments);
+  } else {
+    res.status(404).json({ message: 'No new appointments' });
+  }
+});
+export {
+  authUser,
+  getPatientProfile,
+  registerUser,
+  bookAppointment,
+  getUpcommingAppointments,
+};

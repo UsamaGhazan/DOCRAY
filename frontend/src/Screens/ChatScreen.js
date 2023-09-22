@@ -1,9 +1,14 @@
 import io from 'socket.io-client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Chat from '../Components/Chat';
+
+// import { getAppointmentDetail } from '../Features/appointmentDetailsSlice';
 const socket = io.connect('http://localhost:5000');
 
 function ChatScreen() {
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
   const [showChat, setShowChat] = useState(false);
@@ -14,6 +19,10 @@ function ChatScreen() {
       setShowChat(true);
     }
   };
+
+  // useEffect(() => {
+  //   dispatch();
+  // });
 
   return (
     <div className="App">

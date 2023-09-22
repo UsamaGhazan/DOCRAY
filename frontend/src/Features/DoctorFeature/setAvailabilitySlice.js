@@ -35,6 +35,7 @@ const initialState = { message: { success: false } };
 export const setAvailabilitySlice = createSlice({
   name: 'setAvailability',
   initialState,
+  reducers: {},
 
   extraReducers: {
     [setAvailability.pending]: () => {

@@ -10,6 +10,7 @@
     "@fontsource/open-sans": "^5.0.0",
     "@fontsource/playfair-display": "^4.5.13",
     "@fontsource/raleway": "^5.0.0",
+    "@fontsource/roboto": "^5.0.8",
     "@fontsource/source-sans-pro": "^4.5.11",
     "@reduxjs/toolkit": "^1.9.3",
     "@stripe/react-stripe-js": "^2.1.1",

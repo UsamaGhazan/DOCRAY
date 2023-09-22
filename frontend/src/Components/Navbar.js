@@ -38,6 +38,10 @@ const Navbar = () => {
     }
   };
 
+  const showUpcommingAppointments = () => {
+    navigate('/upcommingAppointments');
+  };
+
   return (
     <>
       <HStack align="flex-start" justify="flex-start" paddingBottom="10px">
@@ -50,26 +54,34 @@ const Navbar = () => {
           />
         </Box>
 
-        <Box className="nav-items">
+        <Box className="nav-items" fontFamily={'other'} color={'#46484b'}>
           <ul>
             <li>
-              <Link as={RouterLink} to="/" fontSize="sm">
+              <Link as={RouterLink} to="/" fontSize="sm" p={'0 0 0 20px'}>
                 Home
               </Link>
             </li>
             <li>
-              <Link as={RouterLink} to="/about" fontSize="sm">
+              <Link as={RouterLink} to="/about" fontSize="sm" p={'0 0 0 20px'}>
                 About
               </Link>
             </li>
             <li>
-              <Link as={RouterLink} to="/contact" fontSize="sm">
+              <Link
+                as={RouterLink}
+                to="/contact"
+                fontSize="sm"
+                p={'0 0 0 20px'}
+              >
                 Contact Us
               </Link>
             </li>
             <li>
               <div className="dropdown">
-                <button className="dropbtn">
+                <button
+                  className="dropbtn"
+                  style={{ color: '#46484b', padding: '0 0 0 20px' }}
+                >
                   Doctors <Icon as={FaChevronDown} />
                 </button>
                 <div className="dropdown-content">
@@ -93,7 +105,9 @@ const Navbar = () => {
                   </HStack>
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>Profile</MenuItem>
+                  <MenuItem onClick={showUpcommingAppointments}>
+                    My Appointments
+                  </MenuItem>
                   <MenuItem onClick={logoutHandler}>Logout</MenuItem>
                 </MenuList>
               </Menu>

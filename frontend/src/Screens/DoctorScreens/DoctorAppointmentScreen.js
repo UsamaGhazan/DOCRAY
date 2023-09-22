@@ -60,7 +60,7 @@ const DoctorAppointmentScreen = () => {
       // Cleanup the timeout when the component unmounts or when the alert is hidden
       return () => clearTimeout(timeout);
     }
-  }, [message]);
+  }, [dispatch, message]);
   const formatDate = date => {
     const options = { month: 'long', day: 'numeric' };
     return new Date(date).toLocaleDateString(undefined, options);

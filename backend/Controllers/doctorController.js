@@ -272,6 +272,11 @@ const cancelAppointment = asyncHandler(async (req, res) => {
     throw new Error('Appointment not found');
   }
 });
+
+const appointmentDetails = asyncHandler(async (req, res) => {
+  const { patientId, doctorId } = req.query;
+  console.log(patientId, doctorId);
+});
 export {
   getAllDoctors,
   getSingleDoctor,
@@ -284,4 +289,5 @@ export {
   getAvailableSlots,
   searchDoctor,
   cancelAppointment,
+  appointmentDetails,
 };

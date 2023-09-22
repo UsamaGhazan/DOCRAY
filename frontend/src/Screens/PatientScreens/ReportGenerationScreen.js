@@ -70,16 +70,15 @@ const ReportGenerationScreen = () => {
     >
       <VStack>
         {/* Patient Avatar */}
+        <Heading fontSize={'42px'} fontWeight={600} color={'#383E35'}>
+          AI-Powered Chest X-Ray Analysis
+        </Heading>
         <Avatar
           name={patientInfo && patientInfo.name}
           src={patientInfo && patientInfo.image} // Replace with the actual image URL
           size="xl"
           mb="20px"
         />
-
-        <Heading fontSize={'42px'} fontWeight={600} color={'#383E35'}>
-          AI-Powered Chest X-Ray Analysis
-        </Heading>
       </VStack>
       <HStack mt={10} spacing={'200px'}>
         <VStack>
@@ -99,6 +98,7 @@ const ReportGenerationScreen = () => {
               fontSize={'20px'}
               fontWeight={600}
               fontFamily="heading"
+              color={'#000080'}
             >
               {predictionScore[0] < 0.8
                 ? 'No Disease Detected!'

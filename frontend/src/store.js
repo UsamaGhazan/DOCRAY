@@ -14,6 +14,7 @@ import uploadImageReducer from './Features/uploadImageSlice';
 import CancelAppointmentReducer from './Features/DoctorFeature/CancelAppointmentSlice';
 import pneumoniaDetectionReducer from './Features/PatientFeature/pneumoniaDetectionSlice';
 import appointmentDetailsReducer from './Features/appointmentDetailsSlice';
+import upcommingAppointmentReducer from './Features/PatientFeature/upcommingAppointmentSlice';
 const patientInfoFromStorage = localStorage.getItem('patientInfo')
   ? JSON.parse(localStorage.getItem('patientInfo'))
   : null;
@@ -47,6 +48,7 @@ export const store = configureStore({
     cancelAppointment: CancelAppointmentReducer,
     pneumoniaDetection: pneumoniaDetectionReducer,
     appointmentDetails: appointmentDetailsReducer,
+    upcommingAppointments: upcommingAppointmentReducer,
   },
   preloadedState: initialState,
 });

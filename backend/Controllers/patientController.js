@@ -128,8 +128,6 @@ const bookAppointment = asyncHandler(async (req, res) => {
 });
 
 const getUpcommingAppointments = asyncHandler(async (req, res) => {
-  console.log('Inside getUpcommingAppointments');
-  console.log(req.params);
   const { id } = req.params;
   const appointments = await Appointment.find({ id });
   if (appointments) {

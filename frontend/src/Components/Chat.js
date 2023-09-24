@@ -13,11 +13,9 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 
-function Chat({ socket, username, room }) {
+function Chat({ socket, username, room, doctorImage, doctorName }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
-  const { patientInfo } = useSelector(store => store.patientLogin);
-  const { doctorInfo } = useSelector(store => store.doctorLogin);
 
   const sendMessage = async () => {
     if (currentMessage !== '') {
@@ -45,10 +43,18 @@ function Chat({ socket, username, room }) {
 
   return (
     <Box>
-      <Heading size={'sm'}>Live Chat</Heading>
       <HStack>
         <Box width={'25%'} height={'100vh'}>
-          <Avatar></Avatar>{' '}
+          <VStack>
+            <Heading color={'#5180af'} size={'lg'}>
+              Live Chat
+            </Heading>
+
+            <Avatar name={doctorName} src={doctorImage} size={'2xl'} />
+            <Heading color={'#5180af'} size={'lg'}>
+              Dr. {doctorName}
+            </Heading>
+          </VStack>
         </Box>
         <VStack width="75%" alignItems="center">
           <Box width={'100%'}>

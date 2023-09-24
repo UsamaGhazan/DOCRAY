@@ -28,6 +28,7 @@ import {
   cancelAppointment,
 } from '../../Features/DoctorFeature/CancelAppointmentSlice';
 import { APPOINTMENT_RESET } from '../../Features/DoctorFeature/appointmentListSlice';
+import { Link } from 'react-router-dom';
 const UpcommingAppointmentsScreen = () => {
   const dispatch = useDispatch();
   const [successAlert, setSuccessAlert] = useState(false);
@@ -181,13 +182,19 @@ const UpcommingAppointmentsScreen = () => {
                     </Flex>
                     {showChatNowButton ? (
                       <Button
+                        as={Link}
+                        to="/chat"
+                        state={{
+                          doctorName: info.doctorName,
+                          doctorImage: info.doctorimage,
+                          patientName: info.patientName,
+                          roomId: info.roomId,
+                        }}
                         bg="#ff9e24"
                         color="white"
                         size="md"
-                        _hover={{
-                          transition: 'background-color 0.3s ease-in-out',
-                          bg: '#000044',
-                        }}
+                        _hover={{ bg: '#faa63a' }}
+                        _active={{ bg: '#faa63a' }}
                         mr={10}
                         mt={3}
                       >

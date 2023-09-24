@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 
 const appointmentSchema = new mongoose.Schema({
   doctorId: {
@@ -33,6 +34,12 @@ const appointmentSchema = new mongoose.Schema({
   },
   doctorimage: {
     type: String,
+  },
+  roomId: {
+    type: String,
+    default: uuidv4, // Using uuidv4 to generate a random ID by default
+    unique: true,
+    required: true,
   },
 });
 

@@ -157,7 +157,7 @@ const ReportGenerationScreen = () => {
                     TEST RESULT:
                   </Heading>
                 </Td>
-                <Td>{predictionScore > 0.2 ? 'Positive' : 'Negative'}</Td>
+                <Td>{predictionScore > 0.8 ? 'Positive' : 'Negative'}</Td>
               </Tr>
               <Tr>
                 <Td>

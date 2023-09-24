@@ -110,6 +110,8 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   };
 
   const continueBooking = () => {
+    console.log('selectedTime ', selectedTime);
+    console.log('selectedDate ', selectedDate);
     dispatch(
       bookPatient({
         startTime: selectedTime,

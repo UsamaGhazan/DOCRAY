@@ -22,6 +22,7 @@ import {
 
 const timeSlots = [
   '8:00 AM',
+  '8:10 AM',
   '8:30 AM',
   '9:00 AM',
   '9:30 AM',
@@ -44,6 +45,7 @@ const timeSlots = [
   '6:00 PM',
   '6:30 PM',
   '7:00 PM',
+  '7:15 PM',
 ];
 const formatDate = date => {
   const options = { month: 'long', day: 'numeric' };

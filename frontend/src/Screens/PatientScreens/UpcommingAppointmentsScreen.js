@@ -112,15 +112,24 @@ const UpcommingAppointmentsScreen = () => {
             {appointments.map(info => {
               const today = new Date();
 
-              // Converting info.startTime to Date object
+              // Converting info.startTime to the local time zone
               const startTime = new Date(info.startTime);
+              startTime.setTime(
+                startTime.getTime() + startTime.getTimezoneOffset() * 60 * 1000
+              ); // Adjusting for the local time zone
 
               // Checking if the appointment is today and the time has not passed
-              const isTodayAndNotPassed =
+              const isScheduledForToday =
                 startTime.getDate() === today.getDate() &&
                 startTime.getMonth() === today.getMonth() &&
-                startTime.getFullYear() === today.getFullYear() &&
-                startTime >= today;
+                startTime.getFullYear() === today.getFullYear();
+
+              // Checking if the current time has passed the appointment time or is equal to it
+              const hasPassedAppointmentTime = startTime <= today;
+
+              const showChatNowButton =
+                isScheduledForToday && hasPassedAppointmentTime;
+
               return info.feePayed ? (
                 <Box
                   w={1200}
@@ -170,7 +179,7 @@ const UpcommingAppointmentsScreen = () => {
                         </HStack>
                       </Flex>
                     </Flex>
-                    {isTodayAndNotPassed ? (
+                    {showChatNowButton ? (
                       <Button
                         bg="#ff9e24"
                         color="white"

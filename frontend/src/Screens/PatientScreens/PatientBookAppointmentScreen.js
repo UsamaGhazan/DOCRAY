@@ -19,7 +19,7 @@ const PatientBookAppointmentScreen = () => {
       navigate('/login');
     }
     dispatch(getDoctorDetails(doctorId));
-  }, [dispatch, doctorId]);
+  }, [dispatch, doctorId, doctorInfo, navigate, patientInfo]);
 
   return (
     <section

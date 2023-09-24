@@ -26,7 +26,7 @@ import {
   AlertIcon,
   AlertDescription,
 } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom';
 import { cancelAppointment } from '../../Features/DoctorFeature/CancelAppointmentSlice';
 
 const DoctorAppointmentScreen = () => {
@@ -128,6 +128,26 @@ const DoctorAppointmentScreen = () => {
           <>
             {appointments &&
               appointments.map(info => {
+                const today = new Date();
+
+                // Converting info.startTime to the local time zone
+                const startTime = new Date(info.startTime);
+                startTime.setTime(
+                  startTime.getTime() +
+                    startTime.getTimezoneOffset() * 60 * 1000
+                ); // Adjusting for the local time zone
+
+                // Checking if the appointment is today and the time has not passed
+                const isScheduledForToday =
+                  startTime.getDate() === today.getDate() &&
+                  startTime.getMonth() === today.getMonth() &&
+                  startTime.getFullYear() === today.getFullYear();
+
+                // Checking if the current time has passed the appointment time or is equal to it
+                const hasPassedAppointmentTime = startTime <= today;
+
+                const showChatNowButton =
+                  isScheduledForToday && hasPassedAppointmentTime;
                 return info.feePayed ? (
                   <Box
                     w={1200}
@@ -181,21 +201,42 @@ const DoctorAppointmentScreen = () => {
                         </Flex>
                       </Flex>
 
-                      {/* Cancel Appointment Button */}
-                      <Button
-                        bg="#000066"
-                        color="white"
-                        size="md"
-                        _hover={{
-                          transition: 'background-color 0.3s ease-in-out',
-                          bg: '#000044',
-                        }}
-                        mr={10}
-                        mt={3}
-                        onClick={onOpen}
-                      >
-                        Cancel Appointment
-                      </Button>
+                      {showChatNowButton ? (
+                        <Button
+                          as={Link}
+                          to="/chat"
+                          state={{
+                            patientName: info.patientName,
+                            patientImage: info.patientimage,
+                            doctorName: info.doctorName,
+                            roomId: info.roomId,
+                          }}
+                          bg="#ff9e24"
+                          color="white"
+                          size="md"
+                          _hover={{ bg: '#faa63a' }}
+                          _active={{ bg: '#faa63a' }}
+                          mr={10}
+                          mt={3}
+                        >
+                          Chat Now
+                        </Button>
+                      ) : (
+                        <Button
+                          bg="#000066"
+                          color="white"
+                          size="md"
+                          _hover={{
+                            transition: 'background-color 0.3s ease-in-out',
+                            bg: '#000044',
+                          }}
+                          mr={10}
+                          mt={3}
+                          onClick={onOpen}
+                        >
+                          Cancel Appointment
+                        </Button>
+                      )}
                     </Grid>
                     <Modal isOpen={isOpen} onClose={onClose}>
                       <ModalOverlay />

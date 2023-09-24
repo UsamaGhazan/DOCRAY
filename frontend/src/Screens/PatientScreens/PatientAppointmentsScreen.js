@@ -29,7 +29,7 @@ import {
 } from '../../Features/DoctorFeature/CancelAppointmentSlice';
 import { APPOINTMENT_RESET } from '../../Features/DoctorFeature/appointmentListSlice';
 import { Link } from 'react-router-dom';
-const UpcommingAppointmentsScreen = () => {
+const PatientAppointmentsScreen = () => {
   const dispatch = useDispatch();
   const [successAlert, setSuccessAlert] = useState(false);
 
@@ -251,4 +251,4 @@ const UpcommingAppointmentsScreen = () => {
   );
 };
 
-export default UpcommingAppointmentsScreen;
+export default PatientAppointmentsScreen;

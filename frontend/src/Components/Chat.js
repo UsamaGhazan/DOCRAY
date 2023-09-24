@@ -17,6 +17,9 @@ function Chat({ socket, username, room, doctorImage, doctorName }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
+  const { patientInfo } = useSelector(store => store.patientInfo);
+  const { doctorInfo } = useSelector(store => store.doctorInfo);
+
   const sendMessage = async () => {
     if (currentMessage !== '') {
       const messageData = {
@@ -57,13 +60,12 @@ function Chat({ socket, username, room, doctorImage, doctorName }) {
           </VStack>
         </Box>
         <VStack width="75%" alignItems="center">
-          <Box width={'100%'}>
+          <Box width={'100%'} border={'2px solid #006bd5'}>
             <List
               p={4}
               bg={'white'}
               justifyContent="space-between"
               alignItems="center"
-              border={'2px solid green'}
               height={'93vh'}
             >
               {messageList.map((messageContent, index) => (
@@ -96,18 +98,31 @@ function Chat({ socket, username, room, doctorImage, doctorName }) {
                 </Box>
               ))}
             </List>
+            <Input
+              type="text"
+              onChange={e => setCurrentMessage(e.target.value)}
+              value={currentMessage}
+              placeholder="Type a message..."
+              width={'100%'}
+              border={'none'}
+            />
           </Box>
-          <Input
-            type="text"
-            onChange={e => setCurrentMessage(e.target.value)}
-            value={currentMessage}
-            placeholder="Type a message..."
-            width={'100%'}
-          />
         </VStack>
       </HStack>
 
-      <Button onClick={sendMessage}>Send</Button>
+      <Button
+        bg={'#000066'}
+        color={'white'}
+        _hover={{ bg: '#000033' }}
+        _active={{ bg: '#000033' }}
+        ml={'385px'}
+        mt={'1px'}
+        size={'md'}
+        width={'100px'}
+        onClick={sendMessage}
+      >
+        Send
+      </Button>
     </Box>
   );
 }

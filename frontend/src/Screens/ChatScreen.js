@@ -16,7 +16,7 @@ function ChatScreen() {
   const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
-    socket.emit('join_room', room);
+    socket.emit('join_room', roomId);
   });
   return (
     <div className="App">

@@ -46,6 +46,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('callEnded');
   });
   socket.on('join_room', (data) => {
+    console.log('join_room ', data);
     socket.join(data);
   });
   socket.on('send_message', (data) => {

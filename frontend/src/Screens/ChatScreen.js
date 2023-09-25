@@ -8,12 +8,13 @@ import { useLocation } from 'react-router-dom';
 const socket = io.connect('http://localhost:5000');
 
 function ChatScreen() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const location = useLocation();
-  const { doctorName, doctorImage, patientName, roomId } = location.state;
-  const [username, setUsername] = useState('');
-  const [room, setRoom] = useState('');
-  const [showChat, setShowChat] = useState(false);
+  const { doctorName, doctorImage, patientName, patientImage, roomId } =
+    location.state;
+  // const [username, setUsername] = useState('');
+  // const [room, setRoom] = useState('');
+  // const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     socket.emit('join_room', roomId);
@@ -26,6 +27,7 @@ function ChatScreen() {
         room={roomId}
         doctorImage={doctorImage}
         doctorName={doctorName}
+        patientImage={patientImage}
       />
     </div>
   );

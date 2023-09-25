@@ -13,18 +13,25 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 
-function Chat({ socket, username, room, doctorImage, doctorName }) {
+function Chat({
+  socket,
+  username,
+  room,
+  doctorImage,
+  doctorName,
+  patientImage,
+}) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
-
-  const { patientInfo } = useSelector(store => store.patientInfo);
-  const { doctorInfo } = useSelector(store => store.doctorInfo);
+  console.log(messageList);
+  const { patientInfo } = useSelector(store => store.patientLogin);
+  const { doctorInfo } = useSelector(store => store.doctorLogin);
 
   const sendMessage = async () => {
     if (currentMessage !== '') {
       const messageData = {
         room: room,
-        author: username,
+        author: patientInfo ? username : doctorName,
         message: currentMessage,
         time:
           new Date(Date.now()).getHours() +
@@ -48,16 +55,18 @@ function Chat({ socket, username, room, doctorImage, doctorName }) {
     <Box>
       <HStack>
         <Box width={'25%'} height={'100vh'}>
-          <VStack>
-            <Heading color={'#5180af'} size={'lg'}>
-              Live Chat
-            </Heading>
+          {patientInfo && (
+            <VStack>
+              <Heading color={'#5180af'} size={'lg'}>
+                Live Chat
+              </Heading>
 
-            <Avatar name={doctorName} src={doctorImage} size={'2xl'} />
-            <Heading color={'#5180af'} size={'lg'}>
-              Dr. {doctorName}
-            </Heading>
-          </VStack>
+              <Avatar name={doctorName} src={doctorImage} size={'2xl'} />
+              <Heading color={'#5180af'} size={'lg'}>
+                Dr. {doctorName}
+              </Heading>
+            </VStack>
+          )}
         </Box>
         <VStack width="75%" alignItems="center">
           <Box width={'100%'} border={'2px solid #006bd5'}>

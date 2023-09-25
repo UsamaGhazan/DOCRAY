@@ -139,9 +139,9 @@ const DoctorAppointmentScreen = () => {
 
                 // Checking if the appointment is today and the time has not passed
                 const isScheduledForToday =
-                  startTime.getDate() === today.getDate() &&
-                  startTime.getMonth() === today.getMonth() &&
-                  startTime.getFullYear() === today.getFullYear();
+                  startTime.getDate() <= today.getDate() &&
+                  startTime.getMonth() <= today.getMonth() &&
+                  startTime.getFullYear() <= today.getFullYear();
 
                 // Checking if the current time has passed the appointment time or is equal to it
                 const hasPassedAppointmentTime = startTime <= today;
@@ -209,6 +209,7 @@ const DoctorAppointmentScreen = () => {
                             patientName: info.patientName,
                             patientImage: info.patientimage,
                             doctorName: info.doctorName,
+                            doctorImage: info.doctorimage,
                             roomId: info.roomId,
                           }}
                           bg="#ff9e24"

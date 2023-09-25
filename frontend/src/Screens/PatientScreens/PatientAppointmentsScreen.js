@@ -121,15 +121,24 @@ const PatientAppointmentsScreen = () => {
 
               // Checking if the appointment is today and the time has not passed
               const isScheduledForToday =
-                startTime.getDate() === today.getDate() &&
-                startTime.getMonth() === today.getMonth() &&
-                startTime.getFullYear() === today.getFullYear();
+                startTime.getDate() <= today.getDate() &&
+                startTime.getMonth() <= today.getMonth() &&
+                startTime.getFullYear() <= today.getFullYear();
 
               // Checking if the current time has passed the appointment time or is equal to it
               const hasPassedAppointmentTime = startTime <= today;
 
               const showChatNowButton =
                 isScheduledForToday && hasPassedAppointmentTime;
+              console.log('isScheduledForToday:', isScheduledForToday);
+
+              console.log('info.startTime:', info.startTime);
+              console.log('startTime:', startTime);
+              console.log('today:', today);
+              console.log(
+                'hasPassedAppointmentTime:',
+                hasPassedAppointmentTime
+              );
 
               return info.feePayed ? (
                 <Box
@@ -185,9 +194,10 @@ const PatientAppointmentsScreen = () => {
                         as={Link}
                         to="/chat"
                         state={{
-                          doctorName: info.doctorName,
-                          doctorImage: info.doctorimage,
                           patientName: info.patientName,
+                          patientImage: info.patientimage,
+                          doctorName: info.doctorName,
+                          doctorImage: info.doctorImage,
                           roomId: info.roomId,
                         }}
                         bg="#ff9e24"

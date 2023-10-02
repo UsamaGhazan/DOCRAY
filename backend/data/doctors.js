@@ -4,7 +4,7 @@ const doctors = [
   {
     name: 'Dr John Smith',
     password: '12345',
-    image: '/images/doctor1.jpg',
+    image: '/images/doctor5.jpg"',
     specialization: 'Dermatologist, Cosmetologist',
     email: 'johnsmith@yahoo.com',
     charges: 89.99,
@@ -31,7 +31,7 @@ const doctors = [
   {
     name: 'Dr Jane Smith',
     password: '12345',
-    image: '/images/doctor2.jpg',
+    image: '/images/doctor5.jpg"',
     specialization: 'Cardiologist M.B.B.S, M.D (Cardiology)',
     email: 'janesmith@yahoo.com',
     charges: 99.99,
@@ -59,7 +59,7 @@ const doctors = [
   {
     name: 'Dr David Johnson',
     password: '12345',
-    image: '/images/doctor3.jpg',
+    image: '/images/doctor5.jpg"',
     specialization: 'Orthopedic Surgeon M.B.B.S, D.Ortho, M.S (Ortho)',
     email: 'davidjohnson@yahoo.com',
     charges: 79.99,
@@ -177,7 +177,7 @@ const doctors = [
   {
     name: 'Dr Michael Davis',
     password: '12345',
-    image: '/images/doctor5.jpg',
+    image: '/images/doctor5.jpg"',
     specialization: 'Neurologist M.B.B.S, D.M (Neurology)',
     email: 'michaeldavis@yahoo.com',
     charges: 109.99,

@@ -129,7 +129,7 @@ const bookAppointment = asyncHandler(async (req, res) => {
 
 const getUpcommingAppointments = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const appointments = await Appointment.find({ id });
+  const appointments = await Appointment.find({ patientId: id });
   if (appointments) {
     res.json(appointments);
   } else {

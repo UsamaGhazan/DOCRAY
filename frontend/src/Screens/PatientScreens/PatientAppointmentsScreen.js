@@ -110,150 +110,145 @@ const PatientAppointmentsScreen = () => {
           </Flex>
         ) : (
           <>
-            {appointments.map(info => {
-              const today = new Date();
+            {appointments &&
+              appointments.map(info => {
+                const today = new Date();
 
-              // Converting info.startTime to the local time zone
-              const startTime = new Date(info.startTime);
-              startTime.setTime(
-                startTime.getTime() + startTime.getTimezoneOffset() * 60 * 1000
-              ); // Adjusting for the local time zone
+                // Converting info.startTime to the local time zone
+                const startTime = new Date(info.startTime);
+                startTime.setTime(
+                  startTime.getTime() +
+                    startTime.getTimezoneOffset() * 60 * 1000
+                ); // Adjusting for the local time zone
 
-              // Checking if the appointment is today and the time has not passed
-              const isScheduledForToday =
-                startTime.getDate() <= today.getDate() &&
-                startTime.getMonth() <= today.getMonth() &&
-                startTime.getFullYear() <= today.getFullYear();
+                // Checking if the appointment is today and the time has not passed
+                const isScheduledForToday =
+                  startTime.getDate() <= today.getDate() &&
+                  startTime.getMonth() <= today.getMonth() &&
+                  startTime.getFullYear() <= today.getFullYear();
 
-              // Checking if the current time has passed the appointment time or is equal to it
-              const hasPassedAppointmentTime = startTime <= today;
+                // Checking if the current time has passed the appointment time or is equal to it
+                const hasPassedAppointmentTime = startTime <= today;
 
-              const showChatNowButton =
-                isScheduledForToday && hasPassedAppointmentTime;
-              console.log('isScheduledForToday:', isScheduledForToday);
+                const showChatNowButton =
+                  isScheduledForToday && hasPassedAppointmentTime;
 
-              console.log('info.startTime:', info.startTime);
-              console.log('startTime:', startTime);
-              console.log('today:', today);
-              console.log(
-                'hasPassedAppointmentTime:',
-                hasPassedAppointmentTime
-              );
-
-              return info.feePayed ? (
-                <Box
-                  w={1200}
-                  h="110px"
-                  borderWidth="2px"
-                  borderStyle="solid"
-                  borderColor="gray.200"
-                  borderRadius="6px"
-                  boxShadow="md"
-                  ml="175px"
-                  mt="75px"
-                  key={info._id}
-                >
-                  <Grid
-                    templateColumns="auto 1fr auto"
-                    gap="4"
-                    alignItems="center"
-                    p="4"
+                return info.feePayed ? (
+                  <Box
+                    w={1200}
+                    h="110px"
+                    borderWidth="2px"
+                    borderStyle="solid"
+                    borderColor="gray.200"
+                    borderRadius="6px"
+                    boxShadow="md"
+                    ml="175px"
+                    mt="75px"
+                    key={info._id}
                   >
-                    <Avatar
-                      name={info.patientName}
-                      src={info.patientimage}
-                      size="lg"
-                    />
-                    <Flex align="center">
-                      <Flex direction="column">
-                        <Text fontSize="lg" fontWeight="bold">
-                          {info.patientName}
-                        </Text>
-                        <HStack
-                          mt="2"
-                          spacing={10}
-                          fontSize="sm"
-                          color="gray.600"
-                        >
-                          <HStack>
-                            <Icon as={AiOutlineCalendar} boxSize="5" />
-                            <span fontSize="sm">
-                              {formatDate(info.startTime)}-
-                              {formatTime(info.startTime)}
-                            </span>
-                          </HStack>
-                          <HStack fontSize="sm" color="gray.600">
-                            <Icon as={AiOutlineVideoCameraAdd} boxSize="5" />
-                            <span fontSize="md">Online Video Consultation</span>
-                          </HStack>
-                        </HStack>
-                      </Flex>
-                    </Flex>
-                    {showChatNowButton ? (
-                      <Button
-                        as={Link}
-                        to="/chat"
-                        state={{
-                          patientName: info.patientName,
-                          patientImage: info.patientimage,
-                          doctorName: info.doctorName,
-                          doctorImage: info.doctorImage,
-                          roomId: info.roomId,
-                        }}
-                        bg="#ff9e24"
-                        color="white"
-                        size="md"
-                        _hover={{ bg: '#faa63a' }}
-                        _active={{ bg: '#faa63a' }}
-                        mr={10}
-                        mt={3}
-                      >
-                        Chat Now
-                      </Button>
-                    ) : (
-                      <Button
-                        bg="#000066"
-                        color="white"
-                        size="md"
-                        _hover={{
-                          transition: 'background-color 0.3s ease-in-out',
-                          bg: '#000044',
-                        }}
-                        mr={10}
-                        mt={3}
-                        onClick={onOpen}
-                      >
-                        Cancel Appointment
-                      </Button>
-                    )}
-                  </Grid>
-                  <Modal isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                      <ModalHeader>
-                        Are you sure you want to cancel the appointment?
-                      </ModalHeader>
-                      <ModalCloseButton />
-                      <ModalBody>
-                        <HStack ml={'125px'}>
-                          <Button
-                            color={'white'}
-                            _hover={{ bg: '#000033' }}
-                            _active={{ bg: '#000033' }}
-                            bg={'#000066'}
-                            width={'80px'}
-                            onClick={() => handleConfirm(info._id)}
+                    <Grid
+                      templateColumns="auto 1fr auto"
+                      gap="4"
+                      alignItems="center"
+                      p="4"
+                    >
+                      <Avatar
+                        name={info.patientName}
+                        src={info.patientimage}
+                        size="lg"
+                      />
+                      <Flex align="center">
+                        <Flex direction="column">
+                          <Text fontSize="lg" fontWeight="bold">
+                            {info.patientName}
+                          </Text>
+                          <HStack
+                            mt="2"
+                            spacing={10}
+                            fontSize="sm"
+                            color="gray.600"
                           >
-                            {cancelLoading ? <Spinner /> : <Box>Yes</Box>}
-                          </Button>
-                          <Button onClick={onClose}>Cancel</Button>
-                        </HStack>
-                      </ModalBody>
-                    </ModalContent>
-                  </Modal>
-                </Box>
-              ) : null;
-            })}
+                            <HStack>
+                              <Icon as={AiOutlineCalendar} boxSize="5" />
+                              <span fontSize="sm">
+                                {formatDate(info.startTime)}-
+                                {formatTime(info.startTime)}
+                              </span>
+                            </HStack>
+                            <HStack fontSize="sm" color="gray.600">
+                              <Icon as={AiOutlineVideoCameraAdd} boxSize="5" />
+                              <span fontSize="md">
+                                Online Video Consultation
+                              </span>
+                            </HStack>
+                          </HStack>
+                        </Flex>
+                      </Flex>
+                      {showChatNowButton ? (
+                        <Button
+                          as={Link}
+                          to="/chat"
+                          state={{
+                            patientName: info.patientName,
+                            patientImage: info.patientimage,
+                            doctorName: info.doctorName,
+                            doctorImage: info.doctorimage,
+                            roomId: info.roomId,
+                          }}
+                          bg="#ff9e24"
+                          color="white"
+                          size="md"
+                          _hover={{ bg: '#faa63a' }}
+                          _active={{ bg: '#faa63a' }}
+                          mr={10}
+                          mt={3}
+                        >
+                          Chat Now
+                        </Button>
+                      ) : (
+                        <Button
+                          bg="#000066"
+                          color="white"
+                          size="md"
+                          _hover={{
+                            transition: 'background-color 0.3s ease-in-out',
+                            bg: '#000044',
+                          }}
+                          mr={10}
+                          mt={3}
+                          onClick={onOpen}
+                        >
+                          Cancel Appointment
+                        </Button>
+                      )}
+                    </Grid>
+                    <Modal isOpen={isOpen} onClose={onClose}>
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>
+                          Are you sure you want to cancel the appointment?
+                        </ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                          <HStack ml={'125px'}>
+                            <Button
+                              color={'white'}
+                              _hover={{ bg: '#000033' }}
+                              _active={{ bg: '#000033' }}
+                              bg={'#000066'}
+                              width={'80px'}
+                              onClick={() => handleConfirm(info._id)}
+                            >
+                              {cancelLoading ? <Spinner /> : <Box>Yes</Box>}
+                            </Button>
+                            <Button onClick={onClose}>Cancel</Button>
+                          </HStack>
+                        </ModalBody>
+                      </ModalContent>
+                    </Modal>
+                  </Box>
+                ) : null;
+              })}
           </>
         )}
       </Box>

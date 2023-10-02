@@ -110,8 +110,6 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   };
 
   const continueBooking = () => {
-    console.log('selectedTime ', selectedTime);
-    console.log('selectedDate ', selectedDate);
     dispatch(
       bookPatient({
         startTime: selectedTime,
@@ -310,7 +308,7 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
                   Your Appointment Details
                 </Text>{' '}
               </Box>
-              <HStack spacing={210} position={'absolute'} bottom={20}>
+              <HStack spacing={150} position={'absolute'} bottom={20}>
                 <HStack ml={5}>
                   <Avatar name={name} src={image} size="xs" />
                   <Heading fontSize="16px" fontWeight={600}>
@@ -326,19 +324,17 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
           </ModalBody>
 
           <ModalFooter alignItems={'center'} justifyContent={'center'}>
-            {loading ? (
-              <Spinner size="md" mt={50} />
-            ) : (
-              <Button
-                bg="brand.60"
-                color={'white'}
-                mr={3}
-                onClick={() => continueBooking()}
-                mt={50}
-              >
-                Continue
-              </Button>
-            )}
+            <Button
+              bg="brand.60"
+              color={'white'}
+              mr={3}
+              onClick={() => continueBooking()}
+              mt={50}
+              _hover={{ bg: '#000033' }}
+              _active={{ bg: '#000033' }}
+            >
+              {loading ? <Spinner /> : 'Continue'}
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

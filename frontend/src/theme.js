@@ -14,7 +14,7 @@ const theme = extendTheme({
   fonts: {
     heading: `'Open Sans', sans-serif`,
     text: `'Raleway', sans-serif`,
-    other: `'Open Sans', sans-serif`,
+    other: `'Roboto', sans-serif`,
   },
 });
 

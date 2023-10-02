@@ -38,6 +38,7 @@ const authDoctor = asyncHandler(async (req, res) => {
       unsatisfiedPatients: doctor.unsatisfied,
       availableTimeSlots: doctor.availableTimeSlots,
       image: doctor.image,
+      profileViews: doctor.profileViews,
       token: generateToken(doctor._id),
     });
   } else {

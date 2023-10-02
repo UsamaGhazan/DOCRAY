@@ -15,6 +15,7 @@ import {
   Link,
   Alert,
   Select,
+  Spinner,
 } from '@chakra-ui/react';
 
 const PatientRegisterScreen = () => {
@@ -171,7 +172,9 @@ const PatientRegisterScreen = () => {
         mb="20px"
         width="100%"
       >
-        Register
+        loading?
+        <Spinner />
+        :'Register'
       </Button>
       <Text textAlign="center">
         Already Signed Up?{' '}

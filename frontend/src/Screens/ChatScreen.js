@@ -15,6 +15,7 @@ function ChatScreen() {
   // const [username, setUsername] = useState('');
   // const [room, setRoom] = useState('');
   // const [showChat, setShowChat] = useState(false);
+  console.log(doctorImage);
 
   useEffect(() => {
     socket.emit('join_room', roomId);

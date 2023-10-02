@@ -69,7 +69,7 @@ function Chat({
           )}
         </Box>
         <VStack width="75%" alignItems="center">
-          <Box width={'100%'} border={'2px solid #006bd5'}>
+          <Box width={'100%'} border={'10px solid #006bd5'}>
             <List
               p={4}
               bg={'white'}
@@ -98,6 +98,8 @@ function Chat({
                     borderRadius="lg"
                     p={3}
                     maxWidth="70%"
+                    fontSize={'15px'}
+                    fontFamily={'other'}
                   >
                     <Box>{messageContent.message}</Box>
                     <Box fontSize="sm" textAlign="right">

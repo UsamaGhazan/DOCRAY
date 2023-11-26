@@ -4,7 +4,7 @@ const doctors = [
   {
     name: 'Dr John Smith',
     password: '12345',
-    image: '/images/doctor5.jpg"',
+    image: '/images/doctor5.jpg',
     specialization: 'Dermatologist, Cosmetologist',
     email: 'johnsmith@yahoo.com',
     charges: 89.99,
@@ -31,7 +31,7 @@ const doctors = [
   {
     name: 'Dr Jane Smith',
     password: '12345',
-    image: '/images/doctor5.jpg"',
+    image: '/images/doctor5.jpg',
     specialization: 'Cardiologist M.B.B.S, M.D (Cardiology)',
     email: 'janesmith@yahoo.com',
     charges: 99.99,
@@ -59,7 +59,7 @@ const doctors = [
   {
     name: 'Dr David Johnson',
     password: '12345',
-    image: '/images/doctor5.jpg"',
+    image: '/images/doctor5.jpg',
     specialization: 'Orthopedic Surgeon M.B.B.S, D.Ortho, M.S (Ortho)',
     email: 'davidjohnson@yahoo.com',
     charges: 79.99,
@@ -105,11 +105,11 @@ const doctors = [
         endTime: '2023-07-30T12:45:00.000Z',
       },
       {
-        startTime: '2023-07-30T14:00:00.000Z', // New slot: 2:00 PM to 3:30 PM
+        startTime: '2023-07-30T14:00:00.000Z',
         endTime: '2023-07-30T15:30:00.000Z',
       },
       {
-        startTime: '2023-07-30T16:00:00.000Z', // New slot: 4:00 PM to 5:30 PM
+        startTime: '2023-07-30T16:00:00.000Z',
         endTime: '2023-07-30T17:30:00.000Z',
       },
       {
@@ -121,23 +121,23 @@ const doctors = [
         endTime: '2023-07-31T07:30:00.000Z',
       },
       {
-        startTime: '2023-07-31T14:00:00.000Z', // New slot: 2:00 PM to 3:30 PM
+        startTime: '2023-07-31T14:00:00.000Z',
         endTime: '2023-07-31T15:30:00.000Z',
       },
       {
-        startTime: '2023-07-31T15:00:00.000Z', // New slot: 3:00 PM to 4:30 PM
+        startTime: '2023-07-31T15:00:00.000Z',
         endTime: '2023-07-31T16:30:00.000Z',
       },
       {
-        startTime: '2023-07-31T16:00:00.000Z', // New slot: 4:00 PM to 5:30 PM
+        startTime: '2023-07-31T16:00:00.000Z',
         endTime: '2023-07-31T17:30:00.000Z',
       },
       {
-        startTime: '2023-07-31T17:00:00.000Z', // New slot: 5:00 PM to 6:30 PM
+        startTime: '2023-07-31T17:00:00.000Z',
         endTime: '2023-07-31T18:30:00.000Z',
       },
       {
-        startTime: '2023-07-31T18:00:00.000Z', // New slot: 6:00 PM to 7:30 PM
+        startTime: '2023-07-31T18:00:00.000Z',
         endTime: '2023-07-31T19:30:00.000Z',
       },
     ],
@@ -161,12 +161,6 @@ const doctors = [
     gender: 'Female',
     clinicname: 'Iqra Medical complex',
     areaname: 'Johr Town',
-    reviews: {
-      name: 'John Doe',
-      rating: 4.5,
-      comment: 'Great service!',
-      user: '64af4e4e3c3e296bc6a5e0c0',
-    },
     availableTimeSlots: [
       {
         startTime: '2023-07-31T05:00:00.000Z',
@@ -177,7 +171,7 @@ const doctors = [
   {
     name: 'Dr Michael Davis',
     password: '12345',
-    image: '/images/doctor5.jpg"',
+    image: '/images/doctor5.jpg',
     specialization: 'Neurologist M.B.B.S, D.M (Neurology)',
     email: 'michaeldavis@yahoo.com',
     charges: 109.99,

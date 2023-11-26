@@ -172,9 +172,7 @@ const PatientRegisterScreen = () => {
         mb="20px"
         width="100%"
       >
-        loading?
-        <Spinner />
-        :'Register'
+        {loading ? <Spinner /> : 'Register'}
       </Button>
       <Text textAlign="center">
         Already Signed Up?{' '}

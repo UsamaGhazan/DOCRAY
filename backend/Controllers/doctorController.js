@@ -155,9 +155,12 @@ const profileViewCount = asyncHandler(async (req, res) => {
     doctor.profileViewsHistory = doctor.profileViewsHistory.slice(-7);
 
     // Incrementing the total profile views
+    console.log('before ', doctor.profileViews);
     doctor.profileViews += 1;
 
     await doctor.save();
+    console.log('after ', doctor.profileViews);
+
     res.status(201).json({ message: 'Profile view added' });
   } else {
     res.status(404);

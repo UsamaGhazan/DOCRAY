@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+function generateUniqueDate() {
+  return new Date().toISOString();
+}
+
 const reviewSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -106,7 +110,6 @@ const doctorSchema = mongoose.Schema(
       {
         date: {
           type: Date,
-          default: Date.now,
         },
         views: {
           type: Number,

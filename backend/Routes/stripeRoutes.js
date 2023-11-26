@@ -33,7 +33,6 @@ router.post(
       doctor.availableTimeSlots = doctor.availableTimeSlots.filter((slot) => {
         return slot.startTime.toISOString() !== formattedDate;
       });
-      console.log('doctor.availableTimeSlots after', doctor.availableTimeSlots);
       await doctor.save();
     } else {
       res.status(401);

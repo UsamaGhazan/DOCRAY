@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import DoctorModal from '../Components/Doctor Components/DoctorModal';
 import SearchDoctor from '../Components/Patient Components/SearchDoctor';
+import ChatBot from '../Components/Patient Components/ChatBot';
 import {
   HStack,
   Heading,
@@ -13,6 +14,7 @@ import {
   Stack,
   Card,
   Center,
+  Flex,
 } from '@chakra-ui/react';
 const HomeScreen = () => {
   const [text, setText] = useState('');
@@ -194,6 +196,15 @@ const HomeScreen = () => {
           </Card>
         </HStack>
       </section>
+      <Flex
+        position="fixed"
+        bottom="30px"
+        right="30px"
+        direction="column"
+        alignItems="flex-end"
+      >
+        <ChatBot />
+      </Flex>
     </section>
   );
 };

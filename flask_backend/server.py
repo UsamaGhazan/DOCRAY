@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Import CORS
+from chat import get_response
 import numpy as np
 import tensorflow as tf
 import cv2
@@ -24,6 +25,14 @@ def predict():
         return jsonify({'prediction': prediction.tolist()})
     except Exception as e:
         return jsonify({'error': str(e)})
+
+@app.route('/chat_predict', methods=['POST'])
+def predict_chat():
+    data = request.get_json()
+    text = data.get("message")
+    response = get_response(text)
+    message = {"answer": response}
+    return jsonify(message)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)

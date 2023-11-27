@@ -1,0 +1,84 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hello",
+        "Hi there",
+        "Greetings",
+        "Good day"
+      ],
+      "responses": [
+        "Hello! Welcome to DocRay.",
+        "Hi there! How can DocRay assist you today?",
+        "Greetings! How can we help you with your health concerns?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Goodbye", "See you later", "Farewell"],
+      "responses": [
+        "Goodbye! Take care of your health.",
+        "See you later! If you have more questions, feel free to return.",
+        "Farewell! Wishing you good health."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "Appreciate it", "Thank's a lot!"],
+      "responses": ["You're welcome! If you need further assistance, let us know.", "Glad to help! Stay healthy.", "My pleasure!"]
+    },
+    {
+      "tag": "diagnosis",
+      "patterns": [
+        "How does DocRay work?",
+        "Tell me about DocRay's diagnosis process",
+        "How can DocRay help with lung diseases?"
+      ],
+      "responses": [
+        "DocRay uses advanced technology to provide initial lung disease diagnoses based on uploaded X-rays.",
+        "DocRay's diagnosis involves machine learning and image processing for efficient and accurate results.",
+        "DocRay helps by automating the diagnosis process, saving time and effort for users in assessing lung-related issues."
+      ]
+    },
+    {
+      "tag": "cost",
+      "patterns": [
+        "How much does DocRay cost?",
+        "Is DocRay free to use?",
+        "What are the expenses associated with DocRay?"
+      ],
+      "responses": [
+        "DocRay is free of charge, making it accessible to users of all income ranges.",
+        "There is no cost associated with using DocRay for initial diagnoses.",
+        "DocRay aims to reduce financial burdens, providing cost-free preliminary diagnosis for everyone."
+      ]
+    },
+    {
+      "tag": "appointment",
+      "patterns": [
+        "How can I book an appointment through DocRay?",
+        "Tell me about connecting with a doctor through DocRay",
+        "Can DocRay help me schedule a follow-up appointment?"
+      ],
+      "responses": [
+        "DocRay offers the option to book an appointment with a doctor if a potential issue is detected.",
+        "You can connect with a doctor through DocRay for further consultation and guidance.",
+        "DocRay streamlines the appointment process, allowing users to schedule follow-ups if needed."
+      ]
+    },
+    {
+      "tag": "earlydetection",
+      "patterns": [
+        "Why is early detection important?",
+        "Tell me about the significance of early diagnosis",
+        "How can DocRay contribute to early detection?"
+      ],
+      "responses": [
+        "Early detection is crucial for timely treatment and improved health outcomes.",
+        "DocRay plays a role in early detection, providing quick and reliable preliminary diagnoses.",
+        "Timely use of DocRay can help users gauge if they need further medical attention, contributing to early detection."
+      ]
+    }
+  ]
+}

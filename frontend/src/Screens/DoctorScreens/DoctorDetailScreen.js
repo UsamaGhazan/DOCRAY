@@ -257,15 +257,6 @@ const DoctorDetailScreen = () => {
                   </Box>
                 )}
               </Box>
-              <Box h={1000} w={1000}>
-                <Heading size="md">Last 7 Days Profile Views</Heading>
-                {doctor.profileViewsHistory.map((entry, index) => (
-                  <Text key={index}>
-                    {new Date(entry.date).toLocaleDateString()}: {entry.views}{' '}
-                    views
-                  </Text>
-                ))}
-              </Box>
             </VStack>
           </>
         )}

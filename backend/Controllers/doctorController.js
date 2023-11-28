@@ -39,6 +39,7 @@ const authDoctor = asyncHandler(async (req, res) => {
       availableTimeSlots: doctor.availableTimeSlots,
       image: doctor.image,
       profileViews: doctor.profileViews,
+      profileViewsHistory: doctor.profileViewsHistory,
       token: generateToken(doctor._id),
     });
   } else {
@@ -152,7 +153,7 @@ const profileViewCount = asyncHandler(async (req, res) => {
     }
 
     // Limiting the profileViewsHistory array to the last 7 days
-    doctor.profileViewsHistory = doctor.profileViewsHistory.slice(-7);
+    // doctor.profileViewsHistory = doctor.profileViewsHistory.slice(-7);
 
     // Incrementing the total profile views
     console.log('before ', doctor.profileViews);

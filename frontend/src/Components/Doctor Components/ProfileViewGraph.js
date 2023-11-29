@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Chart from 'chart.js/auto';
-
+import { Box, HStack } from '@chakra-ui/react';
 const DoctorProfileViewsGraph = ({ profileViewsHistory }) => {
   useEffect(() => {
     // Extract dates and views from profileViewsHistory
@@ -16,7 +16,7 @@ const DoctorProfileViewsGraph = ({ profileViewsHistory }) => {
     // Chart.js configuration
     const ctx = document.getElementById('profileViewsChart').getContext('2d');
     new Chart(ctx, {
-      type: 'line', // or 'bar' for a bar chart
+      type: 'bar', // or 'bar' for a bar chart
       data: {
         labels: last7DaysDates,
         datasets: [
@@ -25,7 +25,7 @@ const DoctorProfileViewsGraph = ({ profileViewsHistory }) => {
             data: last7DaysViews,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1,
+            borderWidth: 4,
           },
         ],
       },
@@ -43,7 +43,13 @@ const DoctorProfileViewsGraph = ({ profileViewsHistory }) => {
     });
   }, [profileViewsHistory]);
 
-  return <canvas id="profileViewsChart" width="400" height="200"></canvas>;
+  return (
+    <HStack>
+      <Box width={'700px'}>
+        <canvas id="profileViewsChart" width="200" height="100"></canvas>
+      </Box>
+    </HStack>
+  );
 };
 
 export default DoctorProfileViewsGraph;

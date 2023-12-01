@@ -17,8 +17,16 @@ const Options = ({ children }) => {
   const { me, callAccepted, name, setName, callEnded, leaveCall, callUser } =
     useContext(SocketContext);
   const [idToCall, setIdToCall] = useState();
+  const [isIdCopied, setIsIdCopied] = useState(false);
+  const handleCopyClick = () => {
+    setIsIdCopied(true);
 
-  const sidebarStyle = useStyleConfig('Sidebar'); // Use Chakra UI style configuration
+    setTimeout(() => {
+      setIsIdCopied(false);
+    }, 3000);
+  };
+
+  const sidebarStyle = useStyleConfig('Sidebar'); // Using Chakra UI style configuration
 
   return (
     <Container {...sidebarStyle}>
@@ -44,7 +52,11 @@ const Options = ({ children }) => {
                 onChange={e => setName(e.target.value)}
                 fullWidth
               />
-              <CopyToClipboard text={me} className="margin">
+              <CopyToClipboard
+                text={me}
+                onCopy={handleCopyClick}
+                className="margin"
+              >
                 <Button
                   as={Box}
                   variant="contained"
@@ -55,6 +67,7 @@ const Options = ({ children }) => {
                   <FaCopy /> Copy Your ID
                 </Button>
               </CopyToClipboard>
+              {isIdCopied && <Text color="green">ID Copied!</Text>}
             </Box>
             <Box padding={{ base: '20px', md: '0' }}>
               <Text fontSize="xl" marginBottom="4">

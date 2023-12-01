@@ -53,7 +53,7 @@ const PatientAppointmentsScreen = () => {
       hour: 'numeric',
       minute: 'numeric',
       hour12: true, // Using 12-hour format (AM/PM)
-      timeZone: 'UTC', // Set the timeZone option to 'UTC' since our input date is in UTC
+      timeZone: 'UTC', // Setting the timeZone option to 'UTC' since our input date is in UTC
     };
 
     const utcDate = new Date(date);
@@ -76,7 +76,6 @@ const PatientAppointmentsScreen = () => {
         dispatch(CANCELLATION_RESET());
       }, 3000);
 
-      // Cleanup the timeout when the component unmounts or when the alert is hidden
       return () => clearTimeout(timeout);
     }
   }, [dispatch, message]);

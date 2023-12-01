@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FaVideo } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import {
   Avatar,
   Box,
@@ -23,7 +25,6 @@ function Chat({
 }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
-  console.log(messageList);
   const { patientInfo } = useSelector(store => store.patientLogin);
   const { doctorInfo } = useSelector(store => store.doctorLogin);
 
@@ -69,7 +70,23 @@ function Chat({
           )}
         </Box>
         <VStack width="75%" alignItems="center">
-          <Box width={'100%'} border={'10px solid #006bd5'}>
+          <Box
+            width={'100%'}
+            border={'10px solid #006bd5'}
+            borderRadius={'5px'}
+          >
+            <Link to="/videoCall" target="_blank" rel="noopener noreferrer">
+              <FaVideo
+                style={{
+                  color: '#000',
+                  fontSize: '24px',
+                  cursor: 'pointer',
+                  marginTop: '10px',
+                  position: 'absolute',
+                  right: '20',
+                }}
+              />
+            </Link>
             <List
               p={4}
               bg={'white'}

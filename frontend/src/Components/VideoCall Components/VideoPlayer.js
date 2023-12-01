@@ -9,13 +9,10 @@ const VideoPlayer = () => {
   console.log('Call accepted ', callAccepted);
   console.log('Call ended ', callEnded);
 
-  const videoStyle = useStyleConfig('VideoPlayer'); // Use Chakra UI style configuration
+  const videoStyle = useStyleConfig('VideoPlayer'); // Using Chakra UI style configuration
 
   return (
-    <Grid
-      container
-      flexDirection={{ base: 'column', md: 'row' }} // Responsive flexDirection
-    >
+    <Grid container flexDirection={{ base: 'column', md: 'row' }}>
       {' '}
       <HStack>
         {stream && (

@@ -16,7 +16,7 @@ const Notifications = () => {
         >
           <Box as="h1">{call.name} is calling:</Box>
           <Button
-            as={Box} // Use Box as a button
+            as={Box}
             variant="contained"
             colorScheme="blue"
             onClick={answerCall}

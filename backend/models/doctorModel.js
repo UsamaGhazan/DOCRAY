@@ -117,9 +117,31 @@ const doctorSchema = mongoose.Schema(
         },
       },
     ],
+    earningsHistory: [
+      {
+        date: {
+          type: Date,
+        },
+        earning: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
+    patientsCheckedHistory: [
+      {
+        date: {
+          type: Date,
+        },
+        patientsChecked: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
   },
   {
-    timestamps: true, //createdAt, //updatedAt
+    timestamps: true,
   }
 );
 

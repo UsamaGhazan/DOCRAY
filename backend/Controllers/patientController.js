@@ -3,11 +3,13 @@ import Patient from '../Models/patientModel.js';
 import Appointment from '../Models/appointmentModel.js';
 import Doctor from '../Models/doctorModel.js';
 import generateToken from '../utils/generateToken.js';
+import Admin from '../Models/adminModel.js';
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const patient = await Patient.findOne({ email });
+  // const admin=await Admin.findOne({email})
   if (patient && (await patient.matchPassword(password))) {
     res.json({
       _id: patient._id,

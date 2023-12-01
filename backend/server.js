@@ -6,6 +6,7 @@ import doctorRoutes from './Routes/doctorRoutes.js';
 import patientRoutes from './Routes/patientRoutes.js';
 import stripeRoutes from './Routes/stripeRoutes.js';
 import imageUpload from './Routes/imageUpload.js';
+import adminRoutes from './Routes/adminRoutes.js';
 import { Server } from 'socket.io';
 import http from 'http';
 import path from 'path';
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/patients', patientRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api/stripe', stripeRoutes);
 app.use('/api/image', imageUpload);
 

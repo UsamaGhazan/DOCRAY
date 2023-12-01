@@ -152,9 +152,6 @@ const profileViewCount = asyncHandler(async (req, res) => {
       });
     }
 
-    // Limiting the profileViewsHistory array to the last 7 days
-    // doctor.profileViewsHistory = doctor.profileViewsHistory.slice(-7);
-
     // Incrementing the total profile views
     console.log('before ', doctor.profileViews);
     doctor.profileViews += 1;

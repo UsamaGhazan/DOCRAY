@@ -64,11 +64,10 @@ const PaymentScreen = () => {
         },
         config
       );
-      console.log(data);
-      if (data.last_payment_error === null) {
-        dispatch(BOOK_PATIENT_RESET());
-        navigate('/appointmentSuccess');
-      }
+
+      dispatch(BOOK_PATIENT_RESET());
+      navigate('/appointmentSuccess');
+
       return data;
     } catch (error) {
       console.log(error.response.data);

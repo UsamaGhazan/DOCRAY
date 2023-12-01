@@ -17,62 +17,98 @@ router.post(
   asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const { token, amount, doctorId, formattedDate } = req.body;
-    console.log('formatted Date ', formattedDate);
-    //using findOne to get a single appointment object
-    const appointment = await Appointment.findOne({
-      doctorId: doctorId,
-      patientId: _id,
-    });
 
-    const doctor = await Doctor.findById(doctorId);
-    console.log('doctor.availableTimeSlots before', doctor.availableTimeSlots);
-
-    if (doctor) {
-      //Removing the appointed slot from doctor's available slots
-      //Assigninng new array value to doctor.availableTimeSlots
-      doctor.availableTimeSlots = doctor.availableTimeSlots.filter((slot) => {
-        return slot.startTime.toISOString() !== formattedDate;
+    try {
+      // Fetch the appointment and doctor
+      const appointment = await Appointment.findOne({
+        doctorId: doctorId,
+        patientId: _id,
       });
+      const doctor = await Doctor.findById(doctorId);
+
+      if (!doctor) {
+        res.status(401);
+        throw new Error('Doctor not found');
+      }
+
+      // Update doctor's available time slots
+      doctor.availableTimeSlots = doctor.availableTimeSlots.filter(
+        (slot) => slot.startTime.toISOString() !== formattedDate
+      );
       await doctor.save();
-    } else {
-      res.status(401);
-      throw new Error('Doctor not found');
-    }
-    if (appointment) {
-      appointment.feePayed = true;
-      await appointment.save();
-    } else {
-      res.status(404);
-      throw new Error('No Appointment');
-    }
-    const idempontencyKey = uuidv4();
-    return stripeAPI.customers
-      .create({
+
+      // Mark the appointment as paid
+      if (appointment) {
+        appointment.feePayed = true;
+        await appointment.save();
+      } else {
+        res.status(404);
+        throw new Error('No Appointment');
+      }
+
+      // Create a unique key for idempotency
+      const idempotencyKey = uuidv4();
+
+      // Create a customer in Stripe
+      const customer = await stripeAPI.customers.create({
         email: token.email,
         source: token.source,
-      })
-      .then((customer) => {
-        return stripeAPI.paymentIntents.create(
-          {
-            amount: amount * 100,
-            currency: 'usd',
-            customer: customer.id,
-            receipt_email: token.email,
-          },
-          {
-            idempotencyKey: idempontencyKey,
-          }
-        );
-      })
-      .then((result) => {
-        res.status(200).json(result);
-      })
-      .catch((err) => {
-        console.log(err);
-        res
-          .status(500)
-          .json({ error: 'An error occurred during payment processing.' });
       });
+
+      // Create a payment intent in Stripe
+      const paymentIntent = await stripeAPI.paymentIntents.create(
+        {
+          amount: amount * 100, // Convert amount to cents
+          currency: 'usd',
+          customer: customer.id,
+          receipt_email: token.email,
+        },
+        {
+          idempotencyKey: idempotencyKey,
+        }
+      );
+
+      // Store payment information in earningsHistory
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Resetting the time to 00:00:00
+
+      const existingEarning = doctor.earningsHistory.find(
+        (entry) => entry.date.getTime() === today.getTime()
+      );
+
+      if (existingEarning) {
+        // If an entry for today already exists, update the earnings
+        existingEarning.earning += amount;
+      } else {
+        // If no entry for today exists, create a new entry
+        doctor.earningsHistory.push({
+          date: today,
+          earning: amount,
+        });
+      }
+
+      await doctor.save();
+
+      console.log(
+        'Doctor earnings history after payment: ',
+        doctor.earningsHistory
+      );
+      console.log(
+        'Doctor total earnings: ',
+        doctor.earningsHistory.reduce(
+          (total, entry) => total + entry.earning,
+          0
+        )
+      );
+
+      // Send success response
+      res.status(201).json({ message: 'Payment successful' });
+    } catch (error) {
+      console.error('Error during payment processing:', error.message);
+      res
+        .status(500)
+        .json({ error: 'An error occurred during payment processing.' });
+    }
   })
 );
 

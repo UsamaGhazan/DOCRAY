@@ -34,6 +34,7 @@ import SidebarContent from './Components/Doctor Components/Dashboard Components/
 import MobileNav from './Components/Doctor Components/Dashboard Components/MobileNav';
 import OverviewScreen from './Screens/DoctorScreens/OverviewScreen';
 import PatientAppointmentsScreen from './Screens/PatientScreens/PatientAppointmentsScreen';
+import SymptomCheckerScreen from './Screens/PatientScreens/SymptomCheckerScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   return (
@@ -67,6 +68,7 @@ function App() {
           <Route path="/docAppointment" element={<DoctorAppointmentScreen />} />
           <Route path="/videoCall" element={<VideoCallScreen />} />
           <Route path="/modelInfo" element={<AIInfoScreen />} />
+          <Route path="/symptomChecker" element={<SymptomCheckerScreen />} />
           <Route
             path="/upcommingAppointments"
             element={<PatientAppointmentsScreen />}

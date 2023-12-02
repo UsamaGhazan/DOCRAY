@@ -138,10 +138,54 @@ const getUpcommingAppointments = asyncHandler(async (req, res) => {
     res.status(404).json({ message: 'No new appointments' });
   }
 });
+
+const symptomChecker = asyncHandler(async (req, res) => {
+  console.log('Inside symptom checker');
+  const pneumoniaResponses = req.body.pneumoniaResponses;
+  const tbResponses = req.body.tbResponses;
+  console.log(pneumoniaResponses);
+  console.log(tbResponses);
+  // Linear regression model weights and intercept for pneumonia
+  const pneumoniaWeights = [0.1, -0.2, 0.3, -0.1, 0.2];
+  const pneumoniaIntercept = 0.1;
+
+  // Linear regression model weights and intercept for tuberculosis
+  const tbWeights = [0.05, -0.1, 0.15, -0.05, 0.1, 0.2, 0.3];
+  const tbIntercept = 0.05;
+
+  if (
+    pneumoniaResponses.length !== pneumoniaWeights.length ||
+    tbResponses.length !== tbWeights.length
+  ) {
+    return res.status(400).json({ error: 'Invalid input length' });
+  }
+
+  // Calculate probability for pneumonia
+  const pneumoniaSum = pneumoniaResponses.reduce(
+    (acc, response, index) => acc + response * pneumoniaWeights[index],
+    0
+  );
+  const pneumoniaProbability =
+    1 / (1 + Math.exp(-(pneumoniaSum + pneumoniaIntercept)));
+
+  // Calculate probability for tuberculosis
+  const tbSum = tbResponses.reduce(
+    (acc, response, index) => acc + response * tbWeights[index],
+    0
+  );
+  const tbProbability = 1 / (1 + Math.exp(-(tbSum + tbIntercept)));
+
+  console.log(pneumoniaProbability);
+  console.log(tbProbability);
+
+  res.json({ pneumoniaProbability, tbProbability });
+});
+
 export {
   authUser,
   getPatientProfile,
   registerUser,
   bookAppointment,
   getUpcommingAppointments,
+  symptomChecker,
 };

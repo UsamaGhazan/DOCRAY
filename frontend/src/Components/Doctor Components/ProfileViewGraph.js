@@ -16,15 +16,17 @@ const DoctorProfileViewsGraph = ({ profileViewsHistory }) => {
     // Chart.js configuration
     const ctx = document.getElementById('profileViewsChart').getContext('2d');
     new Chart(ctx, {
-      type: 'bar', // or 'bar' for a bar chart
+      type: 'line',
       data: {
         labels: last7DaysDates,
         datasets: [
           {
             label: 'Profile Views',
             data: last7DaysViews,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+
+            backgroundColor: 'rgba(34, 139, 34, 0.2)',
+            borderColor: '#228B22',
+
             borderWidth: 4,
           },
         ],
@@ -45,7 +47,7 @@ const DoctorProfileViewsGraph = ({ profileViewsHistory }) => {
 
   return (
     <HStack>
-      <Box width={'700px'}>
+      <Box width={'630px'}>
         <canvas id="profileViewsChart" width="200" height="100"></canvas>
       </Box>
     </HStack>

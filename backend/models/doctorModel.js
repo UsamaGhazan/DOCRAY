@@ -146,6 +146,7 @@ const doctorSchema = mongoose.Schema(
 );
 
 doctorSchema.methods.matchPassword = async function (enteredPassword) {
+  console.log('Inside matchpassword');
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

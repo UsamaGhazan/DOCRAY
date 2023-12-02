@@ -40,6 +40,7 @@ const authDoctor = asyncHandler(async (req, res) => {
       image: doctor.image,
       profileViews: doctor.profileViews,
       profileViewsHistory: doctor.profileViewsHistory,
+      earningsHistory: doctor.earningsHistory,
       token: generateToken(doctor._id),
     });
   } else {

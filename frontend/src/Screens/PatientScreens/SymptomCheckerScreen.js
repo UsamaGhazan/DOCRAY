@@ -10,10 +10,16 @@ import {
   RadioGroup,
   FormControl,
   FormLabel,
-  Alert,
-  AlertIcon,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
 } from '@chakra-ui/react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const pneumoniaSymptoms = [
   'Cough',
@@ -41,17 +47,18 @@ const SymptomCheckerScreen = () => {
     Array(tbSymptoms.length).fill(null)
   );
   const [result, setResult] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleRadioChange = (index, value, isPneumonia) => {
-    if (isPneumonia) {
-      const updatedResponses = [...pneumoniaResponses];
-      updatedResponses[index] = value === '1' ? 1 : 0;
-      setPneumoniaResponses(updatedResponses);
-    } else {
-      const updatedResponses = [...tbResponses];
-      updatedResponses[index] = value === '1' ? 1 : 0;
-      setTbResponses(updatedResponses);
-    }
+    const updatedResponses = isPneumonia
+      ? [...pneumoniaResponses]
+      : [...tbResponses];
+
+    updatedResponses[index] = value === '1' ? 1 : 0;
+
+    isPneumonia
+      ? setPneumoniaResponses(updatedResponses)
+      : setTbResponses(updatedResponses);
   };
 
   const handleSubmit = async () => {
@@ -61,9 +68,14 @@ const SymptomCheckerScreen = () => {
         tbResponses,
       });
       setResult(response.data);
+      setIsModalOpen(true);
     } catch (error) {
       console.error('Error:', error.message);
     }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -100,20 +112,54 @@ const SymptomCheckerScreen = () => {
             </FormControl>
           ))}
         </Stack>
-        <Button bg="brand.60" color="white" mt={4} onClick={handleSubmit}>
+        <Button
+          bg="brand.60"
+          color="white"
+          _hover={{ bg: '#000033' }}
+          _active={{ bg: '#000033' }}
+          mt={4}
+          onClick={handleSubmit}
+        >
           Check Symptoms
         </Button>
-        {result !== null &&
-          typeof result !== 'undefined' &&
-          result.probability !== undefined && (
-            <Alert mt={4} status="info" borderRadius={8}>
-              <AlertIcon />
-              <Text>
-                The probability of having a respiratory condition is{' '}
-                {(result.probability.toFixed(2) * 100).toFixed(2)}%.
-              </Text>
-            </Alert>
-          )}
+        {result && result.pneumoniaProbability !== undefined && (
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader textAlign="center">Diagnosis</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Text>
+                  The probability of having pneumonia is{' '}
+                  <Heading size={'sm'}>
+                    {(result.pneumoniaProbability.toFixed(2) * 100).toFixed(2)}
+                    %.
+                  </Heading>
+                  and Tubercluosis is{' '}
+                  <Heading size={'sm'}>
+                    {' '}
+                    {(result.tbProbability.toFixed(2) * 100).toFixed(2)}%.
+                  </Heading>
+                </Text>
+                <Button
+                  as={Link}
+                  to={'/pneumoniaDoctors'}
+                  size="md"
+                  lineHeight="1.5"
+                  borderRadius="4px"
+                  bg={'brand.50'}
+                  color={'white'}
+                  _hover={{ bg: '#faa63a' }}
+                  _active={{ bg: '#faa63a' }}
+                  mt={4}
+                  ml={'100px'}
+                >
+                  Book Appointment
+                </Button>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+        )}
       </Box>
     </Container>
   );

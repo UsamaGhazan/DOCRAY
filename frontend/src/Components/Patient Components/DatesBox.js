@@ -39,8 +39,8 @@ const formatTime = date => {
   const options = {
     hour: 'numeric',
     minute: 'numeric',
-    hour12: true, // Using 12-hour format (AM/PM)
-    timeZone: 'UTC', // Setting the timeZone option to 'UTC' since our input date is in UTC
+    hour12: true,
+    timeZone: 'UTC',
   };
 
   const utcDate = new Date(date);
@@ -67,9 +67,7 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   const year = today.getFullYear();
   const formattedDate = `${month}/${day}/${year}`;
   const [selectedDate, setSelectedDate] = useState(formattedDate);
-  // const [selectedDay, selectedMonth, selectedYear] = selectedDate.split('/');
-  // const formattedSelectedDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
-  // console.log('formattedSelectedDate ', formattedSelectedDate);
+
   const handleNextDates = () => {
     const nextStartDate = new Date(startDate);
 
@@ -105,8 +103,17 @@ const DateBox = ({ name, image, availableTimeSlots, doctorID }) => {
   });
 
   const handleSlotClick = timeSlot => {
-    setSelectedTime(formatTime(new Date(timeSlot.startTime)));
-    onOpen();
+    const selectedDateTime = new Date(
+      selectedDate + ' ' + formatTime(new Date(timeSlot.startTime))
+    );
+    const currentDateTime = new Date();
+
+    if (selectedDateTime <= currentDateTime) {
+      alert('Sorry! This slot is no longer available');
+    } else {
+      setSelectedTime(formatTime(new Date(timeSlot.startTime)));
+      onOpen();
+    }
   };
 
   const continueBooking = () => {

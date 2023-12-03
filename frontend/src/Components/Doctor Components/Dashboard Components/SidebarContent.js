@@ -51,6 +51,7 @@ const SidebarContent = () => {
           />
         </Box>
       </Flex>
+
       {LinkItems.map(link => (
         <NavItem
           key={link.name}
@@ -60,6 +61,13 @@ const SidebarContent = () => {
           {link.name}
         </NavItem>
       ))}
+
+      <Box mt="115px" width="239px">
+        <Image
+          src={require('../../../images/doctor.jpg')} // Change the path accordingly
+          alt="Footer Image"
+        />
+      </Box>
     </Box>
   );
 };

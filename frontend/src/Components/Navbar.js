@@ -55,44 +55,61 @@ const Navbar = () => {
         </Box>
 
         <Box className="nav-items" fontFamily={'other'} color={'#46484b'}>
-          <ul>
-            <li>
-              <Link as={RouterLink} to="/" fontSize="sm" p={'0 0 0 20px'}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link as={RouterLink} to="/about" fontSize="sm" p={'0 0 0 20px'}>
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                as={RouterLink}
-                to="/contact"
-                fontSize="sm"
-                p={'0 0 0 20px'}
-              >
-                Contact Us
-              </Link>
-            </li>
-            <li>
-              <div className="dropdown">
-                <button
-                  className="dropbtn"
-                  style={{ color: '#46484b', padding: '0 0 0 20px' }}
+          <Box width={'608px'}>
+            <ul>
+              <li>
+                <Link as={RouterLink} to="/" fontSize="sm" p={'0 0 0 20px'}>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  as={RouterLink}
+                  to="/about"
+                  fontSize="sm"
+                  p={'0 0 0 20px'}
                 >
-                  Doctors <Icon as={FaChevronDown} />
-                </button>
-                <div className="dropdown-content">
-                  <DoctorOptions />
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  as={RouterLink}
+                  to="/contact"
+                  fontSize="sm"
+                  p={'0 0 0 20px'}
+                >
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  as={RouterLink}
+                  to="/symptomChecker"
+                  fontSize="sm"
+                  p={'0 0 0 20px'}
+                >
+                  Symptoms Checker
+                </Link>
+              </li>
+              <li>
+                <div className="dropdown">
+                  <button
+                    className="dropbtn"
+                    style={{ color: '#46484b', padding: '0 0 0 20px' }}
+                  >
+                    Doctors <Icon as={FaChevronDown} />
+                  </button>
+                  <div className="dropdown-content">
+                    <DoctorOptions />
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </Box>
           {patientInfo ? (
             <Box
-              ml="800px"
+              ml="460px"
               mt="16px"
               border="2px solid #000066"
               _hover={{ cursor: 'pointer' }}
@@ -131,27 +148,29 @@ const Navbar = () => {
             </Box>
           ) : (
             <Box className="navBtns">
-              <Button
-                as={RouterLink}
-                to="/register"
-                variant="outline"
-                size="md"
-                color="brand.60"
-                fontSize="14px"
-                _hover={{ bg: 'none' }}
-              >
-                Login/SignUp
-              </Button>
-              <Button
-                as={RouterLink}
-                to="/docRegister"
-                variant="outline"
-                color="brand.50"
-                fontSize="14px"
-                _hover={{ bg: 'none' }}
-              >
-                Join as Doctor
-              </Button>
+              <HStack>
+                <Button
+                  as={RouterLink}
+                  to="/register"
+                  variant="outline"
+                  size="md"
+                  color="brand.60"
+                  fontSize="14px"
+                  _hover={{ bg: 'none' }}
+                >
+                  Login/SignUp
+                </Button>
+                <Button
+                  as={RouterLink}
+                  to="/docRegister"
+                  variant="outline"
+                  color="brand.50"
+                  fontSize="14px"
+                  _hover={{ bg: 'none' }}
+                >
+                  Join as Doctor
+                </Button>
+              </HStack>
             </Box>
           )}
         </Box>

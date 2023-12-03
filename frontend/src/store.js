@@ -13,6 +13,7 @@ import getAvailabilityReducer from './Features/DoctorFeature/getAvailabilitySlic
 import uploadImageReducer from './Features/uploadImageSlice';
 import CancelAppointmentReducer from './Features/DoctorFeature/CancelAppointmentSlice';
 import pneumoniaDetectionReducer from './Features/PatientFeature/pneumoniaDetectionSlice';
+import tbDetectionReducer from './Features/PatientFeature/tbDetectionSlice';
 import appointmentDetailsReducer from './Features/appointmentDetailsSlice';
 import upcommingAppointmentReducer from './Features/PatientFeature/upcommingAppointmentSlice';
 const patientInfoFromStorage = localStorage.getItem('patientInfo')
@@ -47,6 +48,7 @@ export const store = configureStore({
     uploadImage: uploadImageReducer,
     cancelAppointment: CancelAppointmentReducer,
     pneumoniaDetection: pneumoniaDetectionReducer,
+    tbDetection: tbDetectionReducer,
     appointmentDetails: appointmentDetailsReducer,
     upcommingAppointments: upcommingAppointmentReducer,
   },

@@ -36,7 +36,7 @@ const ReportGenerationScreen = () => {
   const { patientInfo } = useSelector(store => store.patientLogin);
   const navigate = useNavigate();
 
-  const predictionScore = data?.prediction?.[0] ?? 0;
+  const predictionScore = data?.pneumonia_prediction?.[0] ?? 0;
   console.log(predictionScore);
   const options = { day: 'numeric', month: 'short', year: 'numeric' };
 

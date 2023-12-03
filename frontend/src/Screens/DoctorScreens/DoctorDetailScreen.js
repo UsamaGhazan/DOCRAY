@@ -84,7 +84,7 @@ const DoctorDetailScreen = () => {
       <VStack align="flex-start">
         {loading ? (
           <div className="spinner-container">
-            <Spinner size="xl" mt="100px" ml="50px" />
+            <Spinner size="xl" />
           </div>
         ) : (
           <>
@@ -193,10 +193,9 @@ const DoctorDetailScreen = () => {
                 </Box>
               </HStack>
             </Card>
-            <VStack align="flex-start" className="reviews">
-              <Heading size="md">Reviews</Heading>
-
+            <HStack className="reviews" spacing={'650px'}>
               <Box>
+                <Heading size="md">Reviews</Heading>
                 {doctor.reviews.length === 0 && (
                   <Alert status="info">
                     <AlertIcon />
@@ -257,7 +256,7 @@ const DoctorDetailScreen = () => {
                   </Box>
                 )}
               </Box>
-            </VStack>
+            </HStack>
           </>
         )}
       </VStack>

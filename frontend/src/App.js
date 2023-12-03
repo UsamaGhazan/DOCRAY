@@ -35,6 +35,8 @@ import MobileNav from './Components/Doctor Components/Dashboard Components/Mobil
 import OverviewScreen from './Screens/DoctorScreens/OverviewScreen';
 import PatientAppointmentsScreen from './Screens/PatientScreens/PatientAppointmentsScreen';
 import SymptomCheckerScreen from './Screens/PatientScreens/SymptomCheckerScreen';
+import TbReportGenerationScreen from './Screens/PatientScreens/TbReportGenerationScreen';
+import TbDetectionScreen from './Screens/PatientScreens/TbDetectionScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
   return (
@@ -81,9 +83,14 @@ function App() {
             path="/pneumoniaDetection"
             element={<PneumoniaDetectionScreen />}
           />
+          <Route path="/tbDetection" element={<TbDetectionScreen />} />
           <Route
             path="/pneumoniaDetection/report"
             element={<ReportGenerationScreen />}
+          />
+          <Route
+            path="/tbDetection/report"
+            element={<TbReportGenerationScreen />}
           />
           <Route path="/chat" element={<ChatScreen />} />
           <Route path="/overview" element={<OverviewScreen />} />

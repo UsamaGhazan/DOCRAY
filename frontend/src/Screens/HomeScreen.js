@@ -179,6 +179,8 @@ const HomeScreen = () => {
 
                 <Box>
                   <Button
+                    as={Link}
+                    to={'/tbDetection'}
                     marginLeft="17px"
                     size="sm"
                     variant="solid"

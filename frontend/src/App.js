@@ -37,11 +37,19 @@ import PatientAppointmentsScreen from './Screens/PatientScreens/PatientAppointme
 import SymptomCheckerScreen from './Screens/PatientScreens/SymptomCheckerScreen';
 import TbReportGenerationScreen from './Screens/PatientScreens/TbReportGenerationScreen';
 import TbDetectionScreen from './Screens/PatientScreens/TbDetectionScreen';
+import AdminLoginScreen from './Screens/AdminScreens/AdminLoginScreen';
+import AdminSidebarContent from './Components/Admin Components/Dashboard Components/AdminSidebarContent';
+import AllAppointmentsScreen from './Screens/AllAppointmentsScreen';
+import PatientListScreen from './Screens/PatientScreens/PatientListScreen';
+import AdminOverviewScreen from './Screens/AdminScreens/AdminOverviewScreen';
 function App() {
   const { doctorInfo } = useSelector(store => store.doctorLogin);
+  const { adminInfo } = useSelector(store => store.adminLogin);
   return (
     <BrowserRouter>
-      {doctorInfo ? (
+      {adminInfo ? (
+        <AdminSidebarContent />
+      ) : doctorInfo ? (
         <>
           <SidebarContent /> <MobileNav />
         </>
@@ -55,6 +63,7 @@ function App() {
           <Route path="/about" element={<AboutScreen />} />={' '}
           <Route path="/contact" element={<ContactUsScreen />} />={' '}
           <Route path="/doctors" element={<DoctorsListScreen />} />={' '}
+          <Route path="/patientList" element={<PatientListScreen />} />={' '}
           <Route path="/pneumoniaDoctors" element={<PneumoniaDocScreen />} />={' '}
           <Route path="/TbDoctors" element={<TbDocScreen />} />={' '}
           <Route path="/doctors/:id" element={<DoctorDetailScreen />} />={' '}
@@ -71,6 +80,10 @@ function App() {
           <Route path="/videoCall" element={<VideoCallScreen />} />
           <Route path="/modelInfo" element={<AIInfoScreen />} />
           <Route path="/symptomChecker" element={<SymptomCheckerScreen />} />
+          <Route
+            path="/allUpcommingAppointments"
+            element={<AllAppointmentsScreen />}
+          />
           <Route
             path="/upcommingAppointments"
             element={<PatientAppointmentsScreen />}
@@ -94,10 +107,11 @@ function App() {
           />
           <Route path="/chat" element={<ChatScreen />} />
           <Route path="/overview" element={<OverviewScreen />} />
+          <Route path="/adminOverview" element={<AdminOverviewScreen />} />
           <Route
             path="/setAvailability"
             element={<SetAvailabilityScreen />}
-          />={' '}
+          />= <Route path="/adminLogin" element={<AdminLoginScreen />} />={' '}
         </Routes>
       </main>
     </BrowserRouter>

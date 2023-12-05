@@ -42,6 +42,10 @@ const Navbar = () => {
     navigate('/upcommingAppointments');
   };
 
+  const showAdminLogin = () => {
+    navigate('/adminLogin');
+  };
+
   return (
     <>
       <HStack align="flex-start" justify="flex-start" paddingBottom="10px">
@@ -149,17 +153,24 @@ const Navbar = () => {
           ) : (
             <Box className="navBtns">
               <HStack>
-                <Button
-                  as={RouterLink}
-                  to="/register"
-                  variant="outline"
-                  size="md"
-                  color="brand.60"
-                  fontSize="14px"
-                  _hover={{ bg: 'none' }}
-                >
-                  Login/SignUp
-                </Button>
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    variant="outline"
+                    size="md"
+                    color="brand.60"
+                    fontSize="14px"
+                    _hover={{ bg: 'none' }}
+                  >
+                    Login/SignUp <Icon as={FaChevronDown} />
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem as={RouterLink} to="/register">
+                      User Login/SignUp
+                    </MenuItem>
+                    <MenuItem onClick={showAdminLogin}>Admin Login</MenuItem>
+                  </MenuList>
+                </Menu>
                 <Button
                   as={RouterLink}
                   to="/docRegister"

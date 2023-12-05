@@ -16,6 +16,12 @@ import pneumoniaDetectionReducer from './Features/PatientFeature/pneumoniaDetect
 import tbDetectionReducer from './Features/PatientFeature/tbDetectionSlice';
 import appointmentDetailsReducer from './Features/appointmentDetailsSlice';
 import upcommingAppointmentReducer from './Features/PatientFeature/upcommingAppointmentSlice';
+import adminLoginReducer from './Features/AdminFeatures/adminLoginSlice';
+import doctorDeleteReducer from './Features/DoctorFeature/doctorDeleteSlice';
+import patientListReducer from './Features/PatientFeature/patientListSlice';
+import patientDeleteReducer from './Features/PatientFeature/patientDeleteSlice';
+import getAllAppointmentsReducer from './Features/AdminFeatures/getAllAppointmentsSlice';
+import totalDocAndPatReducer from './Features/AdminFeatures/totalDocAndPatients';
 const patientInfoFromStorage = localStorage.getItem('patientInfo')
   ? JSON.parse(localStorage.getItem('patientInfo'))
   : null;
@@ -23,12 +29,18 @@ const patientInfoFromStorage = localStorage.getItem('patientInfo')
 const doctorInfoFromStorage = localStorage.getItem('doctorInfo')
   ? JSON.parse(localStorage.getItem('doctorInfo'))
   : null;
+const adminInfoFromStorage = localStorage.getItem('adminInfo')
+  ? JSON.parse(localStorage.getItem('adminInfo'))
+  : null;
 const initialState = {
   patientLogin: {
     patientInfo: patientInfoFromStorage,
   },
   doctorLogin: {
     doctorInfo: doctorInfoFromStorage,
+  },
+  adminLogin: {
+    adminInfo: adminInfoFromStorage,
   },
 };
 
@@ -42,6 +54,7 @@ export const store = configureStore({
     patientAppt: bookPatientApptReducer,
     doctorRegister: registerDoctorReducer,
     doctorLogin: doctorLoginReducer,
+    doctorDelete: doctorDeleteReducer,
     appointmentList: appointmentListReducer,
     doctorSetSlots: setAvailabilityReducer,
     doctorAvailableSlots: getAvailabilityReducer,
@@ -51,6 +64,11 @@ export const store = configureStore({
     tbDetection: tbDetectionReducer,
     appointmentDetails: appointmentDetailsReducer,
     upcommingAppointments: upcommingAppointmentReducer,
+    adminLogin: adminLoginReducer,
+    patientList: patientListReducer,
+    patientDelete: patientDeleteReducer,
+    allAppointments: getAllAppointmentsReducer,
+    totalDocAndPat: totalDocAndPatReducer,
   },
   preloadedState: initialState,
 });

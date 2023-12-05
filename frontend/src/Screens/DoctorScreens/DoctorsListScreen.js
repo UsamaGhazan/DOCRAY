@@ -2,126 +2,81 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Box,
-  HStack,
-  Avatar,
-  AvatarBadge,
-  AvatarGroup,
-  VStack,
-  Heading,
-  Text,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
   Spinner,
-  Image,
   Button,
 } from '@chakra-ui/react';
 import { getDoctorList } from '../../Features/DoctorFeature/doctorListSlice.js';
+import { deleteDoctor } from '../../Features/DoctorFeature/doctorDeleteSlice.js';
 const DoctorsListScreen = () => {
   const dispatch = useDispatch();
   const doctorList = useSelector(store => store.doctorList);
   const { doctors, loading, error } = doctorList;
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getDoctorList());
   }, [dispatch]);
 
+  const handleProfileClick = doctorId => {
+    navigate(`/doctors/${doctorId}`);
+  };
+
+  const handleDeleteClick = doctorId => {
+    dispatch(deleteDoctor(doctorId));
+  };
+
   return (
-    <section className="doctorListScreen  ">
+    <section className="doctorListScreen">
       <div className="card">
         {loading ? (
           <div className="spinner-container">
             <Spinner size="xl" />
           </div>
         ) : (
-          doctors.map(doctor => {
-            return (
-              <Card
-                as={Link}
-                to={`/doctors/${doctor._id}`}
-                key={doctor.id}
-                w="1123px"
-                h="290px"
-                border="2px solid #E8E8E8"
-                backgroundColor="#fff"
-                mt="20px"
-              >
-                <HStack spacing="480px">
-                  <Box ml="32px">
-                    <Avatar
-                      name={doctor.name}
-                      src={doctor.image}
-                      size="xl"
-                      mt="10px"
-                    />
-                  </Box>
-                  <VStack
-                    align="flex-start"
-                    className="cardText"
-                    spacing="30px"
-                  >
-                    <Box>
-                      <Text fontSize="18px" fontWeight={400} mt="21px">
-                        {doctor.name}
-                      </Text>
-                      <Text fontSize="14px" lineHeight="20px">
-                        {doctor.specialization}
-                      </Text>
-                      <Text fontSize="14px" lineHeight="20px">
-                        {doctor.degree}
-                      </Text>
-                    </Box>
-                    <HStack mt="10px">
-                      <VStack>
-                        <Text fontSize="14px" fontWeight="600">
-                          {doctor.experience} years
-                        </Text>
-                        <Text fontSize="12px" color="#8c9196">
-                          Experience
-                        </Text>
-                      </VStack>
-                      <VStack>
-                        <Text fontSize="14px" fontWeight="600" px="50px">
-                          {Math.round(
-                            (doctor.satisfied / doctor.patientsChecked) * 100
-                          )}
-                          % ({doctor.satisfied})
-                        </Text>
-                        <Text fontSize="12px" color="#8c9196">
-                          Satisfied Patients
-                        </Text>
-                      </VStack>
-                    </HStack>
-                  </VStack>
-                  <VStack>
+          <Table variant="simple" ml={'90px'} mt={'50px'}>
+            <Thead>
+              <Tr>
+                <Th>Name</Th>
+                <Th>Email</Th>
+                <Th>Specialization</Th>
+                <Th>Address</Th>
+                <Th>Action</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {doctors.map(doctor => (
+                <Tr key={doctor.id} height="80px">
+                  <Td>{doctor.name}</Td>
+                  <Td>{doctor.email}</Td>
+                  <Td>{doctor.specialization}</Td>
+                  <Td>{doctor.areaname}</Td>
+                  <Td>
                     <Button
-                      as={Link}
-                      to={`/doctors/${doctor._id}`}
+                      colorScheme="teal"
                       variant="outline"
-                      size="lg"
-                      color="brand.60"
-                      fontSize="14px"
-                      className="bookbtn"
-                      _hover={{ bg: 'none' }}
+                      size="sm"
+                      onClick={() => handleProfileClick(doctor._id)}
                     >
-                      View Details{' '}
+                      Profile
                     </Button>
                     <Button
-                      as={Link}
-                      to={`/doctors/bookAppointment/${doctor._id}`}
-                      color="brand.50"
-                      fontSize="14px"
-                      className="goldbtn bookbtn"
+                      colorScheme="red"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDeleteClick(doctor._id)}
                     >
-                      Book Appointment
+                      Delete
                     </Button>
-                  </VStack>
-                </HStack>
-              </Card>
-            );
-          })
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
         )}
       </div>
     </section>

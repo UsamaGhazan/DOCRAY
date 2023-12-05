@@ -3,7 +3,7 @@ from flask_cors import CORS
 import numpy as np
 import tensorflow as tf
 import cv2
-
+from chat import get_response
 app = Flask(__name__)
 CORS(app)
 
@@ -50,11 +50,13 @@ def tb_predict():
 
 @app.route('/chat_predict', methods=['POST'])
 def predict_chat():
+    print('Inside chat')
     data = request.get_json()
     text = data.get("message")
     # Replace the following line with your chat prediction logic
-    response = "Replace this line with your chat prediction logic"
+    response = get_response(text)
     message = {"answer": response}
+    print(message)
     return jsonify(message)
 
 if __name__ == '__main__':

@@ -7,10 +7,13 @@ import {
   bookAppointment,
   getUpcommingAppointments,
   symptomChecker,
+  getAllPatients,
 } from '../Controllers/patientController.js';
 import { protect } from '../Middlewares/authMiddleware.js';
 
 router.post('/', registerUser);
+router.get('/', getAllPatients);
+
 router.post('/login', authUser);
 router.get('/profile', protect, getPatientProfile);
 router.post('/bookAppointment', protect, bookAppointment);

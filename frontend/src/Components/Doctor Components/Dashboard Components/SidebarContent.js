@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import DoctorAppointmentScreen from '../../../Screens/DoctorScreens/DoctorAppointmentScreen';
 import {
   Box,
   Flex,
@@ -63,10 +62,7 @@ const SidebarContent = () => {
       ))}
 
       <Box mt="115px" width="239px">
-        <Image
-          src={require('../../../images/doctor.jpg')} // Change the path accordingly
-          alt="Footer Image"
-        />
+        <Image src={require('../../../images/doctor.jpg')} alt="Footer Image" />
       </Box>
     </Box>
   );

@@ -4,7 +4,10 @@ import Appointment from '../Models/appointmentModel.js';
 import Doctor from '../Models/doctorModel.js';
 import generateToken from '../utils/generateToken.js';
 import Admin from '../Models/adminModel.js';
-
+const getAllPatients = asyncHandler(async (req, res) => {
+  const patients = await Patient.find({});
+  res.json(patients);
+});
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -188,4 +191,5 @@ export {
   bookAppointment,
   getUpcommingAppointments,
   symptomChecker,
+  getAllPatients,
 };
